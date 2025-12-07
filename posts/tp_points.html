@@ -1,402 +1,908 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <!-- Google Tag Manager -->
+
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+
 })(window,document,'script','dataLayer','GTM-MCJRDZ23');</script>
+
 <!-- End Google Tag Manager -->
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Tp Points Add-ON Download</title>
+
     <meta name="description" content="Download the TP Points Add-On for Minecraft to save locations and teleport easily. Perfect for adventure and survival gameplay.">
+
     <meta name="keywords" content="Mannooma, Minecraft, Addons, Mods, Maps, Skins, Texture Packs">
+
     <meta name="author" content="Mannooma">
+
     <link rel="icon" href="Mannooma.png" type="png">
+
     <link rel="stylesheet" href="../style.css">
+
     <style>body { background-color: #000000;background-position: -5px -5px;
+
                  min-height: 100vh;
+
                  line-height: 1.5;
+
                  text-shadow: #000 1px 1px 1px;
+
 }
+
+
 
   @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
         @font-face {
+
             font-family: 'Minecraft';
+
             src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css') format('truetype');
+
         }
+
+
 
         :root {
+
             --mc-green: #55FF55;
+
             --mc-dark: #2D2D2D;
-            --mc-border: #1803fc;
+
+            --mc-border: #0384fc;
+
             --mc-blue: #03adfc;
+
             --mc-blue1: #0384fc;
+
         }
+
         
+
     a:link, a:visited {
+
         color: inherit; /* Inherits color from parent element, effectively removing specific link color */
+
         text-decoration: none; /* Removes underline */
+
     }
+
+
 
            
+
            .star-bg {
+
   position: fixed;
+
   top: 0;
+
   left: 0;
+
   width: 100%;
+
   height: 100%;
+
   z-index: -1; /* behind everything */
+
   pointer-events: none;
+
   background-image:
+
     radial-gradient(2px 2px at 15% 25%, white, transparent),
+
     radial-gradient(2px 2px at 70% 40%, white, transparent),
+
     radial-gradient(2px 2px at 30% 75%, white, transparent),
+
     radial-gradient(2px 2px at 85% 60%, white, transparent);
+
   background-size: 350px 350px;
+
   animation: moveStars 14s linear infinite;
+
 }
 
+
+
 @keyframes moveStars {
+
   from { background-position: 0 0; }
+
   to   { background-position: 0 700px; }
+
 } 
+
         
 
+
+
  .header {
+
           padding: 2rem 1rem;
+
           background: rgba(0, 0, 0, 0.8);
+
           border-bottom: 2px solid var(--mc-border);
+
           text-align: center;
+
           position: relative;
+
           z-index: 10;
+
         }
+
+
 
         .tp {
+
             font-size: 9px;
+
             color: #aaa;
+
             margin-bottom: 15px;
+
             display: block;
+
             letter-spacing: 1px;
+
         }
+
         .tp a { color: var(--mc-green); text-decoration: none; }
 
+
+
         .header img {
+
             max-width: 600px;
+
             width: 90%;
+
             image-rendering: pixelated;
+
             filter: drop-shadow(0 0 8px var(--mc-green));
+
         }
+
+
 
     .container {
+
   max-width: 800px;
+
   margin: 2rem auto;
+
   padding: 1rem;
+
     }
+
                 /* hover for page heading */
+
                 #h1 {
+
                     color: var(--mc-blue1);;
+
                 }
+
                 #home {
+
                      height: 100px; /* Give the container a height to demonstrate vertical alignment */
+
                      border: 1px solid black;
+
                     display: flex; /* Using flexbox for better control */
+
                     align-items: flex-start; /* Align items to the top */
+
                     justify-content: center; /* Center horizontally */
+
                 }
+
+
 
         .fsbox {
+
     max-width: 500px; /* Set a fixed width */
+
     max-height: 2000px; /* Set a fixed height */
+
     background-color: #252525; /* Light gray background */
+
     border: 2px solid #4a4a4a; /* Dark gray border */
+
     padding: 20px; /* Space between content and border */
+
     margin: 18px auto; /* Center the box horizontally and add space around it */
+
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+
     border-radius: 1px; /* Rounded corners */
+
     line-height: 1.6;
+
     text-shadow: #000 2px 2px 1px;
+
         }
+
         #tdi {
+
             display: block;
+
             margin: 0 auto;
+
             border: 2px solid black;
+
             border-radius: 1px;
+
             
+
         }
+
+
 
         #tds {
+
             text-align: center;
+
             color: var(--mc-green);
+
             margin-bottom: 20px;
+
             background: #2f2f2f;
+
             padding: 12px 18px;
+
             text-shadow: 2px 3px 2px #000;
+
             box-shadow: 2px 3px 2px rgba(0,0,0,0.6), inset 0 -2px 0 rgba(255,255,255,0.02);
+
             border: 3px solid rgb(71, 71, 71);
+
             line-height: 1.6;
+
         }
+
+
 
         .bobo {
+
     max-width: 500px; /* Set a fixed width */
+
     max-height: 1000px; /* Set a fixed height */
+
     background-color: #252525; /* Light gray background */
+
     border: 2px solid #4a4a4a; /* Dark gray border */
+
     padding: 20px; /* Space between content and border */
+
     margin: 18px auto; /* Center the box horizontally and add space around it */
+
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+
     border-radius: 1px; /* Rounded corners */
+
     line-height: 1.6;
+
     text-shadow: #000 2px 2px 1px;
+
         }
+
     #tdb:hover {
-    transform: translateY(-4px); box-shadow: -3px 3px 1px #0384fc; }
-    #tdm:hover {
-    transform: translateY(-4px); box-shadow: -3px 3px 1px #0384fc; }
-#tdp:hover {
+
     transform: translateY(-4px); box-shadow: -3px 3px 1px #0384fc; }
 
-#tdf:hover {
+    #tdm:hover {
+
     transform: translateY(-4px); box-shadow: -3px 3px 1px #0384fc; }
+
+#tdp:hover {
+
+    transform: translateY(-4px); box-shadow: -3px 3px 1px #0384fc; }
+
+
+
+#tdf:hover {
+
+    transform: translateY(-4px); box-shadow: -3px 3px 1px #0384fc; }
+
+
+
 
 
     #tdb {
+
         line-height: 1.6;
+
         background: #2f2f2f;
+
         padding: 12px 18px;
+
         box-shadow: -3px 0px 0px #0384fc;
+
         transition: transform .12s ease, background .12s ease;
+
     }
+
+
 
     #tdm {
+
         line-height: 1.6;
+
         background: #2f2f2f;
+
         padding: 12px 18px;
+
         box-shadow: -3px 0px 0px #0384fc;
+
         transition: transform .12s ease, background .12s ease;
+
     }
+
+
 
      #tdp {
+
         line-height: 1.6;
+
         background: #2f2f2f;
+
         padding: 12px 18px;
+
         box-shadow: -3px 0px 0px #0384fc;
+
         transition: transform .12s ease, background .12s ease;
+
     }
 
+
+
     #tdf {
+
         line-height: 1.6;
+
         background: #2f2f2f;
+
         padding: 12px 18px;
+
         box-shadow: -3px 0px 0px #0384fc;
+
         transition: transform .12s ease, background .12s ease;
+
     }
+
+
+
 
 
     .fgdox {max-width: 500px; /* Set a fixed width */
+
     max-height: 2000px; /* Set a fixed height */
+
     background-color: #252525; /* Light gray background */
+
     border: 2px solid #4a4a4a; /* Dark gray border */
+
     padding: 20px; /* Space between content and border */
+
     margin: 18px auto; /* Center the box horizontally and add space around it */
+
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+
     border-radius: 1px; /* Rounded corners */
+
     line-height: 1.6;
+
         }
 
+
+
 #tdu {
+
         line-height: 1.6;
+
         background: #2f2f2f;
+
         padding: 12px 18px;
+
         box-shadow: -3px 0px 0px #0384fc;
+
         transition: transform .12s ease, background .12s ease;
+
         text-shadow: 1px 1px 1px #000;
+
     }
+
+
 
     #tss {
+
         line-height: 1.6;
+
         background: #2f2f2f;
+
         padding: 12px 18px;
+
         box-shadow: -3px 0px 0px #0bfc03;
+
         transition: transform .12s ease, background .12s ease;
+
     }
+
     #tsx {
+
         line-height: 1.6;
+
         background: #2f2f2f;
+
         padding: 12px 18px;
+
         box-shadow: -3px 0px 0px #fc0303;
+
         transition: transform .12s ease, background .12s ease;
+
     }
+
+              #tsm {
+
+        line-height: 1.6;
+
+        background: #2f2f2f;
+
+        padding: 12px 18px;
+
+        box-shadow: -3px 0px 0px #0384fc;
+
+        transition: transform .12s ease, background .12s ease;
+
+    }
+
 @media (min-width: 769px) {
+
     
+
     #vid {
+
         width: 500px;
+
         height: 250px;
+
         border-color: black;
+
         border: 2px;
+
     }
+
 }
+
 @media (max-width: 768px) {
 
+
+
     #h1 {
+
         font-size: 14px
+
     }
+
     #vid {
+
         width: 370px;
+
         height: 200px;
+
         border-color: black;
+
         border: 2px;
+
         position: center;
+
     }
+
+
 
     #tds {
+
         font-size: 12px;
+
     }
+
     .fgbox {
+
         font-size: 8px; 
+
     }
+
     
+
     .bobo {
+
         font-size: 8px;
+
     }
+
     
+
     .fgdox {
+
         font-size: 8px;
+
     }
+
+
 
     .fgnox {
+
       font-size: 8px;
+
     }
+
     
+
     #imggsstar {
+
      border: 2px solid;
+
      border-color: black;
+
      box-shadow: #000 2px 2px 1px;
+
     }
-.fgnox { max-width: 100vw;
+
+.fgnox { width: 100%;
+
        }
+
    
+
 }
+
 .fgnox { max-width: 500px; /* Set a fixed width */
+
     max-height: 1000px; /* Set a fixed height */
+
     background-color: #252525; /* Light gray background */
+
     border: 2px solid #4a4a4a; /* Dark gray border */
+
     padding: 20px; /* Space between content and border */
+
     margin: 18px auto; /* Center the box horizontally and add space around it */
+
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+
     border-radius: 1px; /* Rounded corners */
+
     line-height: 1.6;
+
     text-shadow: #000 2px 2px 1px;}
+
+             
+.site-footer {
+
+    width: 100%;
+
+    padding: 26px 0 36px 0;
+
+    background: rgba(0,0,0,0.9);
+
+    box-shadow: 0 -6px 12px rgba(27, 27, 27, 0.4);
+
+    margin-top: auto;
+
+    border-top: 3px solid;border-block-color: #0384fc;
+
+}
+
+
+
+.footer-bar {
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    text-align: center;
+
+    padding: 6px 20px;
+
+}
+
+
+
+.footer-text {
+
+    color: #ffffff;
+
+    font-size: 12px;
+
+    text-shadow: 2px 2px 0 #000;
+
+}
+
+
+
+.footer-links { margin-top: 8px }
+
+
+
+.footer-link {
+
+    color: #21bdf6;
+
+    text-decoration: none;
+
+    margin: 0 8px;
+
+    font-size: 14px;
+
+}
+
+
+
+.footer-link:hover { color: #00bbff; text-decoration: underline }
+
+
+
     </style>
+
 </head>
+
 <body>
+
     <!-- Google Tag Manager (noscript) -->
+
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MCJRDZ23"
+
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
 <!-- End Google Tag Manager (noscript) -->
+
 <div class="star-bg"></div>
+
      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M2P94THH"
+
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
+
+
     <header class="header">
+
         <div class="tp">
+
             <a href="../index.html">HOME</a> &gt; <a href="#">MY ADD-ONS</a> &gt; TP POINTS
+
         </div>
+
         <h1 id="h1">TP POINTS ADD-ON</h1>
+
         <p style="color: #888; font-size: 10px;">SAVE LOCATIONS AND TELEPORT EASILY.</p>
+
     </header>
 
+
+
     <div class="fsbox">
-    <h1 id="tds">About The Addon</h1>
+
+    <h1 id="tds">⎙ About The Addon</h1>
+
     <iframe id="vid" width="500" height="280" id="tdi" src="https://www.youtube.com/embed/bCybwwY6MrY?si=S2-iyML51OKvO3Rv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+
     <p style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem;">
+
         Skip boring long walks! <br>
+
         This addon lets you set points and instantly teleport across your world for faster exploring and smarter travel.
+
     </div>
 
+
+
    <div class="bobo">
+
     <h1 id="tds">Add-ON Features</h1>
+
     <p id="tdb" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
+
         - Save multiple teleport points <br>
+
      </p>
+
      <p id="tdm" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
+
         - Simple and intuitive interface <br>
+
      </p>
+
         <p id="tdp" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
+
             - Define Your Own Safe Spot Anywhere In The World Using The Points Item. <br>
+
             </p>
+
         <p id="tdf" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
+
             - Perfect for Multiplayer adventure and survival gameplay <br>
+
          </p>
+
    </div>
 
+
+
  <div class="fgdox">
+
     <h1 id="tds">How To Use</h1>
+
     <p id="tdu" style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem; background-color: #0087d055;">
+
         Create Points Item
+
     </p>
+
     <img id="imgscrafting" src="../Imgs/posts/crafting.png" alt="" height="170" width="400" style="border: #4a4a4a 2px solid;justify-content: center;">
+
     <p style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem;">
+
         To craft Points item you will need 2x block of dirts, 1x wooden stick
+
     </p>
+
      <p id="tdu" style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem; background-color: #0087d055;">
+
         Create Point
+
     </p>
+
     <img id="imgsstar" src="../Imgs/posts/star.jpg" alt="" height="270" width="500" style="border: #4a4a4a 2px solid;">
+
     <p style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem;">
+
         Right Click to save the location of your point
+
     </p>
+
     <img id="imgstype" src="../Imgs/posts/type.jpg" alt="" height="270" width="500" style="border: #4a4a4a 2px solid;">
+
     <p style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem;">
+
        Right click to open the menu then select create point then Menu will have a slot type in a name for your teleport point, then click "Submit"
+
     </p>
+
     <img id="imgscreate" src="../Imgs/posts/create.jpg" alt="" height="270" width="500" style="border: #4a4a4a 2px solid;">
+
     <p style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem;">
+
         After customizing your point, click "Create Point" to save it.
+
     </p>
+
     <img id="imgsfinish" src="../Imgs/posts/finish.jpg" alt="" height="270" width="500" style="border: #4a4a4a 2px solid;">
+
     <p style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem;">
+
         After that the name of your point & coordinates will be shown on block you selected.
+
     </p>
+
  </div>
+
+
 
  <div class="fgnox">
+
    <h1 id="tds">Compatibility</h1>
+
   <p id="tss" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
+
          MINECRAFT 1.21.0+ <br>
+
      </p>
+
         <p id="tss" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
+
             -LOCAL MULTIPLAYER  <br>
+
             </p>
+
         <p id="tss" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
+
             -MULTIPLAYER REALMS <br>    
+
             </p>
+
         <p id="tss" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
+
              SURVIVAL MODE <br>    
+
             </p>
+
             <p id="tss" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
+
                 CREATIVE MODE <br>
+
             </p>
+
             <p id="tsx" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
+
                 JAVA EDITION <br>
+
             </p>
+
             <p id="tsx" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
+
                 BELOW 1.21.0 <br>
+
             </p>
+
  </div>
 
+                 <div class="fgnox">
+                           <h1 id="tds">Changelog</h1>   
+                              <ul style="padding-left: 20px; color:#aaa;">
+                <li><strong>v1.0</strong> Realesing In 20/1/2026
+            </ul>
+                 </div>
+                 <div class="fgnox">
+                           <h1 id="tds">Installation</h1>   
+                              
+<p id="tdu" style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem; background-color: #0087d055; line-height: 2;">
 
+                                           WINDOWS 10/11:
+</p>
+                                           <p id="tsm" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; line-height: 2;">
+1. DOWNLOAD THE .MCPACK FILE.<br>
+2. DOUBLE-CLICK TO IMPORT.<br>
+3. ENABLE THE "BETA APIS" EXPERIMENT.<br>
+4. ACTIVATE BEHAVIOR PACK.<br>
+                              </p>
+<p id="tdu" style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem; background-color: #0087d055; line-height: 2;">
 
+ANDROID / IOS (MCPE):
+</p>
+      <p id="tsm" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; line-height: 2;">
+1. DOWNLOAD FILE.<br>
+2. OPEN WITH MINECRAFT.<br>
+3. GO TO WORLD SETTINGS > EXPERIMENTS.<br>
+4. YOU MUST ENABLE "BETA APIS"!<br>
+</p>       
+                 </div>
+                              <div class="fgnox">
+                           <h2 id="tds">↓ Download</h2>   
+                                           <p id="tsm" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
+                                                   Realesing in 26/1/2026    
+                                           </div>
 
+<footer class="site-footer">
 
+                <div class="footer-bar">
 
+                    <div class="footer-text">© 2025 Mannooma10k. All rights reserved.<br>NOT AN OFFICIAL MINECRAFT PRODUCT</div>
+
+                    <div class="footer-links"><a href="legal/terms-of-use.html" class="footer-link">Terms</a> <span class="sep">|</span> <a href="legal/privacy-policy.html" class="footer-link">Privacy</a></div>
+
+                </div>
+
+            </footer>
 
 </body>
+
 </html>
-
-
-
-
-
