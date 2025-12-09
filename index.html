@@ -104,7 +104,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                     <div id="reload" class="mobile-title">My Add-Ons</div>
 
-                    <i class="fa-solid fa-bars fa-2xl" id="mobile-menu-button" style="color: var(--mc-border);"></i>
+                    <button id="mobile-menu-button" class="mobile-menu-toggle" aria-label="Open mobile menu">
+                        <i class="fa-solid fa-bars fa-2xl"></i>
+                    </button>
 
                 </div>
 
@@ -115,7 +117,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div id="mobile-menu" class="mobile-menu-overlay" aria-hidden="true">
 
                 <div class="mobile-menu-inner" role="dialog" aria-modal="true" aria-label="Mobile navigation">
-
+                   <button id="mobile-menu-close" class="close-menu-btn" aria-label="Close menu">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
                     <nav class="mobile-nav">
 
                         <button class="nav-button">MY-ADDONS</button>
@@ -145,6 +149,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
    <div class="page-content">
+
+        
 
        <section class="posts">
 
@@ -186,7 +192,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 
-           <article class="post" data-url="https://example.com/post-2">
+           <article class="post" data-url="posts/upranks.html">
 
                <img class="post-image" src="Imgs/upranks.jpg" alt="Post image">
 
@@ -262,6 +268,85 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
        </section>
 
+      <!-- News posts (hidden by default) -->
+      <section class="news-posts" aria-hidden="true">
+          <article class="post" data-url="#">
+              <img class="post-image" src="Imgs/news1.png" alt="News image">
+              <div class="post-header">
+                  <h2 class="post-title">Minecraft Changes Numbering</h2>
+                  <span class="version">NEWS</span>
+              </div>
+              <p class="post-excerpt">Mojang adjusts internal version numbers — see what it means for addons.</p>
+          </article>
+          <article class="post" data-url="#">
+              <img class="post-image" src="Imgs/news2.png" alt="News image">
+              <div class="post-header">
+                  <h2 class="post-title">Snapshot Released</h2>
+                  <span class="version">NEWS</span>
+              </div>
+              <p class="post-excerpt">New snapshot brings experimental features and API updates.</p>
+          </article>
+          <article class="post" data-url="#">
+              <img class="post-image" src="Imgs/news3.png" alt="News image">
+              <div class="post-header">
+                  <h2 class="post-title">Server Maintenance</h2>
+                  <span class="version">NEWS</span>
+              </div>
+              <p class="post-excerpt">Planned maintenance window for core services — expect brief downtime.</p>
+          </article>
+      </section>
+
+      <!-- Other Addons posts (hidden by default) -->
+      <section class="other-posts" aria-hidden="true">
+          <article class="post" data-url="posts/other1.html">
+              <img class="post-image" src="Imgs/other1.png" alt="Other addon image">
+              <div class="post-header">
+                  <h2 class="post-title">Addon Pack Alpha</h2>
+                  <span class="version">1.0</span>
+              </div>
+              <p class="post-excerpt">A collection of small utility addons for servers and singleplayer.</p>
+          </article>
+          <article class="post" data-url="posts/other2.html">
+              <img class="post-image" src="Imgs/other2.png" alt="Other addon image">
+              <div class="post-header">
+                  <h2 class="post-title">Visual FX Bundle</h2>
+                  <span class="version">2.3</span>
+              </div>
+              <p class="post-excerpt">Adds new HUD effects, particles and transitions for custom maps.</p>
+          </article>
+          <article class="post" data-url="posts/other3.html">
+              <img class="post-image" src="Imgs/other3.png" alt="Other addon image">
+              <div class="post-header">
+                  <h2 class="post-title">Economy Lite</h2>
+                  <span class="version">0.9</span>
+              </div>
+              <p class="post-excerpt">Lightweight economy addon for small servers and testing.</p>
+          </article>
+      </section>
+
+        <!-- Social overlay (floating above posts) -->
+        <div class="social-overlay" aria-hidden="true">
+            <button class="social-close" id="social-close" aria-label="Close social overlay">×</button>
+            <div class="social-backdrop" id="socialBackdrop"></div>
+            <section class="social-posts" aria-hidden="true">
+                <article class="post" data-url="#">
+                    <img class="post-image" src="Imgs/youtube.png" alt="YouTube">
+                    <div class="post-header"><h2 class="post-title" style="color: #ff000d;">YouTube</h2></div>
+                    <p class="post-excerpt">Subscribe to our channel for add-on showcases and tutorials.</p>
+                </article>
+                <article class="post" data-url="#">
+                    <img class="post-image" src="Imgs/discord.png" alt="Discord">
+                    <div class="post-header"><h2 class="post-title"style="color: #7e009e;">Discord</h2></div>
+                    <p class="post-excerpt">Join our Discord to chat with the community and get support.</p>
+                </article>
+                <article class="post" data-url="#">
+                    <img class="post-image" src="Imgs/otherlink.png" alt="Other Links">
+                    <div class="post-header"><h2 class="post-title">Other Links</h2></div>
+                    <p class="post-excerpt">Follow us on Twitter for quick updates and release notes.</p>
+                </article>
+            </section>
+        </div>
+
    </div>
 
          
@@ -295,6 +380,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 const btn = document.getElementById("changerBtn");
 const icon = document.getElementById("changerIcon");
 const icony = document.getElementById("mobile-menu-button");
+// Sound to play when the changer button is pressed
+const changerSound = new Audio('src/ogg.mp3');
+changerSound.preload = 'auto';
+// Sound to play when any main nav button is clicked (four buttons)
+const navSound = new Audio('src/ogg.mp3');
+navSound.preload = 'auto';
+// dbhhdhed
+const xSound = new Audio('src/ogg.mp3');
+xSound.preload = 'auto';
 
 // load saved mode
 let dark = localStorage.getItem("site-theme") === "dark";
@@ -303,21 +397,32 @@ let dark = localStorage.getItem("site-theme") === "dark";
 applyTheme();
 
 btn.addEventListener("click", () => {
+    // play sound (reset to start so repeated clicks replay)
+    try {
+        changerSound.currentTime = 0;
+        changerSound.play().catch(() => {});
+    } catch (e) {
+        // ignore playback errors (e.g., file missing)
+    }
+    
+
     dark = !dark;
     localStorage.setItem("site-theme", dark ? "dark" : "light");
     applyTheme();
 });
 
+
 function applyTheme() {
     if (dark) {
         document.body.style.transition = "background 0.5s ease";
         document.body.style.backgroundColor = "#000000";
-        document.body.style.backgroundImage = "radial-gradient(white 1px, transparent 0)";
+        document.body.style.backgroundImage = "radial-gradient(white 2px, transparent 0)";
         document.body.classList.remove("light-mode");
         document.body.classList.remove("ddc");
         document.body.classList.remove("ddc1");
         document.body.classList.remove("ddb");
         document.body.classList.remove("ddb1")
+        document.body.classList.add("ddr");
         icon.className = "fa-solid fa-sun";
         icon.style.color = "white";
         icony.style.color = "white";
@@ -345,7 +450,65 @@ function applyTheme() {
 
         });
 
+// Mobile menu toggle behavior
+ (function() {
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const closeButton = document.getElementById('mobile-menu-close'); // NEW: Get the close button
+            // don't bail out just because the close button isn't present — make it optional
+            if (!menuButton || !mobileMenu) return;
 
+            function openMenu() {
+                mobileMenu.classList.add('active');
+                mobileMenu.setAttribute('aria-hidden', 'false');
+                // move focus to first button for accessibility
+                const first = mobileMenu.querySelector('.mobile-nav .nav-button');
+                if (first) first.focus();
+            }
+
+            function closeMenu() {
+                mobileMenu.classList.remove('active');
+                mobileMenu.setAttribute('aria-hidden', 'true');
+                menuButton.focus();
+            }
+            
+            // Helper to detect a touch device
+            function isTouchDevice() {
+                return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
+            }
+
+            menuButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                try { xSound.currentTime = 0; xSound.play().catch(() => {}); } catch (err) {}
+                if (mobileMenu.classList.contains('active')) closeMenu(); else openMenu();
+            });
+            
+            // NEW: Event listener for the close 'X' button (only if present)
+            if (closeButton) closeButton.addEventListener('click', closeMenu);
+
+            // Modify overlay click behavior
+            mobileMenu.addEventListener('click', (e) => {
+                // Only trigger if the click is on the overlay background, not the inner menu
+                if (e.target === mobileMenu) {
+                    if (isTouchDevice()) {
+                        // On mobile/touch: Navigate to index.html
+                        window.location.href = 'index.html';
+                    } else {
+                        // On PC/Desktop: Close the menu
+                        closeMenu();
+                    }
+                }
+            });
+
+            // Close on Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && mobileMenu.classList.contains('active')) closeMenu();
+            });
+            
+            // Close when selecting a mobile nav button
+            const mobileNavButtons = mobileMenu.querySelectorAll('.mobile-nav .nav-button');
+            mobileNavButtons.forEach(btn => btn.addEventListener('click', () => closeMenu()));
+        })();
 
         // Navigation button behavior:
 
@@ -358,41 +521,261 @@ function applyTheme() {
         (function() {
 
             const navButtons = document.querySelectorAll('.main-nav .nav-button');
+            const mobileNavButtons = document.querySelectorAll('.mobile-nav .nav-button');
+            const postsContainer = document.querySelector('.posts');
+            const newsContainer = document.querySelector('.news-posts');
+            const otherContainer = document.querySelector('.other-posts');
+            const socialContainer = document.querySelector('.social-posts');
+            const socialOverlay = document.querySelector('.social-overlay');
 
             if (!navButtons || navButtons.length === 0) return;
 
+            // helper to show/hide social view with transitions
+            function showSocial(show) {
+                console.log('showSocial enter', show, {postsContainer: !!postsContainer, socialContainer: !!socialContainer, socialOverlay: !!socialOverlay});
+                if (!postsContainer || !socialContainer || !socialOverlay) {
+                    console.log('showSocial early return - missing containers');
+                    return;
+                }
+                if (show) {
+                    // hide news if visible
+                    if (newsContainer) showNews(false);
+                    postsContainer.classList.add('dimmed');
+                    socialOverlay.classList.add('active');
+                    socialOverlay.setAttribute('aria-hidden', 'false');
+                    // prevent body from scrolling while overlay is open
+                    try { document.body.classList.add('no-scroll'); } catch (e) {}
+                    console.log('showSocial applied show: socialOverlay active=', socialOverlay.classList.contains('active'), 'body no-scroll=', document.body.classList.contains('no-scroll'));
+                } else {
+                    postsContainer.classList.remove('dimmed');
+                    socialOverlay.classList.remove('active');
+                    socialOverlay.setAttribute('aria-hidden', 'true');
+                    try { document.body.classList.remove('no-scroll'); } catch (e) {}
+                    console.log('showSocial applied hide: socialOverlay active=', socialOverlay.classList.contains('active'));
+                }
+            }
 
+            // helper to show/hide news posts with a small transition
+            function showNews(show) {
+                console.log('showNews enter', show, {postsContainer: !!postsContainer, newsContainer: !!newsContainer});
+                if (!postsContainer || !newsContainer) {
+                    console.log('showNews early return - missing containers');
+                    return;
+                }
+                // ensure social overlay is closed when showing news
+                if (show && socialOverlay) {
+                    socialOverlay.classList.remove('active');
+                    socialOverlay.setAttribute('aria-hidden', 'true');
+                }
+
+                if (show) {
+                    // ensure body scrolling is enabled for normal content
+                    try { document.body.classList.remove('no-scroll'); } catch (e) {}
+                    // animate posts out
+                    postsContainer.classList.add('fade-transition');
+                    postsContainer.classList.add('fade-out');
+                    setTimeout(() => {
+                        postsContainer.style.display = 'none';
+                        // show news
+                        newsContainer.style.display = 'grid';
+                        newsContainer.classList.add('fade-transition');
+                        // start hidden then show
+                        newsContainer.classList.remove('fade-out');
+                        newsContainer.classList.add('visible');
+                        newsContainer.setAttribute('aria-hidden', 'false');
+                        // cleanup after transition
+                        setTimeout(() => {
+                            postsContainer.classList.remove('fade-transition');
+                            console.log('showNews completed show: posts hidden, news visible', {postsDisplay: postsContainer.style.display, newsDisplay: newsContainer.style.display});
+                        }, 320);
+                    }, 280);
+                } else {
+                    // hide news and reveal posts
+                    newsContainer.classList.add('fade-transition');
+                    newsContainer.classList.add('fade-out');
+                    setTimeout(() => {
+                        newsContainer.style.display = 'none';
+                        newsContainer.classList.remove('visible');
+                        newsContainer.setAttribute('aria-hidden', 'true');
+                        // show posts again
+                        postsContainer.style.display = 'grid';
+                        postsContainer.classList.remove('fade-out');
+                        postsContainer.classList.add('visible');
+                        postsContainer.setAttribute('aria-hidden', 'false');
+                        setTimeout(() => {
+                            newsContainer.classList.remove('fade-transition');
+                            postsContainer.classList.remove('fade-transition');
+                            console.log('showNews completed hide: posts visible, news hidden', {postsDisplay: postsContainer.style.display, newsDisplay: newsContainer.style.display});
+                        }, 320);
+                    }, 280);
+                }
+            }
+
+            // helper to show/hide other-addons posts with a small transition
+            function showOther(show) {
+                console.log('showOther enter', show, {postsContainer: !!postsContainer, otherContainer: !!otherContainer});
+                if (!postsContainer || !otherContainer) {
+                    console.log('showOther early return - missing containers');
+                    return;
+                }
+                // ensure social overlay is closed when showing other addons
+                if (show && socialOverlay) {
+                    socialOverlay.classList.remove('active');
+                    socialOverlay.setAttribute('aria-hidden', 'true');
+                }
+
+                if (show) {
+                    // ensure body scrolling is enabled for normal content
+                    try { document.body.classList.remove('no-scroll'); } catch (e) {}
+                    // animate posts out
+                    postsContainer.classList.add('fade-transition');
+                    postsContainer.classList.add('fade-out');
+                    setTimeout(() => {
+                        postsContainer.style.display = 'none';
+                        // show other addons
+                        otherContainer.style.display = 'grid';
+                        otherContainer.classList.add('fade-transition');
+                        otherContainer.classList.remove('fade-out');
+                        otherContainer.classList.add('visible');
+                        otherContainer.setAttribute('aria-hidden', 'false');
+                        setTimeout(() => {
+                            postsContainer.classList.remove('fade-transition');
+                            console.log('showOther completed show: posts hidden, other visible', {postsDisplay: postsContainer.style.display, otherDisplay: otherContainer.style.display});
+                        }, 320);
+                    }, 280);
+                } else {
+                    // hide other and reveal posts
+                    otherContainer.classList.add('fade-transition');
+                    otherContainer.classList.add('fade-out');
+                    setTimeout(() => {
+                        otherContainer.style.display = 'none';
+                        otherContainer.classList.remove('visible');
+                        otherContainer.setAttribute('aria-hidden', 'true');
+                        // show posts again
+                        postsContainer.style.display = 'grid';
+                        postsContainer.classList.remove('fade-out');
+                        postsContainer.classList.add('visible');
+                        postsContainer.setAttribute('aria-hidden', 'false');
+                        setTimeout(() => {
+                            otherContainer.classList.remove('fade-transition');
+                            postsContainer.classList.remove('fade-transition');
+                            console.log('showOther completed hide: posts visible, other hidden', {postsDisplay: postsContainer.style.display, otherDisplay: otherContainer.style.display});
+                        }, 320);
+                    }, 280);
+                }
+            }
 
             // Default to the first button (MY-ADDONS)
-
             const defaultBtn = navButtons[0];
-
             defaultBtn.classList.add('active');
+            // start with addons visible
+            showSocial(false);
 
+            function handleNavClick(btn, force = false) {
+                console.log('handleNavClick called for:', btn && (btn.textContent||btn.innerText||btn));
+                // play nav click sound
+                try { navSound.currentTime = 0; navSound.play().catch(() => {}); } catch (e) {}
 
+                if (!force && btn.classList.contains('active')) return;
+                const prev = document.querySelector('.main-nav .nav-button.active');
+                if (prev) prev.classList.remove('active');
+                // make sure main-nav active reflects selection (if mobile used, keep parity)
+                // if clicked element is from mobile, also update main-nav active when labels match
+                btn.classList.add('active');
+
+                const label = btn.textContent ? btn.textContent.trim().toUpperCase() : '';
+                if (label === 'SOCIAL') {
+                    showNews(false);
+                    showOther(false);
+                    showSocial(true);
+                } else if (label === 'NEWS') {
+                    showSocial(false);
+                    showOther(false);
+                    showNews(true);
+                } else if (label === 'OTHER ADDONS' || label === 'OTHER ADDONS') {
+                    // support multiple possible label casings
+                    showSocial(false);
+                    showNews(false);
+                    showOther(true);
+                } else if (label === 'MY-ADDONS') {
+                    showSocial(false);
+                    showNews(false);
+                    showOther(false);
+                } else {
+                    showSocial(false);
+                    showNews(false);
+                    showOther(false);
+                }
+                // log post-view states after initiating the change
+                try {
+                    console.log('handleNavClick end state:', {
+                        postsDisplay: postsContainer ? postsContainer.style.display : 'missing',
+                        newsDisplay: newsContainer ? newsContainer.style.display : 'missing',
+                        otherDisplay: otherContainer ? otherContainer.style.display : 'missing',
+                        socialActive: socialOverlay ? socialOverlay.classList.contains('active') : false,
+                        bodyNoScroll: document.body.classList.contains('no-scroll')
+                    });
+                } catch (e) { console.log('handleNavClick end logging failed', e); }
+            }
+
+            // expose to global scope so delegated handlers can call it
+            try { window.handleNavClick = handleNavClick; } catch (e) {}
 
             navButtons.forEach(btn => {
-
-                btn.addEventListener('click', () => {
-
-                    // If the clicked button is already active, do nothing (can't unpress)
-
-                    if (btn.classList.contains('active')) return;
-
-
-
-                    // Remove active from previous and set on clicked
-
-                    const prev = document.querySelector('.main-nav .nav-button.active');
-
-                    if (prev) prev.classList.remove('active');
-
-                    btn.classList.add('active');
-
-                });
-
+                btn.addEventListener('click', () => handleNavClick(btn));
             });
 
+            // Mirror behavior for mobile nav buttons (if present)
+            if (mobileNavButtons && mobileNavButtons.length) {
+                mobileNavButtons.forEach(mBtn => {
+                    mBtn.addEventListener('click', () => {
+                        // When a mobile nav button is clicked, make it the only active button
+                        try {
+                            // remove active from all navs
+                            document.querySelectorAll('.main-nav .nav-button').forEach(b => b.classList.remove('active'));
+                            document.querySelectorAll('.mobile-nav .nav-button').forEach(b => b.classList.remove('active'));
+                            // find matching main nav button
+                            const lbl = mBtn.textContent ? mBtn.textContent.trim().toUpperCase() : '';
+                            const matching = Array.from(navButtons).find(nb => nb.textContent && nb.textContent.trim().toUpperCase() === lbl);
+                            if (matching) matching.classList.add('active');
+                            // set mobile button active too
+                            mBtn.classList.add('active');
+                            // perform the view change — prefer calling with the main button so existing logic behaves
+                            handleNavClick(matching || mBtn, true);
+                        } catch (e) {
+                            // fallback: just call the handler (force)
+                            handleNavClick(mBtn, true);
+                        }
+                            // close the mobile menu after selection
+                        const mm = document.getElementById('mobile-menu');
+                        if (mm) { mm.classList.remove('active'); mm.setAttribute('aria-hidden','true'); }
+                        try { document.body.classList.remove('no-scroll'); } catch (e) {}
+                    });
+                });
+            }
+
+        })();
+
+        // Delegated handler for mobile nav buttons (fallback) — catches clicks that missed individual listeners
+        (function() {
+            document.addEventListener('click', function delegatedMobileNav(e) {
+                const btn = e.target.closest('.mobile-nav .nav-button');
+                if (!btn) return;
+                console.log('delegated mobile nav click for:', btn.textContent && btn.textContent.trim());
+                try {
+                    document.querySelectorAll('.main-nav .nav-button').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.mobile-nav .nav-button').forEach(b => b.classList.remove('active'));
+                    const lbl = btn.textContent ? btn.textContent.trim().toUpperCase() : '';
+                    const mainBtns = Array.from(document.querySelectorAll('.main-nav .nav-button'));
+                    const matching = mainBtns.find(nb => nb.textContent && nb.textContent.trim().toUpperCase() === lbl);
+                    if (matching) matching.classList.add('active');
+                    btn.classList.add('active');
+                    handleNavClick(matching || btn, true);
+                    const mm = document.getElementById('mobile-menu');
+                    if (mm) { mm.classList.remove('active'); mm.setAttribute('aria-hidden','true'); }
+                    try { document.body.classList.remove('no-scroll'); } catch (e) {}
+                } catch (err) { console.error(err); }
+            });
         })();
 
 
@@ -577,7 +960,9 @@ function applyTheme() {
 
                 const first = mobileMenu.querySelector('.mobile-nav .nav-button');
 
-                if (first) first.focus();
+                            // play menu open/close sound
+                            try { xSound.currentTime = 0; xSound.play().catch(() => {}); } catch (err) {}
+                            if (mobileMenu.classList.contains('active')) closeMenu(); else openMenu();
 
             }
 
@@ -598,6 +983,9 @@ function applyTheme() {
             menuButton.addEventListener('click', (e) => {
 
                 e.stopPropagation();
+
+                // play menu open/close sound (fallback handler)
+                try { xSound.currentTime = 0; xSound.play().catch(() => {}); } catch (err) {}
 
                 if (mobileMenu.classList.contains('active')) closeMenu(); else openMenu();
 
@@ -633,6 +1021,68 @@ function applyTheme() {
 
         })();
 
+        </script>
+
+        <script>
+        // Extra fallback: ensure mobile menu opens on touch devices
+        (function() {
+            const btn = document.getElementById('mobile-menu-button');
+            const menu = document.getElementById('mobile-menu');
+            if (!btn || !menu) return;
+
+            function toggleMenu(e) {
+                try { e.preventDefault(); } catch (err) {}
+                try { e.stopPropagation(); } catch (err) {}
+                // play sound
+                try { xSound.currentTime = 0; xSound.play().catch(() => {}); } catch (err) {}
+                const isActive = menu.classList.toggle('active');
+                menu.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+                btn.setAttribute('aria-expanded', String(isActive));
+                // small visual debug
+                console.log('mobile menu toggled via fallback listener:', isActive);
+            }
+
+            btn.addEventListener('click', toggleMenu, { passive: false });
+            btn.addEventListener('touchstart', toggleMenu, { passive: false });
+        })();
+        </script>
+        <script>
+        // Add close behavior for the social overlay close button and backdrop
+        (function() {
+            const socialOverlay = document.querySelector('.social-overlay');
+            const socialClose = document.getElementById('social-close');
+            const socialBackdrop = document.getElementById('socialBackdrop');
+            const postsContainer = document.querySelector('.posts');
+            if (!socialOverlay || !socialClose || !postsContainer) return;
+
+            function closeSocial() {
+                // play close sound (ogg in src/ogg.mp3)
+                try { xSound.currentTime = 0; xSound.play().catch(() => {}); } catch (e) {}
+
+                postsContainer.classList.remove('dimmed');
+                socialOverlay.classList.remove('active');
+                socialOverlay.setAttribute('aria-hidden', 'true');
+                try { document.body.classList.remove('no-scroll'); } catch (e) {}
+
+                // Restore main navigation active state to "MY-ADDONS" (desktop + mobile)
+                try {
+                    const mainBtns = document.querySelectorAll('.main-nav .nav-button');
+                    mainBtns.forEach(b => b.classList.remove('active'));
+                    const myMain = Array.from(mainBtns).find(b => (b.textContent||'').trim().toUpperCase() === 'MY-ADDONS');
+                    if (myMain) myMain.classList.add('active');
+
+                    const mobileBtns = document.querySelectorAll('.mobile-nav .nav-button');
+                    mobileBtns.forEach(b => b.classList.remove('active'));
+                    const myMobile = Array.from(mobileBtns).find(b => (b.textContent||'').trim().toUpperCase() === 'MY-ADDONS');
+                    if (myMobile) myMobile.classList.add('active');
+                } catch (e) {
+                    // ignore
+                }
+            }
+
+            socialClose.addEventListener('click', closeSocial);
+            if (socialBackdrop) socialBackdrop.addEventListener('click', closeSocial);
+        })();
         </script>
 
 
