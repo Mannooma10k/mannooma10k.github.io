@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MCJRDZ23');</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17785284813"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-17785284813');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft’s New Version Numbering System: A Small Change for Clarity</title>
+    <meta name="description" content="Read about the new version numbering system for Minecraft Bedrock and Java Editions, reflecting the new game drops strategy.">
+    <meta name="keywords" content="Mannooma, Minecraft, News, Version Numbering, Bedrock, Java, Game Drops, 2026">
+    <meta name="author" content="Mannooma">
+    <link rel="icon" href="Mannooma.png" type="png">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            background-color: #000000;
+            background-position: -5px -5px;
+            min-height: 100vh;
+            line-height: 1.8;
+            text-shadow: #000 1px 1px 1px;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css') format('truetype');
+        }
+
+        :root {
+            --mc-green: #55FF55;
+            --mc-dark: #2D2D2D;
+            --mc-border: #3100e0;
+            --mc-blue: #03adfc;
+            --mc-blue1: #0384fc;
+        }
+
+        a:link, a:visited {
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        .star-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            background-image:
+                radial-gradient(2px 2px at 15% 25%, white, transparent),
+                radial-gradient(2px 2px at 70% 40%, white, transparent),
+                radial-gradient(2px 2px at 30% 75%, white, transparent),
+                radial-gradient(2px 2px at 85% 60%, white, transparent);
+            background-size: 350px 350px;
+            animation: moveStars 14s linear infinite;
+        }
+
+        @keyframes moveStars {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 0 700px;
+            }
+        }
+
+
+
+        .header {
+            padding: 2rem 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 2px solid #4a4a4a;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tp {
+            font-size: 9px;
+            color: #aaa;
+            margin-bottom: 15px;
+            display: block;
+            letter-spacing: 1px;
+        }
+
+        .tp a {
+            color: var(--mc-green);
+            text-decoration: none;
+        }
+
+        .header img {
+            max-width: 600px;
+            width: 90%;
+            image-rendering: pixelated;
+            filter: drop-shadow(0 0 8px var(--mc-green));
+            margin-bottom: 15px;
+        }
+
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        /* hover for page heading */
+        #h1 {
+            color: var(--mc-green);
+        }
+
+        .fsbox {
+            max-width: 800px;
+            background-color: #171614;
+            border: 2px solid #252422;
+            padding: 20px;
+            margin: 18px auto;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 1px;
+            line-height: 1.8;
+            text-align: left;
+            text-shadow: #000 1px 1px 1px;
+            color: #fefefe;
+            font-size: 13px;
+        }
+
+        #tds {
+            text-align: center;
+            color: var(--mc-green);
+            margin-bottom: 20px;
+            background: #2f2f2f;
+            padding: 12px 18px;
+            text-shadow: 1px 2px 1px #000;
+            box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.6), inset 0 -2px 0 rgba(255, 255, 255, 0.02);
+            border: 3px solid rgb(71, 71, 71);
+            line-height: 1.6;
+        }
+
+        /* Styling for the table image */
+        #version-table-img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border: 2px solid #4a4a4a;
+            image-rendering: pixelated;
+        }
+
+        /* Style for the author/date information */
+        .article-meta {
+            text-align: center;
+            color: #aaa;
+            font-size: 10px;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            line-height: 1.5;
+        }
+        
+        .article-meta strong {
+            color: #fff;
+            font-weight: normal;
+        }
+
+        /* Style for main article headings (to break up sections) */
+        .article-sub-heading {
+            color: var(--mc-green);
+            font-size: 16px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 1px solid #4a4a4a;
+            padding-bottom: 5px;
+        }
+
+        @media (min-width: 769px) {
+            .fsbox {
+                width: 70%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #h1 {
+                font-size: 14px
+            }
+
+            #tds {
+                font-size: 12px;
+            }
+
+            .fsbox {
+                font-size: 11px;
+                width: 96%;
+            }
+            .article-sub-heading {
+                font-size: 14px;
+            }
+        }
+
+
+        .site-footer {
+            width: 100%;
+            padding: 26px 0 36px 0;
+            background: rgba(0, 0, 0, 0.9);
+            box-shadow: 0 -6px 12px rgba(27, 27, 27, 0.4);
+            margin-top: auto;
+            border-top: 3px solid;
+            border-block-color: #4a4a4a;
+        }
+
+
+
+        .footer-bar {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 6px 20px;
+        }
+
+
+
+        .footer-text {
+            color: #ffffff;
+            font-size: 12px;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+
+
+        .footer-links {
+            margin-top: 8px
+        }
+
+
+
+        .footer-link {
+            color: #21bdf6;
+            text-decoration: none;
+            margin: 0 8px;
+            font-size: 14px;
+        }
+
+
+
+        .footer-link:hover {
+            color: #00bbff;
+            text-decoration: underline
+        }
+    </style>
+
+</head>
+
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MCJRDZ23"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div class="star-bg"></div>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M2P94THH"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+
+    <header class="header">
+        <div class="tp">
+            <a href="../index.html">HOME</a> &gt; <a href="#">NEWS</a> &gt; VERSION NUMBERING
+        </div>
+        <h1 id="h1">MINECRAFT’S NEW VERSION NUMBERING SYSTEM</h1>
+        <p style="color: #888; font-size: 10px;">A small change for clarity.</p>
+        <div class="article-meta">
+            Written By: <strong>Mannooma</strong> &nbsp;| &nbsp; Published: <strong>12/9/25</strong>
+        </div>
+    </header>
+
+
+
+    <div class="fsbox">
+        <p>
+            In the beginning, there was version **1.0**. <br> Then came 1.1, and 1.2, and 1.3, and 1.4 – <br> you can see where this was going. Minecraft’s version numbers went up incrementally with each major update until they hit **1.21** – <br> the Tricky Trials update – back in June 2024. A lot happened that year, <br> including the announcement that instead of providing one free update during the year, they wanted to release content more frequently, <br> called **game drops**.
+        </p>
+      <br>
+        <p>
+            But what did that mean for version numbering? For a while, it meant they stuck with 1.21. When The Garden Awakens released in December 2024, it was version **1.21.50** on Bedrock Edition, and version **1.21.4** on Java Edition. Then came Spring to Life and Chase the Skies. With Mounts of Mayhem coming soon, the developers felt it was time to update how they version Minecraft releases to reflect their new game drops strategy.
+        </p>
+      <br>
+        <p class="article-sub-heading" style="color: #aaa;margin-top: 25px;font-size: 10px">A version number tells you which specific release of Minecraft you are playing. Minecraft prompts you to update to the latest version on both Java and Bedrock Edition by default.</p>
+
+
+        <h2 class="article-sub-heading">The Change They Are Making</h2>
+
+        <p>
+            Going forwards, they will be numbering versions based on the **year**. So, for both Bedrock and Java Edition, version numbers in the year **2026** will begin with ‘26’!
+        </p>
+        <p>
+            Now, Bedrock and Java have different release cadences, so the numbers that follow “26” will be different. There are a few reasons for this (e.g. platform limitations, and the fact that Bedrock has more frequent releases throughout the year) but the **shared prefix** will make it easier for creators (and players) to know which release is which.
+        </p>
+
+        <h2 class="article-sub-heading">The Difference Between Version Numbering in Bedrock and Java Edition</h2>
+
+        <p>
+            While Bedrock and Java will share the same version number (based on the year), they will still differ slightly based on the release number. This is due to a few factors, including platform limitations and the different release frequencies on Bedrock and Java.
+        </p>
+        <p>
+            Here’s an example based on **2025**. In 2025, they released three game drops (Spring to Life, Chase the Skies, and The Copper Age) and they have one more to come – Mounts of Mayhem! By applying the new version numbering system to 2025 as an example, players can get a better idea of where Bedrock and Java are the same, and where they are different.
+        </p>
+
+        <p style="text-align: center; color: #aaa; font-style: italic; margin-top: 25px;">
+            This table shows how the change in version number would work – and uses some of the 2025 releases to illustrate it:
+        </p>
+        <img id="version-table-img" src="versionex.webp" alt="Table showing the new Minecraft version numbering system for 2025 releases: Spring to Life, Chase the Skies, The Copper Age, and Mounts of Mayhem across Bedrock and Java Editions.">
+        
+        <p style="text-align: center; color: #aaa; font-style: italic; margin-top: 10px; margin-bottom: 25px;">
+            This is an example to show how the new version number system would apply, using the 2025 releases to illustrate this.
+        </p>
+
+        <p>
+            In both Bedrock and Java, the version number will be based on the year – and it will be followed by the **release number**, and then the **patch or hotfix number**. Players can see this in the example above, and they can also see how Java applies the “patch” number as a separate number, whereas Bedrock counts upwards from the release number itself.
+        </p>
+        <p>
+            There will be some small changes to how they name snapshot versions on Java, too. Moving forwards, they will include the intended version in the names, so it’ll be easier than ever to see which snapshot contains features for which drop. E.g., the first snapshot for Mounts of Mayhem was 25w41a but would have been **25.4-snapshot-1** in this new system.
+        </p>
+
+        <h2 class="article-sub-heading">What Does This Mean for Players?</h2>
+
+        <p>
+            This change in their version numbering won’t have a huge impact on players. The developers are, however, hoping it’ll make it easier for **creator partners and modders** to understand which of their version numbers represent a game drop, and which of them represent patches or bug fixes to those drops.
+        </p>
+        <p>
+            They also hope it’ll make it easier for the community to talk about game drops before they have a name! Before the shift to game drops, the community could use the next version number to talk about what was to come. With this new system, players will hopefully be able to do that again!
+        </p>
+
+        <h2 class="article-sub-heading">When Is This Happening?</h2>
+
+        <p>
+            Mojang will be using this new version numbering system for all of their releases starting **next year** – and players will see it in previews for those versions starting this week!
+        </p>
+
+    </div>
+
+
+
+    <footer class="site-footer">
+
+        <div class="footer-bar">
+
+            <div class="footer-text">© 2025 Mannooma10k. All rights reserved.<br>This site is not affiliated with Mojang Studios</div>
+
+            <div class="footer-links"><a href="../legal/terms-of-use.html" class="footer-link">Terms</a> <span class="sep">|</span> <a href="../legal/privacy-policy.html" class="footer-link">Privacy</a></div>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>
