@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MCJRDZ23');</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17785284813"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-17785284813');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft 1.21.130 Bedrock Changelog - Mounts of Mayhem!</title>
+    <meta name="description" content="Mounts of Mayhem charges into Minecraft today! New spear weapon, Nautilus mounts, and tons of new features in 1.21.130 update.">
+    <meta name="keywords" content="Mannooma, Minecraft, Bedrock, 1.21.130, Mounts of Mayhem, Nautilus, Spear, Changelog">
+    <meta name="author" content="Mannooma">
+    <link rel="icon" href="Mannooma.png" type="png">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            background-color: #000000;
+            background-position: -5px -5px;
+            min-height: 100vh;
+            line-height: 1.8;
+            text-shadow: #000 1px 1px 1px;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css') format('truetype');
+        }
+
+        :root {
+            --mc-green: #55FF55;
+            --mc-dark: #2D2D2D;
+            --mc-border: #3100e0;
+            --mc-blue: #03adfc;
+            --mc-blue1: #0384fc;
+        }
+
+        a:link, a:visited {
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        .star-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            background-image:
+                radial-gradient(2px 2px at 15% 25%, white, transparent),
+                radial-gradient(2px 2px at 70% 40%, white, transparent),
+                radial-gradient(2px 2px at 30% 75%, white, transparent),
+                radial-gradient(2px 2px at 85% 60%, white, transparent);
+            background-size: 350px 350px;
+            animation: moveStars 14s linear infinite;
+        }
+
+        @keyframes moveStars {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 0 700px;
+            }
+        }
+
+
+
+        .header {
+            padding: 2rem 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 2px solid #4a4a4a;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tp {
+            font-size: 9px;
+            color: #aaa;
+            margin-bottom: 15px;
+            display: block;
+            letter-spacing: 1px;
+        }
+
+        .tp a {
+            color: var(--mc-green);
+            text-decoration: none;
+        }
+
+        .header img {
+            max-width: 600px;
+            width: 90%;
+            image-rendering: pixelated;
+            filter: drop-shadow(0 0 8px var(--mc-green));
+            margin-bottom: 15px;
+        }
+
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        /* hover for page heading */
+        #h1 {
+            color: var(--mc-green);
+        }
+
+        .fsbox {
+            max-width: 800px;
+            background-color: #171614;
+            border: 2px solid #252422;
+            padding: 20px;
+            margin: 18px auto;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 1px;
+            line-height: 1.8;
+            text-align: left;
+            text-shadow: #000 1px 1px 1px;
+            color: #fefefe;
+            font-size: 13px;
+        }
+
+        #tds {
+            text-align: center;
+            color: var(--mc-green);
+            margin-bottom: 20px;
+            background: #2f2f2f;
+            padding: 12px 18px;
+            text-shadow: 1px 2px 1px #000;
+            box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.6), inset 0 -2px 0 rgba(255, 255, 255, 0.02);
+            border: 3px solid rgb(71, 71, 71);
+            line-height: 1.6;
+        }
+
+        /* Style for the author/date information */
+        .article-meta {
+            text-align: center;
+            color: #aaa;
+            font-size: 10px;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            line-height: 1.5;
+        }
+        
+        .article-meta strong {
+            color: #fff;
+            font-weight: normal;
+        }
+
+        /* Style for main article headings */
+        .article-sub-heading {
+            color: var(--mc-green);
+            font-size: 16px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 1px solid #4a4a4a;
+            padding-bottom: 5px;
+        }
+
+        /* Code box styles */
+        .code-box {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 20px 0;
+            position: relative;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            color: #f8f8f2;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #333;
+        }
+
+        .code-title {
+            color: #aaa;
+            font-size: 11px;
+        }
+
+        .copy-btn {
+            background: #2d2d2d;
+            color: #55FF55;
+            border: 1px solid #4a4a4a;
+            padding: 4px 12px;
+            font-size: 11px;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #3a3a3a;
+            border-color: #55FF55;
+        }
+
+        .copy-btn.copied {
+            background: #55FF55;
+            color: #000;
+            border-color: #55FF55;
+        }
+
+        /* List styles */
+        .fsbox ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .fsbox li {
+            margin-bottom: 10px;
+        }
+
+        .sub-list {
+            margin-left: 30px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .sub-list li {
+            margin-bottom: 5px;
+        }
+
+        @media (min-width: 769px) {
+            .fsbox {
+                width: 70%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #h1 {
+                font-size: 14px
+            }
+
+            #tds {
+                font-size: 12px;
+            }
+
+            .fsbox {
+                font-size: 11px;
+                width: 96%;
+            }
+            .article-sub-heading {
+                font-size: 14px;
+            }
+            .code-box {
+                font-size: 10px;
+                padding: 10px;
+            }
+        }
+
+
+        .site-footer {
+            width: 100%;
+            padding: 26px 0 36px 0;
+            background: rgba(0, 0, 0, 0.9);
+            box-shadow: 0 -6px 12px rgba(27, 27, 27, 0.4);
+            margin-top: auto;
+            border-top: 3px solid;
+            border-block-color: #4a4a4a;
+        }
+
+
+
+        .footer-bar {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 6px 20px;
+        }
+
+
+
+        .footer-text {
+            color: #ffffff;
+            font-size: 12px;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+
+
+        .footer-links {
+            margin-top: 8px
+        }
+
+
+
+        .footer-link {
+            color: #21bdf6;
+            text-decoration: none;
+            margin: 0 8px;
+            font-size: 14px;
+        }
+
+
+
+        .footer-link:hover {
+            color: #00bbff;
+            text-decoration: underline
+        }
+  
+  #po {
+    color: #00bbff;
+            text-decoration: underline
+  }
+  #pw {
+    color: #00bbff;
+            text-decoration: underline
+  }
+  
+    </style>
+
+</head>
+
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MCJRDZ23"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div class="star-bg"></div>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M2P94THH"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+
+    <header class="header">
+        <div class="tp">
+            <a href="../index.html">HOME</a> &gt; <a href="#">NEWS</a> &gt; BEDROCK UPDATE
+        </div>
+        <h1 id="h1">MINECRAFT 1.21.130 BEDROCK CHANGELOG</h1>
+        <p style="color: #888; font-size: 10px;">Mounts of Mayhem charges into Minecraft today with new features, mobs, and weapons!</p>
+        <div class="article-meta">
+            Written By: <strong>Mannooma</strong> &nbsp;| &nbsp; Published: <strong>12/10/25</strong>
+        </div>
+    </header>
+
+
+
+    <div class="fsbox">
+        <p>
+            <strong>Mounts of Mayhem charges into Minecraft today!</strong>
+        </p>
+        <p>
+            Today Mounts of Mayhem charges into Minecraft, bringing a new weapon to wield, mounts to tame, foes to face, and strategies to master! Challengers await beneath scorching suns, night skies, and deep in the ocean's depths - and each clash will demand a fresh strategy. Fight back with the spear, a new tiered weapon which deals damage based on your precision and the speed of your trusted steed. So, riders of the Overworld - mount up and lead the charge in the Mounts of Mayhem drop!
+        </p>
+
+        <h2 class="article-sub-heading">New Features</h2>
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none; margin-top: 15px;">Mounts of Mayhem</h3>
+        
+        <h4>Mount improvements</h4>
+        <ul>
+            <li>Horses, Zombie Horses, Donkeys, Mules, and Camels no longer sink when ridden by players while swimming</li>
+            <li>Added Netherite Horse Armor
+                <ul class="sub-list">
+                    <li>Can be crafted at a Smithing Table using a Diamond Horse Armor, a Netherite Ingot, and a Netherite Upgrade</li>
+                    <li>Provides 19 armor points</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>Nautilus</h4>
+        <ul>
+            <li>New neutral aquatic mob</li>
+            <li>Attacks using a Dash attack if provoked</li>
+            <li>Spawns in all ocean biomes</li>
+            <li>Tamed using Pufferfish or a Bucket of Pufferfish</li>
+            <li>Tamed Nautilus can be mounted using a Saddle</li>
+            <li>Has a Dash skill similar to Camels, used by pressing Jump button</li>
+            <li>Occasionally attacks Pufferfish within range using Dash attack</li>
+            <li>Adds "Breath of the Nautilus" effect to mounted player</li>
+            <li>Tamed Nautilus without Saddle has a roaming restriction of 32 blocks</li>
+            <li>Tamed Nautilus with Saddle has a roaming restriction of 16 blocks</li>
+            <li>Nautilus has a charge attack cooldown of 4 seconds</li>
+            <li>Takes suffocation damage on land</li>
+            <li>A Nautilus can spawn between Y-Level 38 and 58</li>
+        </ul>
+
+        <h4>Nautilus Armor</h4>
+        <ul>
+            <li>Equipable on Nautilus and Zombie Nautilus</li>
+            <li>Comes in Copper, Golden, Iron, Diamond, and Netherite versions</li>
+            <li>Using Shears on a Nautilus will first remove its armor, and then its Saddle</li>
+        </ul>
+
+        <h4>Breath of the Nautilus</h4>
+        <ul>
+            <li>Effect that affects mounted player</li>
+            <li>Pauses player oxygen consumption (but does not replenish oxygen)</li>
+        </ul>
+
+        <h4>Zombie Nautilus</h4>
+        <ul>
+            <li>New neutral underwater mob</li>
+            <li>Attacks using a Dash attack</li>
+            <li>Spawns with a Drowned rider wielding a Trident</li>
+            <li>Is hostile if the rider is a hostile mob</li>
+            <li>Neutral without a rider</li>
+            <li>Tamed using Pufferfish or a Bucket of Pufferfish</li>
+            <li>Tamed Zombie Nautilus can be mounted using a Saddle</li>
+            <li>Has a Dash skill similar to Camels, used by pressing Jump button</li>
+            <li>Occasionally attacks Pufferfish within range using Dash attack</li>
+            <li>Adds "Breath of the Nautilus" effect to mounted player</li>
+            <li>Cannot be bred</li>
+            <li>Tamed Zombie Nautilus without Saddle has a roaming restriction of 32 blocks</li>
+            <li>Tamed Zombie Nautilus with Saddle has a roaming restriction of 16 blocks</li>
+            <li>Takes suffocation damage on land</li>
+        </ul>
+
+        <h4>Coral Zombie Nautilus</h4>
+        <ul>
+            <li>New Zombie Nautilus variant</li>
+            <li>Spawns in Warm Oceans, replacing the normal Zombie Nautilus</li>
+            <li>Visual variant, functions identically to the normal Zombie Nautilus</li>
+        </ul>
+
+        <h4>Spear</h4>
+        <ul>
+            <li>New weapon that can be crafted in Wood, Stone, Copper, Iron, Gold, Diamond, and Netherite versions</li>
+            <li>Each material has different stats for timing, influencing how fast they are to use</li>
+            <li>Has a minimum reach for damage, being too close to a target will yield no damage</li>
+            <li>Has extended maximum reach compared to other tools and weapons</li>
+            <li>Zombies and Piglins can spawn with the Spear</li>
+            <li>Has two attacks: Jab and Charge</li>
+            <li>Animals defeated in one hit by the charge attack of a Spear with the Fire Aspect enchantment will drop cooked food</li>
+        </ul>
+
+        <h4>Charge Attack</h4>
+        <ul>
+            <li>Press and hold secondary action button to use</li>
+            <li>Damage based on Spear material, the player's view angle and velocity of both player and target</li>
+            <li>While holding down button the attack goes through three stages before returning to idle:
+                <ul class="sub-list">
+                    <li>Engaged: Spear can deal damage, knockback, and dismount mounted enemies if speed is above the required thresholds</li>
+                    <li>Tired: Indicated by Spear rotating to a vertical position and shaking. Spear can deal damage and knockback (but not dismount) if the speed is above the required thresholds</li>
+                    <li>Disengaged: Indicated by Spear being lowered, pointing downwards. Spear gives damage but not knockback or dismount if the speed is above the required threshold</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>Jab Attack</h4>
+        <ul>
+            <li>Quick press primary action button to use</li>
+            <li>Low damage attack with knockback</li>
+            <li>Cooldown between attacks</li>
+            <li>Wood spears have the fastest cooldown; Netherite the slowest</li>
+            <li>Can hit multiple enemies</li>
+            <li>Does not destroy blocks</li>
+        </ul>
+
+        <h4>Lunge Enchantment</h4>
+        <ul>
+            <li>Spear exclusive enchantment</li>
+            <li>Only works with the Jab attack</li>
+            <li>When doing a Jab attack with Lunge it propels the player horizontally in the view direction</li>
+            <li>View angle needs to be perfectly leveled horizontally to achieve maximum lunge distance</li>
+            <li>Using the Lunge attack consumes hunger</li>
+            <li>Level 1 Lunge consumes 1 hunger point, level 2 consumes 2 points, and level 3 consumes 3 points</li>
+            <li>Cost of 1 Durability point for using Lunge for all Enchantment levels</li>
+        </ul>
+
+        <h4>Zombie Horse</h4>
+        <ul>
+            <li>Spawns naturally at night in Plains and Savanna biomes</li>
+            <li>Spawns with a Zombie rider wielding a Spear</li>
+            <li>Is hostile if the rider is a hostile mob</li>
+            <li>Neutral without a rider</li>
+            <li>Tamed like normal Horses</li>
+            <li>Favorite food is Red Mushroom</li>
+            <li>Tamed Zombie Horse can be mounted using a Saddle</li>
+            <li>Cannot be bred</li>
+            <li>Zombie Horses avoid areas with sunlight</li>
+            <li>Zombie Horses can be leashed when they are untamed, but not when mounted by a Zombie</li>
+        </ul>
+
+        <h4>Parched</h4>
+        <ul>
+            <li>New Skeleton variant</li>
+            <li>Spawns at 0 light level in Deserts, replacing some of the regular Skeletons</li>
+            <li>Does not burn in sunlight</li>
+            <li>Shoots Arrows of Weakness</li>
+            <li>Has a slower rate of fire compared to normal Skeletons, similar to Bogged</li>
+            <li>Does not spawn in caves, following the Husk's spawning rules</li>
+            <li>Parched have a chance of spawning riding Spiders and Cave Spiders in Deserts, instead of regular Skeletons</li>
+        </ul>
+
+        <h4>Camel Husk</h4>
+        <ul>
+            <li>New undead Camel variant</li>
+            <li>Spawns at 0 light level in Deserts</li>
+            <li>Does not burn in sunlight</li>
+            <li>Spawns with two riders: A Husk wielding a Spear and a Parched</li>
+            <li>Does not spawn in caves, following the Husk's spawning rules</li>
+            <li>Is hostile if the rider is a hostile mob</li>
+            <li>Passive without a rider</li>
+            <li>Despawns like other hostile mobs, but becomes persistent when ridden by a player</li>
+            <li>Favorite food is Rabbit Foot</li>
+            <li>Cannot be bred</li>
+            <li>As a mount, they work similar to normal Camels</li>
+            <li>Zombie Husks that spawn riding a Camel Husk have a 50% chance of dropping a Rabbit Foot</li>
+            <li>The Camel Husk can not be leashed while being ridden by a hostile mob</li>
+        </ul>
+
+        <h2 class="article-sub-heading">Features and Bug Fixes</h2>
+        
+        <h3>Audio</h3>
+        <ul>
+            <li>The swimming sound no longer plays when flying underwater</li>
+            <li>The critical hit sound now correctly plays when a player lands a critical hit</li>
+        </ul>
+
+        <h3>Blocks</h3>
+        <ul>
+            <li>Hanging Roots can now be waterlogged (MCPE-128957)</li>
+            <li>Crimson Roots and Crimson Fungus now generate in the Warped Forest biome (MCPE-83616)</li>
+        </ul>
+
+        <h3>Character Creator</h3>
+        <ul>
+            <li>Players are no longer prevented from loading into a world due to an Invalid Platform Skin error</li>
+            <li>Fixed an issue where remote player skins would sometimes change to a default skin when they moved in and out of render range (MCPE-222444)</li>
+        </ul>
+
+        <h3>Gameplay</h3>
+        <ul>
+            <li>Hoppers now have a short cooldown after being moved by a Piston that prevents interaction. This fixes a bug with Bundle duplication</li>
+            <li>Fixed a bug preventing players from growing Pink Petals, Wildflowers, or Leaf Litter by targeting the side of a block (MCPE-190684)</li>
+            <li>Added the Damage Tilt slider to Video settings, controlling how much the screen tilts when the player takes damage, in parity with Java</li>
+            <li>Hoppers can no longer stack multiple Bottles in one slot inside a Brewing Stand (MCPE-228374)</li>
+        </ul>
+
+        <h3>General</h3>
+        <ul>
+            <li>Fixed a bug where pressing ALT + F4 in-game opened the pause menu instead of closing the game (MCPE-228098)</li>
+            <li>Resolved an issue on Windows where shared worlds (those available to all players) did not load resource or behavior packs (MCPE-228607)</li>
+            <li>Reenabled missing music for several biomes</li>
+            <li>Fixed an issue where signing in at the exact wrong time would make many online features unable to load for 5 minutes</li>
+            <li>Added splash text "One does not simply walk to the Far Lands"
+                <div class="code-box">
+                    <div class="code-header">
+                        <div class="code-title">Developer's Note</div>
+                    </div>
+                    This statement was proven false on October 4, 2025.
+                </div>
+            </li>
+        </ul>
+
+        <h3>Graphical</h3>
+        <ul>
+            <li>The first critical hit particle for Arrows is now slightly delayed</li>
+            <li>The nose of the Copper Golem is now rotated correctly while the Golem is sitting down (MCPE-228256)</li>
+            <li>Fixed large flipbook textures corrupting other textures</li>
+            <li>Fixed a bug where the fade command would fade to black instead of the specified color when Vibrant Visuals is enabled. Also fixed certain effects such as fire and the Spyglass overlay rendering in front of the fade effect (MCPE-223049)</li>
+            <li>Fixed snowflakes flickering during player movement</li>
+            <li>The partial transparency applied to mobs when close to the camera now also applies to players. (MCPE-227786)</li>
+            <li>Fixed Mooshroom's mushrooms and armor on mobs not being affected by "Enable Dithering" setting (MCPE-228281) (MCPE-228296)</li>
+            <li>Fixed a regression where Torches and Lanterns weren't emitting point lights in raytracing-enabled worlds</li>
+        </ul>
+
+        <h3>Input</h3>
+        <ul>
+            <li>Automatically selects the Chat screen text field on opening for Windows when using Keyboard and Mouse, enabling text input as soon as screen opens (MCPE-229046)</li>
+            <li>Fixed a bug on Windows where disabling the system setting "Scroll inactive windows when hovering over them" had no effect (MCPE-229088)</li>
+            <li>On-Screen Keyboard will no longer appear over the chat box when docked; Input screens, such as signs, will no longer close when switching between different input modes (MCPE-228584)</li>
+            <li>Fixed a bug on Windows where the game widgets would interact with the cursor when another window was focused (MCPE-229548)</li>
+            <li>Fixed an issue where Xbox controllers connected to ROG Xbox Ally did not work while built-in controller was active (MCPE-184251) (MCPE-180470)</li>
+            <li>Fixed a bug on Windows where the mouse cursor moved in the background during gameplay (MCPE-230832)</li>
+        </ul>
+
+        <h3>Items</h3>
+        <ul>
+            <li>Gold Horse Armor has been renamed to Golden Horse Armor (MCPE-101388)</li>
+        </ul>
+
+        <h3>Mobs</h3>
+        <ul>
+            <li>Fixed bug where Camels could not dash when standing in water</li>
+            <li>Pufferfish can now spawn in the Lukewarm Ocean and Deep Lukewarm Ocean biomes</li>
+            <li>Pufferfish and Tropical Fish can now be caught when fishing in Jungle biomes</li>
+            <li>Drowned attack now knockbacks attacked mob into air when mob is not in water (MCPE-133343)</li>
+            <li>Added chance for Zombie Horse Riders to spawn in Savannas and Plains</li>
+            <li>Camels now take fall damage starting 4 blocks higher when walking or dashing (MCPE-171996)</li>
+            <li>Phantoms can no longer drown (MCPE-101541)</li>
+            <li>Wolf shadow and model are now centered (MCPE-176018)</li>
+            <li>Fixed some Goat sounds not being controlled by the Friendly Mobs slider (MCPE-178232)</li>
+            <li>Piglins will no longer scream with enthusiasm while admiring gold (MCPE-229509)
+                <div class="code-box">
+                    <div class="code-header">
+                        <div class="code-title">Piglin Politeness Update</div>
+                    </div>
+                    They will instead do a courteous grunt of acknowledgement.
+                    Very polite, just like on Java.
+                </div>
+            </li>
+        </ul>
+
+        <h4>Baby Zombie Jockey Rules</h4>
+        <div class="code-box">
+            <div class="code-header">
+                <span class="code-title">Only Baby Zombie jockeys and Baby Husk jockeys can ride:</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+Adult Chickens
+Untamed Ocelots
+Untamed Cats
+Untamed Wolves
+Adult Zombies
+Adult Husks
+Adult Zombified Villagers
+Adult Zombified Piglins
+Cows
+Adult unsaddled Pigs
+Sheep
+Adult untamed Horses
+Adult untamed Donkeys
+Adult untamed Mules
+Adult Skeleton Horses
+Adult Zombie Horses
+Mooshrooms
+Spiders that were not spawned as jockey mounts
+Cave Spiders that were not spawned as jockey mounts
+        </div>
+
+        <ul>
+            <li>Zombies and Husks that have been spawned as their rider configuration can only ride Zombie Horses and Camel Husks, respectively</li>
+            <li>Dolphins no longer spawn in the Cold Ocean or Deep Cold Ocean biomes</li>
+            <li>It is no longer possible for two mobs to mount each other simultaneously</li>
+        </ul>
+
+        <h2 class="article-sub-heading">Technical Updates</h2>
+        
+        <h3>AI Goals</h3>
+        <div class="code-box">
+            <div class="code-header">
+                <span class="code-title">minecraft:behavior.use_kinetic_weapon Example</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+"minecraft:behavior.use_kinetic_weapon": {
+    "approach_distance": 5.0,
+    "reposition_distance": 3.0,
+    "reposition_speed_multiplier": 1.5,
+    "cooldown_distance": 8.0,
+    "cooldown_speed_multiplier": 1.2,
+    "weapon_reach_multiplier": 1.0,
+    "weapon_min_speed_multiplier": 1.0,
+    "min_path_time": 0.5,
+    "max_path_time": 2.0,
+    "path_fail_time_increase": 0.2,
+    "inner_boundary_time_increase": 0.1,
+    "outer_boundary_time_increase": 0.3,
+    "path_inner_boundary": 10.0,
+    "path_outer_boundary": 20.0,
+    "speed_multiplier": 1.0,
+    "require_complete_path": true,
+    "track_target": true,
+    "cooldown_time": 3.0,
+    "melee_fov": 90.0,
+    "x_max_rotation": 30.0,
+    "y_max_head_rotation": 30.0,
+    "random_stop_interval": 100,
+    "attack_once": false
+}
+        </div>
+
+        <h3>API</h3>
+        <div class="code-box">
+            <div class="code-header">
+                <span class="code-title">Cubemap Configuration Example</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+{
+    "format_version": "1.21.130",
+    "minecraft:cubemap_settings": {
+        "description": {
+            "identifier": "mypack:mycubemap"
+        },
+        "lighting": {
+            "ambient_light_illuminance": {
+                "0.00000": 4.0,
+                "1.000000": 4.0
+            },
+            "sky_light_contribution": 1.0,
+            "directional_light_contribution": 1.0,
+            "affected_by_atmospheric_scattering": true,
+            "affected_by_volumetric_scattering": true
+        }
+    }
+}
+        </div>
+
+        <div class="code-box">
+            <div class="code-header">
+                <span class="code-title">Biome Configuration with Cubemap</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+{
+    "format_version": "1.21.130",
+    "minecraft:client_biome": {
+        "description": {
+            "identifier": "minecraft:river"
+        },
+        "components": {
+            "minecraft:cubemap_identifier": {
+                "cubemap_identifier": "mypack:mycubemap"
+            }
+        }
+    }
+}
+        </div>
+
+        <h3>Blocks</h3>
+        <div class="code-box">
+            <div class="code-header">
+                <span class="code-title">Custom Fence Block Example</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+{
+    "format_version": "1.21.130",
+    "minecraft:block": {
+        "description": {
+            "identifier": "test:my_fence",
+            "traits": {
+                "minecraft:connection": {
+                    "enabled_states": ["minecraft:cardinal_connections"]
+                }
+            }
+        },
+        "components": {
+            "tag:minecraft:has_fence_connections": {},
+            "minecraft:connection_rule": {
+                "accepts_connections_from": "only_fences"
+            }
+        }
+    }
+}
+        </div>
+
+        <h3>Item Components</h3>
+        <div class="code-box">
+            <div class="code-header">
+                <span class="code-title">minecraft:kinetic_weapon Component Example</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+"minecraft:kinetic_weapon": {
+    "delay": 10,
+    "reach": 3.5,
+    "hitbox_size": 0.3,
+    "damage_multiplier": 2.0,
+    "damage_modifier": 1.0,
+    "damage_conditions": {
+        "max_duration": 20,
+        "min_speed": 0.5,
+        "min_relative_speed": 0.3
+    },
+    "knockback_conditions": {
+        "max_duration": 15,
+        "min_speed": 0.3
+    },
+    "dismount_conditions": {
+        "max_duration": 10,
+        "min_speed": 0.7
+    }
+}
+        </div>
+
+        <h2 class="article-sub-heading">Important Developer Notes</h2>
+        
+        <div class="code-box">
+            <div class="code-header">
+                <div class="code-title">⚠️ IMPORTANT: From Mannooma</div>
+            </div>
+I'm telling you this isn't working with the current team setup. 
+The integration between the new kinetic weapon system and the existing AI 
+goals needs more testing before deployment. The cubemap configuration 
+system also has some compatibility issues with older resource packs.
+
+Please make sure to:
+1. Test all new components in isolation first
+2. Check for memory leaks with the new cubemap system
+3. Verify that the kinetic weapon animations sync properly in multiplayer
+4. Test the new mount mechanics with existing mods
+        </div>
+
+        <p style="text-align: center; color: #ff5555; font-style: italic; margin-top: 25px; margin-bottom: 25px;">
+            **REMEMBER:** Always back up your worlds before updating! Experimental features may cause instability.
+        </p>
+
+        <p>
+            That's all for the massive 1.21.130 update! Get ready to tame some Nautilus, craft those spears, and enjoy all the new Mounts of Mayhem content!
+        </p>
+
+    </div>
+
+
+
+    <footer class="site-footer">
+
+        <div class="footer-bar">
+
+            <div class="footer-text">© 2025 Mannooma10k. All rights reserved.<br>This site is not affiliated with Mojang Studios</div>
+
+            <div class="footer-links"><a href="../legal/terms-of-use.html" class="footer-link">Terms</a> <span class="sep">|</span> <a href="../legal/privacy-policy.html" class="footer-link">Privacy</a></div>
+
+        </div>
+
+    </footer>
+
+    <script>
+        function copyCode(button) {
+            const codeBox = button.parentElement.parentElement;
+            const codeText = codeBox.textContent;
+            
+            // Create a temporary textarea to copy from
+            const textarea = document.createElement('textarea');
+            textarea.value = codeText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            
+            // Visual feedback
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.classList.remove('copied');
+            }, 2000);
+        }
+        
+        // Add copy buttons to all code boxes on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBoxes = document.querySelectorAll('.code-box');
+            codeBoxes.forEach(box => {
+                const header = box.querySelector('.code-header');
+                if (header && !header.querySelector('.copy-btn')) {
+                    const title = header.querySelector('.code-title');
+                    if (title && title.textContent.includes('Example')) {
+                        const copyBtn = document.createElement('button');
+                        copyBtn.className = 'copy-btn';
+                        copyBtn.textContent = 'Copy';
+                        copyBtn.onclick = function() { copyCode(this); };
+                        header.appendChild(copyBtn);
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
