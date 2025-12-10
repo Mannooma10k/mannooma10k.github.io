@@ -1,277 +1,174 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
-
     <!-- Google Tag Manager -->
-
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-
-})(window,document,'script','dataLayer','GTM-MCJRDZ23');</script>
-
-<!-- End Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MCJRDZ23');</script>
+    <!-- End Google Tag Manager -->
+    
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17785284813"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'AW-17785284813');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17785284813"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-17785284813');
+    </script>
 
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>UpRanks+ Add-ON Download</title>
-
     <meta name="description" content="Download the UpRanks+ Add-On for Minecraft to enhance your gameplay with advanced ranking features.">
-
     <meta name="keywords" content="Mannooma,UpRanks,Ranks,Multiplayer, Minecraft, Addons, Mods, Maps, Skins, Texture Packs">
-
     <meta name="author" content="Mannooma">
-
     <link rel="icon" href="Mannooma.png" type="png">
-
     <link rel="stylesheet" href="../style.css">
-
-    <style>body { background-color: #000000;background-position: -5px -5px;
-
-                 min-height: 100vh;
-
-                 line-height: 1.5;
-
-                 text-shadow: #000 1px 1px 1px;
-
-}
-
-
-
-  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
-        @font-face {
-
-            font-family: 'Minecraft';
-
-            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css') format('truetype');
-
+    
+    <style>
+        body {
+            background-color: #000000;
+            background-position: -5px -5px;
+            min-height: 100vh;
+            line-height: 1.8;
+            text-shadow: #000 1px 1px 1px;
         }
 
-
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css') format('truetype');
+        }
 
         :root {
-
             --mc-green: #55FF55;
-
             --mc-dark: #2D2D2D;
-
-            --mc-border: #3100e0;
-
+            --mc-border: #4a4a4a;
             --mc-blue: #03adfc;
-
             --mc-blue1: #0384fc;
-
+            --mc-orange: #ffaa00;
         }
 
-        
-
-    a:link, a:visited {
-
-        color: inherit; /* Inherits color from parent element, effectively removing specific link color */
-
-        text-decoration: none; /* Removes underline */
-
-    }
-
-
-
-           
-
-           .star-bg {
-
-  position: fixed;
-
-  top: 0;
-
-  left: 0;
-
-  width: 100%;
-
-  height: 100%;
-
-  z-index: -1; /* behind everything */
-
-  pointer-events: none;
-
-  background-image:
-
-    radial-gradient(2px 2px at 15% 25%, white, transparent),
-
-    radial-gradient(2px 2px at 70% 40%, white, transparent),
-
-    radial-gradient(2px 2px at 30% 75%, white, transparent),
-
-    radial-gradient(2px 2px at 85% 60%, white, transparent);
-
-  background-size: 350px 350px;
-
-  animation: moveStars 14s linear infinite;
-
-}
-
-
-
-@keyframes moveStars {
-
-  from { background-position: 0 0; }
-
-  to   { background-position: 0 700px; }
-
-} 
-
-        
-
-
-
- .header {
-
-          padding: 2rem 1rem;
-
-          background: rgba(0, 0, 0, 0.8);
-
-          border-bottom: 2px solid var(--mc-border);
-
-          text-align: center;
-
-          position: relative;
-
-          z-index: 10;
-
+        a:link, a:visited {
+            color: inherit;
+            text-decoration: none;
         }
 
+        .star-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            background-image:
+                radial-gradient(2px 2px at 15% 25%, white, transparent),
+                radial-gradient(2px 2px at 70% 40%, white, transparent),
+                radial-gradient(2px 2px at 30% 75%, white, transparent),
+                radial-gradient(2px 2px at 85% 60%, white, transparent);
+            background-size: 350px 350px;
+            animation: moveStars 14s linear infinite;
+        }
 
+        @keyframes moveStars {
+            from { background-position: 0 0; }
+            to { background-position: 0 700px; }
+        }
+
+        .header {
+            padding: 2rem 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 2px solid var(--mc-border);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
 
         .tp {
-
             font-size: 9px;
-
             color: #aaa;
-
             margin-bottom: 15px;
-
             display: block;
-
             letter-spacing: 1px;
-
         }
-
-        .tp a { color: var(--mc-green); text-decoration: none; }
-
-
+        
+        .tp a {
+            color: var(--mc-green);
+            text-decoration: none;
+        }
 
         .header img {
-
             max-width: 600px;
-
             width: 90%;
-
             image-rendering: pixelated;
-
             filter: drop-shadow(0 0 8px var(--mc-green));
-
         }
 
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
 
-
-    .container {
-
-  max-width: 800px;
-
-  margin: 2rem auto;
-
-  padding: 1rem;
-
-    }
-
-                /* hover for page heading */
-
-                #h1 {
-
-                    color: var(--mc-blue1);
-
-                }
-
-                #home {
-
-                     height: 100px; /* Give the container a height to demonstrate vertical alignment */
-
-                     border: 1px solid black;
-
-                    display: flex; /* Using flexbox for better control */
-
-                    align-items: flex-start; /* Align items to the top */
-
-                    justify-content: center; /* Center horizontally */
-
-                }
-
-
+        /* hover for page heading */
+        #h1 {
+            color: var(--mc-blue1);
+        }
+        
+        #home {
+            height: 100px;
+            border: 1px solid black;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
 
         .fsbox {
-
-    max-width: 500px; /* Set a fixed width */
-
-    max-height: 20000px; /* Set a fixed height */
-
-    background-color: #252525; /* Light gray background */
-
-    border: 2px solid #4a4a4a; /* Dark gray border */
-
-    padding: 20px; /* Space between content and border */
-
-    margin: 18px auto; /* Center the box horizontally and add space around it */
-
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
-
-    border-radius: 1px; /* Rounded corners */
-
-    line-height: 1.8;
-
-    text-shadow: #000 1px 1px 1px;
-
+            max-width: 800px;
+            background-color: #171614;
+            border: 2px solid #252422;
+            padding: 20px;
+            margin: 18px auto;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 1px;
+            line-height: 1.8;
+            text-shadow: #000 1px 1px 1px;
+            color: #fefefe;
+            font-size: 13px;
         }
       
         #Download {
-          background-color: #2f2f2f; /* Light gray background */
-          border: 2px solid #4a4a4a;
-          color: #ffffff;
-          padding: 12px 18px; /* larger buttons */
-          border-radius: 1px; /* slightly larger rounded corners */
-          font-size: 13px; /* bigger text */
-          cursor: pointer;
-          box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-          transition: transform .12s ease, box-shadow .12s ease;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          min-width: 110px; /* keep buttons visually larger */
-      }
+            background-color: #2f2f2f;
+            border: 2px solid #4a4a4a;
+            color: #ffffff;
+            padding: 12px 18px;
+            border-radius: 1px;
+            font-size: 13px;
+            cursor: pointer;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+            transition: transform .12s ease, box-shadow .12s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            min-width: 110px;
+        }
 
         #Download:hover {
-    background: #0055ff;
-    border-color: rgba(255,255,255,0.8);
-    transform: translateY(-4px); box-shadow: 0 5px 2px rgba(0, 0, 0, 0.6); }
- #Download.active, #Download:focus {
-        outline: none;
-        border-color: rgba(255,255,255,0.9);
-        background: #0055ff;}
+            background: #0055ff;
+            border-color: rgba(255,255,255,0.8);
+            transform: translateY(-4px);
+            box-shadow: 0 5px 2px rgba(0, 0, 0, 0.6);
+        }
+        
+        #Download.active, #Download:focus {
+            outline: none;
+            border-color: rgba(255,255,255,0.9);
+            background: #0055ff;
+        }
+        
         /* disabled appearance for download button during countdown */
         #Download[disabled] {
             opacity: 0.6;
@@ -280,826 +177,859 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             box-shadow: none;
         }
 
-    /* Mini-game styles */
-    #mini-game-container { display: none; max-width: 480px; margin: 12px auto; text-align: center; }
-    #mini-game-msg { color: #ccc; font-size: 12px; margin-bottom: 6px; }
-    #mini-game { width: 100%; height: 220px; background: #111; border: 2px solid #2b2b2b; border-radius: 6px; display: block; }
+        /* Mini-game styles */
+        #mini-game-container { display: none; max-width: 480px; margin: 12px auto; text-align: center; }
+        #mini-game-msg { color: #ccc; font-size: 12px; margin-bottom: 6px; }
+        #mini-game { width: 100%; height: 220px; background: #111; border: 2px solid #2b2b2b; border-radius: 6px; display: block; }
 
         #tdi {
-
             display: block;
-
             margin: 0 auto;
-
             border: 2px solid black;
-
             border-radius: 1px;
-
-            
-
         }
-
-
 
         #tds {
-
             text-align: center;
-
             color: var(--mc-green);
-
             margin-bottom: 20px;
-
             background: #2f2f2f;
-
             padding: 12px 18px;
-
             text-shadow: 1px 2px 1px #000;
-
             box-shadow: 2px 3px 2px rgba(0,0,0,0.6), inset 0 -2px 0 rgba(255,255,255,0.02);
-
             border: 3px solid rgb(71, 71, 71);
-
             line-height: 1.6;
-
+        }
+        
+        #tdb:hover {
+            transform: translateY(-4px);
+            box-shadow: -3px 2px 1px var(--mc-border);
         }
 
-
-
+        #tdb {
+            line-height: 1.6;
+            background: #2f2f2f;
+            padding: 12px 18px;
+            box-shadow: -3px 0px 0px var(--mc-border);
+            transition: transform .12s ease, background .12s ease;
+        }
         
-
-    #tdb:hover {
-
-    transform: translateY(-4px); box-shadow: -3px 2px 1px var(--mc-border); }
-
-
-
-
-    #tdb {
-
-        line-height: 1.6;
-
-        background: #2f2f2f;
-
-        padding: 12px 18px;
-
-        box-shadow: -3px 0px 0px var(--mc-border);
-
-        transition: transform .12s ease, background .12s ease;
-
-    }
-#tdu {
-        padding: 12px 18px;
-        box-shadow: -3px 0px 0px var(--mc-blue1);
-        transition: transform .12s ease, background .12s ease;
-        text-shadow: 1px 1px 1px #000;
-        text-align : left;
-         font-size: 11px;  
-         margin-bottom: 1rem;
-         background-color: #007ef326;
-
-    }
-
-    #tss {
-
-        line-height: 1.6;
-
-        background: #2f2f2f;
-
-        padding: 12px 18px;
-
-        box-shadow: -3px 0px 0px #0bfc03;
-
-        transition: transform .12s ease, background .12s ease;
-
-    }
-
-    #tsx {
-
-        line-height: 1.6;
-
-        background: #2f2f2f;
-
-        padding: 12px 18px;
-
-        box-shadow: -3px 0px 0px #fc0303;
-
-        transition: transform .12s ease, background .12s ease;
-
-    }
-
-              #tsm {
-
-        line-height: 1.6;
-
-        background: #2f2f2f;
-
-        padding: 12px 18px;
-
-        box-shadow: -3px 0px 0px #a7a7a7;
-
-        transition: transform .12s ease, background .12s ease;
-
-    }
-
-@media (min-width: 769px) {
-
-    .fsbox {
-
-         width: 50%
-
-    }
-    #vid {
-
-        width: 500px;
-
-        height: 250px;
-
-        border: #4a4a4a 2px solid
-
-    }
-
-}
-
-@media (max-width: 768px) {
-
-
-
-    #h1 {
-
-        font-size: 14px
-
-    }
-
-    #vid {
-
-        width: 370px;
-
-        height: 200px;
-
-        border: #4a4a4a 2px solid;
-
-        position: center;
-
-    }
-
-
-
-    #tds {
-
-        font-size: 12px;
-
-    }
-
-    .fsbox {
-
-        font-size: 8px; 
-  
-
-    }
-
-    
-
-   
-
-    
-
-    #imggsstar {
-
-     border: 2px solid;
-
-     border-color: black;
-
-     box-shadow: #000 2px 2px 1px;
-
-    }
-
-    .fsbox { width: 96%;
-    }
-
-   
-
-}
-
-
-             
-.site-footer {
-
-    width: 100%;
-
-    padding: 26px 0 36px 0;
-
-    background: rgba(0,0,0,0.9);
-
-    box-shadow: 0 -6px 12px rgba(27, 27, 27, 0.4);
-
-    margin-top: auto;
-
-    border-top: 3px solid;border-block-color: var(--mc-border);
-
-}
-
-
-
-.footer-bar {
-
-    max-width: 1200px;
-
-    margin: 0 auto;
-
-    text-align: center;
-
-    padding: 6px 20px;
-
-}
-
-
-
-.footer-text {
-
-    color: #ffffff;
-
-    font-size: 12px;
-
-    text-shadow: 2px 2px 0 #000;
-
-}
-
-
-
-.footer-links { margin-top: 8px }
-
-
-
-.footer-link {
-
-    color: #21bdf6;
-
-    text-decoration: none;
-
-    margin: 0 8px;
-
-    font-size: 14px;
-
-}
-
-
-
-.footer-link:hover { color: #00bbff; text-decoration: underline }
-
-
-
+        #tdu {
+            padding: 12px 18px;
+            box-shadow: -3px 0px 0px var(--mc-blue1);
+            transition: transform .12s ease, background .12s ease;
+            text-shadow: 1px 1px 1px #000;
+            text-align: left;
+            font-size: 11px;
+            margin-bottom: 1rem;
+            background-color: #007ef326;
+        }
+
+        #tss {
+            line-height: 1.6;
+            background: #2f2f2f;
+            padding: 12px 18px;
+            box-shadow: -3px 0px 0px #0bfc03;
+            transition: transform .12s ease, background .12s ease;
+        }
+        
+        #tsx {
+            line-height: 1.6;
+            background: #2f2f2f;
+            padding: 12px 18px;
+            box-shadow: -3px 0px 0px #fc0303;
+            transition: transform .12s ease, background .12s ease;
+        }
+        
+        #tsm {
+            line-height: 1.6;
+            background: #2f2f2f;
+            padding: 12px 18px;
+            box-shadow: -3px 0px 0px #a7a7a7;
+            transition: transform .12s ease, background .12s ease;
+        }
+        
+        /* Code box styles from second design */
+        .code-box {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 20px 0;
+            position: relative;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            color: #f8f8f2;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #333;
+        }
+
+        .code-title {
+            color: #aaa;
+            font-size: 11px;
+        }
+
+        .copy-btn {
+            background: #2d2d2d;
+            color: #55FF55;
+            border: 1px solid #4a4a4a;
+            padding: 4px 12px;
+            font-size: 11px;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #3a3a3a;
+            border-color: #55FF55;
+        }
+
+        .copy-btn.copied {
+            background: #55FF55;
+            color: #000;
+            border-color: #55FF55;
+        }
+        
+        /* List styles from second design */
+        .fsbox ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .fsbox li {
+            margin-bottom: 10px;
+        }
+
+        .sub-list {
+            margin-left: 30px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .sub-list li {
+            margin-bottom: 5px;
+        }
+        
+        /* Style for main article headings */
+        .article-sub-heading {
+            color: var(--mc-green);
+            font-size: 16px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 1px solid #4a4a4a;
+            padding-bottom: 5px;
+        }
+        
+        /* Minecraft command styling */
+        .mc-command {
+            background: #1a1a1a;
+            border-left: 4px solid var(--mc-green);
+            padding: 12px 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #55FF55;
+        }
+
+        @media (min-width: 769px) {
+            .fsbox {
+                width: 70%;
+            }
+            
+            #vid {
+                width: 500px;
+                height: 250px;
+              margin-left: auto;
+              margin-right: auto;
+                border: #4a4a4a 2px solid;
+            }
+          #imgsfinish {
+            margin-left: auto;
+            margin-right: auto;            
+          }
+          #imgstype {
+            margin-left: auto;
+            margin-right: auto;            
+          }
+          #imgscrafting {
+            margin-left: auto;
+            margin-right: auto;            
+          }
+          #imgscreate {
+            margin-left: auto;
+            margin-right: auto;            
+          }
+        }
+
+        @media (max-width: 768px) {
+            #h1 {
+                font-size: 14px;
+            }
+            
+            #vid {
+                width: 370px;
+                height: 200px;
+                border: #4a4a4a 2px solid;
+                position: center;
+            }
+
+            #tds {
+                font-size: 12px;
+            }
+            
+            .fsbox {
+                font-size: 11px;
+                width: 96%;
+            }
+            
+            .article-sub-heading {
+                font-size: 14px;
+            }
+            
+            .code-box {
+                font-size: 10px;
+                padding: 10px;
+            }
+            
+            #imggsstar {
+                border: 2px solid;
+                border-color: black;
+                box-shadow: #000 2px 2px 1px;
+            }
+        }
+
+        .site-footer {
+            width: 100%;
+            padding: 26px 0 36px 0;
+            background: rgba(0,0,0,0.9);
+            box-shadow: 0 -6px 12px rgba(27, 27, 27, 0.4);
+            margin-top: auto;
+            border-top: 3px solid;
+            border-block-color: var(--mc-border);
+        }
+
+        .footer-bar {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 6px 20px;
+        }
+
+        .footer-text {
+            color: #ffffff;
+            font-size: 12px;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        .footer-links {
+            margin-top: 8px;
+        }
+
+        .footer-link {
+            color: #21bdf6;
+            text-decoration: none;
+            margin: 0 8px;
+            font-size: 14px;
+        }
+
+        .footer-link:hover {
+            color: #00bbff;
+            text-decoration: underline;
+        }
+        
+        /* Image styling */
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #4a4a4a;
+            margin: 10px 0;
+        }
+        
+        /* Warning/Info boxes */
+        .info-box {
+            background: rgba(0, 122, 255, 0.1);
+            border-left: 4px solid #007aff;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .warning-box {
+            background: rgba(255, 149, 0, 0.1);
+            border-left: 4px solid #ff9500;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .success-box {
+            background: rgba(52, 199, 89, 0.1);
+            border-left: 4px solid #34c759;
+            padding: 15px;
+            margin: 20px 0;
+        }
     </style>
-
 </head>
 
 <body>
-
     <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MCJRDZ23"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MCJRDZ23"
-
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-
-<!-- End Google Tag Manager (noscript) -->
-
-<div class="star-bg"></div>
-
-     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M2P94THH"
-
+    <div class="star-bg"></div>
+    
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M2P94THH"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-
-
     <header class="header">
-
         <div class="tp">
-
             <a href="../index.html">HOME</a> &gt; <a href="#">MY ADD-ONS</a> &gt; TP POINTS
-
         </div>
-
         <h1 id="h1">UPRANKS+ ADD-ON</h1>
-
         <p style="color: #888; font-size: 10px;">CUSTOMIZABLE RANKS FOR MULTIPLAYER.</p>
-
     </header>
 
-
-
     <div class="fsbox">
-
-    <h1 id="tds">About The Addon</h1>
-
-    <iframe id="vid" width="500" height="280" src="https://www.youtube.com/embed/hu7Hk3gP6-U?si=XPMpE0ff3uR2dbaX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-    <p style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem;">
-
-        You can easily <br>
-         add, edit, and clear ranks for players, customize name and message colors, and apply various formatting styles such as bold, italic, and underline
+        <h1 id="tds">About The Addon</h1>
+        <iframe id="vid" width="500" height="280" src="https://www.youtube.com/embed/hu7Hk3gP6-U?si=XPMpE0ff3uR2dbaX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        
+        
+            <p style="text-align: left; color: #ccc; font-size: 11px; margin-bottom: 1rem;">
+                You can easily add, edit, and clear ranks for players, customize name and message colors, and apply various formatting styles such as bold, italic, and underline.
+            </p>
+        
     </div>
 
+    <div class="fsbox">
+        <h1 id="tds">Add-ON Features</h1>
+        
+       
+        
+        <p id="tdb">
+            - You can design any rank you want with your own name, style, and purpose. No limits — make staff ranks, VIP ranks, or fun cosmetic ranks.
+        </p>
+        
+        <p id="tdb">
+            - Assign, remove, or update ranks with clean UI-style commands. Your world owner or staff can control everything quickly and safely.
+        </p>
+        
+        <p id="tdb">
+            - Simple and intuitive interface
+        </p>
+        
+        <p id="tdb">
+            - Perfect for Multiplayer adventure and survival gameplay
+        </p>
+    </div>
 
+    <div class="fsbox">
+        <h1 id="tds">How To Use</h1>
+        
+        <h2 class="article-sub-heading">Default Rank</h2>
+        
+        <img id="imgscrafting" src="../Imgs/posts/ranksdefualt.jpg" alt="Default rank settings" height="270" width="500">
+        
+        
+            <p style="text-align: left; color: #fefefe; font-size: 11px; margin-bottom: 1rem;">
+                Default rank is set to be 'Member' and You will be able to change in future updates.
+            </p>
+        
 
-   <div class="fsbox">
+        <h2 class="article-sub-heading">Open UpRanks Menu</h2>
+        
+        
+        <div class="mc-command">
+            /tag (@s or the player name you want to have access) add admin
+        </div>
+        
+        <div class="warning-box">
+            <p style="text-align: left; color: #fefefe; font-size: 11px; margin-bottom: 1rem;">
+                After that you will have to type the command <strong>?rank</strong> in the chat and exit and this form will pop out.
+            </p>
+        </div>
+        
+        <img id="imgsstar" src="../Imgs/posts/chooseplr.jpg" alt="Player selection menu" height="270" width="500">
 
-    <h1 id="tds">Add-ON Features</h1>
+        <h2 class="article-sub-heading">Create Rank</h2>
+       
+        <img id="imgsstar" src="../Imgs/posts/menuedit.jpg" alt="Rank edit menu" height="270" width="500">
+        
+        
+            <p style="text-align: left; color: #fefefe; font-size: 11px; margin-bottom: 1rem;">
+                This form will appear you have (add rank, remove rank, remove all ranks, player name settings)<br><br>
+                To create a Rank for the player press on the first button
+            </p>
+       
+        
+        <img id="imgstype" src="../Imgs/posts/addrank.jpg" alt="Add rank interface" height="270" width="500">
+        
+       
+            <p style="text-align: left; color: #fefefe; font-size: 11px; margin-bottom: 1rem;">
+                To create the rank you will have to type the rank name and Select the type of bracket OR if you don't want leave it then select color, format of the Brackets and choose color and formatting of the rank and press submit and it should look like that
+            </p>
+        
+        
+        <img id="imgscreate" src="../Imgs/posts/testrank.jpg" alt="Test rank display" height="270" width="500">
+        
+        <div class="success-box">
+            <p style="text-align: left; color: #fefefe; font-size: 11px; margin-bottom: 1rem;">
+                As you can see the rank has been added successfully
+            </p>
+        </div>
 
-    <p id="tdb">
+        <h2 class="article-sub-heading">Edit Rank</h2>
+        
+        <img id="imgsfinish" src="../Imgs/posts/editrank.jpg" alt="Edit rank interface" height="270" width="500">
+        
+        
+            <p style="text-align: left; color: #fefefe; font-size: 11px; margin-bottom: 1rem;">
+                If you want to edit the rank all you have to do is going to the first menu and select edit ranks and this will show up and it will have all the ranks player have select one of them
+            </p>
+        
+        
+        <img id="imgsfinish" src="../Imgs/posts/editrank2.jpg" alt="Edit rank details" height="270" width="500">
+        
+        
+            <p style="text-align: left; color: #fefefe; font-size: 11px; margin-bottom: 1rem;">
+                Edit the Name of the rank and select submit and if you want to delete it enable the toggle and press submit, (changing ranks color,brackets will be available in next updates)
+            </p>
+        
 
-        - You can design any rank you want with your own name, style, and purpose. No limits — make staff ranks, VIP ranks, or fun cosmetic ranks. <br>
+        <h2 class="article-sub-heading">Change Player Name & Color</h2>
+        
+        <img id="imgsfinish" src="../Imgs/posts/plrsetting.jpg" alt="Player settings menu" height="270" width="500">
+        
+       
+            <p style="text-align: left; color: #fefefe; font-size: 11px; margin-bottom: 1rem;">
+                To change player (name,color) press on the player name setting button on the first menu<br><br>
+                After that this menu will appear if you want to change the player name press on the first button
+            </p>
+      
+        
+        <img id="imgsfinish" src="../Imgs/posts/success.jpg" alt="Success message" height="270" width="500">
+        
+        <div class="success-box">
+            <p style="text-align: left; color: #fefefe; font-size: 11px; margin-bottom: 1rem;">
+                Type the new name you want and it will change it successfully
+            </p>
+        </div>
 
-     </p>
+        <h2 class="article-sub-heading">Change Name Color</h2>
+        
+        <img id="imgsfinish" src="../Imgs/posts/editcolor.jpg" alt="Edit color interface" height="270" width="500">
+        
+        
+            <p style="text-align: left; color: #fefefe; font-size: 11px; margin-bottom: 1rem;">
+                You can from here change the player name color and formatting
+            </p>
+        
 
+        <h2 class="article-sub-heading">Testing</h2>
+        
+        <img id="imgsfinish" src="../Imgs/posts/plrnamechange.jpg" alt="Player name change" height="270" width="500">
+        
+        
+            <p style="text-align: left; color: #fefefe; font-size: 11px; margin-bottom: 1rem;">
+                It will change in the chat too
+            </p>
+        
+        
+        <img id="imgsfinish" src="../Imgs/posts/plrchangechat.jpg" alt="Player change in chat" height="270" width="500">
+    </div>
+
+    <div class="fsbox">
+        <h1 id="tds">Compatibility</h1>
+        
+        
+        <p id="tss" style="text-align: left; color: #ccc; font-size: 11px; margin-bottom: 1rem;">
+            MINECRAFT 1.21.0+
+        </p>
+        
+        <p id="tss" style="text-align: left; color: #ccc; font-size: 11px; margin-bottom: 1rem;">
+            - LOCAL MULTIPLAYER
+        </p>
+        
+        <p id="tss" style="text-align: left; color: #ccc; font-size: 11px; margin-bottom: 1rem;">
+            - MULTIPLAYER REALMS
+        </p>
+        
+        <p id="tss" style="text-align: left; color: #ccc; font-size: 11px; margin-bottom: 1rem;">
+            SURVIVAL MODE
+        </p>
+        
+        <p id="tss" style="text-align: left; color: #ccc; font-size: 11px; margin-bottom: 1rem;">
+            CREATIVE MODE
+        </p>
+        
+        <p id="tsx" style="text-align: left; color: #ccc; font-size: 11px; margin-bottom: 1rem;">
+            JAVA EDITION
+        </p>
+        
+        <p id="tsx" style="text-align: left; color: #ccc; font-size: 11px; margin-bottom: 1rem;">
+            BELOW 1.21.0
+        </p>
+    </div>
+
+    <div class="fsbox">
+        <h1 id="tds">Changelog</h1>
+        
+        
+        <ul style="padding-left: 20px; color:#aaa;line-hieght: 1.8px;">
+            <li><strong>v1.4</strong> - Supports 1.21.130
+            <li><strong>v1.3</strong> - Supports 1.21.120
+            <li><strong>v1.2</strong> - Added rank color customization
+            <li><strong>v1.1</strong> - Fixed multiplayer sync issues
+            <li><strong>v1.0</strong> - Initial release with basic rank system
+        </ul>
+    </div>
     
-
-        <p id="tdb">
-            - Assign, remove, or update ranks with clean UI-style commands. <br> Your world owner or staff can control everything quickly and safely. <br>
-
+    <div class="fsbox">
+        <h1 id="tds">Installation</h1>
+        
+        
+        
+        <p id="tdu" style="text-align: left; color: #fefefe; font-size: 11px; margin-bottom: 1rem; background-color: #6a6a6a85; line-height: 2;">
+            WINDOWS 10/11:
+        </p>
+        
+        <p id="tsm" style="text-align: left; color: #ccc; font-size: 11px; margin-bottom: 1rem; line-height: 2;">
+            1. DOWNLOAD THE .MCPACK FILE.<br>
+            2. DOUBLE-CLICK TO IMPORT.<br>
+            3. ENABLE THE "BETA APIS" EXPERIMENT.<br>
+            4. ACTIVATE BEHAVIOR PACK.
+        </p>
+        
+        <p id="tdu" style="text-align: left; color: #fefefe; font-size: 11px; margin-bottom: 1rem; background-color: #6a6a6a85; line-height: 2;">
+            ANDROID / IOS (MCPE):
+        </p>
+        
+        <p id="tsm" style="text-align: left; color: #ccc; font-size: 11px; margin-bottom: 1rem; line-height: 2;">
+            1. DOWNLOAD FILE.<br>
+            2. OPEN WITH MINECRAFT.<br>
+            3. GO TO WORLD SETTINGS > EXPERIMENTS.<br>
+            4. YOU MUST ENABLE "BETA APIS"!<br>
+        </p>
+    </div>
+    
+    <div class="fsbox">
+        <h2 id="tds">↓ Download</h2>
+        
+        <div class="warning-box">
+            <p style="text-align: left; color: #ccc; font-size: 11px; margin-bottom: 1rem;">
+                Click the button below to download the UpRanks+ Add-On for Minecraft.
             </p>
- <p id="tdb">
-
-        - Simple and intuitive interface <br>
-
-     </p>
-        <p id="tdb">
-
-            - Perfect for Multiplayer adventure and survival gameplay <br>
-
-         </p>
-
-   </div>
-
-
-
- <div class="fsbox">
-
-    <h1 id="tds">How To Use</h1>
-
-    <p id="tdu">
-
-        Deafult Rank 
-
-    </p>
-
-    <img id="imgscrafting" src="../Imgs/posts/ranksdefualt.jpg" alt="" height="270" width="500" style="border: #4a4a4a 2px solid;justify-content: center;">
-<p style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem;">
-
-        Default rank is set to be 'Member' and You will be able to change in future updates.
-    <p id="tdu">
-
-        Open UpRanks Menu
-
-    </p>
-
-    <p id="tdb" style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem;">/tag (@s or the player name you want to have access) add admin</p>
-
-        <p id="tdb" style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem;">After that you will have to type the command</p>
-<p id="tdb" style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem;">?rank in the chat and exit and this form will pop out </p>
-       <img id="imgsstar" src="../Imgs/posts/chooseplr.jpg" alt="" height="270" width="500" style="border: #4a4a4a 2px solid;">
-
-     <p id="tdu">
-
-        Create Rank
-
-    </p>
-
-    <img id="imgsstar" src="../Imgs/posts/menuedit.jpg" alt="" height="270" width="500" style="border: #4a4a4a 2px solid;">
-
-    <p style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem;">
-
-        This form will appear you have <br> (add rank , remove rank, remove all ranks , player name settings)
-<br>
-To create a Rank for the player press on the first button 
-
-    </p>
-
-    <img id="imgstype" src="../Imgs/posts/addrank.jpg" alt="" height="270" width="500" style="border: #4a4a4a 2px solid;">
-
-    <p style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem;">
-
-       To create the rank you will have to type the rank name and Select the type of bracket <br> OR if you don't want leave it then select color, format of the Brackets and choose color and formatting of the rank and press submit and it should look like that
-    </p>
-
-    <img id="imgscreate" src="../Imgs/posts/testrank.jpg" alt="" height="270" width="500" style="border: #4a4a4a 2px solid;">
-
-    <p style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem;">
-       As you can see the rank has been added successfully 
-
-    </p>
-     <p id="tdu">
-
-        Edit Rank
-
-    </p>
-    <img id="imgsfinish" src="../Imgs/posts/editrank.jpg" alt="" height="270" width="500" style="border: #4a4a4a 2px solid;">
-
-    <p style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem;">
-
-        If you want to edit the rank all you have to do is going to the first menu and select edit ranks and this will show up and it will have all the ranks player have select one of them 
-
-    </p>
-<img id="imgsfinish" src="../Imgs/posts/editrank2.jpg" alt="" height="270" width="500" style="border: #4a4a4a 2px solid;">
-
-    <p style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem;">
-
-        Edit the Name of the rank and select submit and if you want to delete it enable the toggle and press submit , (changing ranks color,brackets will be available in next updates)
-
-    </p>
-     <p id="tdu">
-
-        Change Player Name & Color
-
-    </p>
-    <img id="imgsfinish" src="../Imgs/posts/plrsetting.jpg" alt="" height="270" width="500" style="border: #4a4a4a 2px solid;">
-
-    <p style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem;">
-
-        To change player (name,color) press on the player name setting button on the first menu
-
-After that this menu will appear if you want to change the player name press on the first button 
-
-    </p>
-    <img id="imgsfinish" src="../Imgs/posts/success.jpg" alt="" height="270" width="500" style="border: #4a4a4a 2px solid;">
-
-    <p style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem;">
-
-        Type the new name you want and it will change it successfully
-
-    </p>
-     <p id="tdu">
-
-        Change Name Color
-
-    </p>
-     <img id="imgsfinish" src="../Imgs/posts/editcolor.jpg" alt="" height="270" width="500" style="border: #4a4a4a 2px solid;">
-
-    <p style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem;">
-
-        You can from here change the player name color and formatting
-
-    </p>
-     <p id="tdu">
-
-        Testing
-
-    </p>
-     <img id="imgsfinish" src="../Imgs/posts/plrnamechange.jpg" alt="" height="270" width="500" style="border: #4a4a4a 2px solid;">
-
-    <p style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem;">
-
-        It will change in the chat too
-
-    </p>
-    <img id="imgsfinish" src="../Imgs/posts/plrchangechat.jpg" alt="" height="270" width="500" style="border: #4a4a4a 2px solid;">
- </div>
-
-
-
- <div class="fsbox">
-
-   <h1 id="tds">Compatibility</h1>
-
-  <p id="tss" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
-
-         MINECRAFT 1.21.0+ <br>
-
-     </p>
-
-        <p id="tss" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
-
-            -LOCAL MULTIPLAYER  <br>
-
-            </p>
-
-        <p id="tss" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
-
-            -MULTIPLAYER REALMS <br>    
-
-            </p>
-
-        <p id="tss" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
-
-             SURVIVAL MODE <br>    
-
-            </p>
-
-            <p id="tss" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
-
-                CREATIVE MODE <br>
-
-            </p>
-
-            <p id="tsx" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
-
-                JAVA EDITION <br>
-
-            </p>
-
-            <p id="tsx" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
-
-                BELOW 1.21.0 <br>
-
-            </p>
-
- </div>
-
-                 <div class="fsbox">
-                           <h1 id="tds">Changelog</h1>   
-                              <ul style="padding-left: 20px; color:#aaa;">
-                <li><strong>v1.4</strong> Supports 1.21.130</li>
-                <li><strong>v1.3</strong> Supports 1.21.120</li>
-            </ul>
-                 </div>
-                 <div class="fsbox">
-                           <h1 id="tds">Installation</h1>   
-                              
-<p id="tdu" style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem; background-color: #6a6a6a85; line-height: 2;">
-
-                                           WINDOWS 10/11:
-</p>
-                                           <p id="tsm" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; line-height: 2;">
-1. DOWNLOAD THE .MCPACK FILE.<br>
-2. DOUBLE-CLICK TO IMPORT.<br>
-3. ENABLE THE "BETA APIS" EXPERIMENT.<br>
-4. ACTIVATE BEHAVIOR PACK.<br>
-                              </p>
-<p id="tdu" style="text-align : left; color: #fefefe; font-size: 11px;  margin-bottom: 1rem; background-color: #6a6a6a85; line-height: 2;">
-
-ANDROID / IOS (MCPE):
-</p>
-      <p id="tsm" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; line-height: 2;">
-1. DOWNLOAD FILE.<br>
-2. OPEN WITH MINECRAFT.<br>
-3. GO TO WORLD SETTINGS > EXPERIMENTS.<br>
-4. YOU MUST ENABLE "BETA APIS"!<br>
-</p>       
-                 </div>
-                              <div class="fsbox">
-                           <h2 id="tds">↓ Download</h2>   
-                                           <p id="tsm" style="text-align : left; color: #ccc; font-size: 11px;  margin-bottom: 1rem; ">
-                            Click the button below to download the UpRanks+ Add-On for Minecraft.
-                                           </p>
-                                            <button id="Download">Press Here</button>   
-                                           <!-- Mini-game shown during countdown -->
-                                           <div id="mini-game-container">
-                                               <div id="mini-game-msg">You can play while the download prepares!</div>
-                                               <canvas id="mini-game" width="480" height="220" aria-label="Mini game"></canvas>
-                                               <div style="color:#999; font-size:11px; margin-top:6px;">Have fun — the download will be ready soon.</div>
-                                           </div>
-                                           </div>
-
-<footer class="site-footer">
-
-                <div class="footer-bar">
-
-                    <div class="footer-text">© 2025 Mannooma10k. All rights reserved.<br>NOT AN OFFICIAL MINECRAFT PRODUCT<br>This site is not affiliated with MojangStudios</div>
-
-                    <div class="footer-links"><a href="../legal/terms-of-use.html" class="footer-link">Terms</a> <span class="sep">|</span> <a href="../legal/privacy-policy.html" class="footer-link">Privacy</a></div>
-
-                </div>
-
-            </footer>
-
-<script>
-// Download button: start 5s countdown on first press, then enable final download click
-(function(){
-    const dlBtn = document.getElementById('Download');
-    const miniContainer = document.getElementById('mini-game-container');
-    const canvas = document.getElementById('mini-game');
-    if (!dlBtn) return;
-    const target = 'https://www.curseforge.com/minecraft-bedrock/addons/upranks/files/all?page=1&pageSize=20&showAlphaFiles=hide';
-    let state = 'idle'; // idle | counting | ready
-    let timer = null;
-
-    // audio
-    const clickSound = new Audio('../src/ogg.mp3');
-    const boomSound = new Audio('../src/boom.mp3');
-    clickSound.preload = 'auto'; boomSound.preload = 'auto';
-
-    // --- Mini game state ---
-    let rafId = null;
-    let ctx = null;
-    let dpr = window.devicePixelRatio || 1;
-    let ship = null;
-    let shipImg = new Image();
-    // ensure proper encoding for filename with spaces
-    shipImg.src = encodeURI('../Imgs/avatarHead3 (1).png');
-    let shipImgLoaded = false;
-    shipImg.onload = () => { shipImgLoaded = true; };
-    let bullets = [];
-    let enemies = [];
-    let lastSpawn = 0;
-    let score = 0;
-    let keys = {};
-    let pointerActive = false; // track pointer pressed state so desktop mouse doesn't move ship on hover
-
-    function resizeCanvas(){
-        if (!canvas) return;
-        const rect = canvas.getBoundingClientRect();
-        dpr = window.devicePixelRatio || 1;
-        canvas.width = Math.max(240, Math.floor(rect.width * dpr));
-        canvas.height = Math.max(120, Math.floor(rect.height * dpr));
-        if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-
-    function spawnEnemy(){
-        const w = 16;
-        enemies.push({ x: Math.random()*(canvas.width/dpr - w), y: -20, w: w, h: w, vy: 1 + Math.random()*1.2 });
-    }
-
-    function startGame(){
-        if (!canvas) return;
-        miniContainer.style.display = 'block';
-        ctx = canvas.getContext('2d');
-        resizeCanvas();
-        // start the ship slightly higher so it's not flush to the bottom
-        ship = { x: (canvas.width/dpr)/2, y: (canvas.height/dpr)-75, w: 28, h: 28, vx:0 };
-        bullets = [];
-        enemies = [];
-        score = 0;
-        lastSpawn = performance.now();
-
-        // input
-        window.addEventListener('keydown', onKeyDown);
-        window.addEventListener('keyup', onKeyUp);
-        canvas.addEventListener('pointerdown', onPointerDown);
-        canvas.addEventListener('pointermove', onPointerMove);
-        canvas.addEventListener('pointerup', onPointerUp);
-
-        // start loop
-        let last = performance.now();
-        function loop(now){
-            const dt = Math.min(40, now - last);
-            last = now;
-            update(dt);
-            draw();
-            rafId = requestAnimationFrame(loop);
-        }
-        rafId = requestAnimationFrame(loop);
-    }
-
-    function stopGame(){
-        if (rafId) cancelAnimationFrame(rafId);
-        rafId = null;
-        // remove listeners
-        window.removeEventListener('keydown', onKeyDown);
-        window.removeEventListener('keyup', onKeyUp);
-        if (canvas) {
-            canvas.removeEventListener('pointerdown', onPointerDown);
-            canvas.removeEventListener('pointermove', onPointerMove);
-            canvas.removeEventListener('pointerup', onPointerUp);
-        }
-        // keep the container visible by design (user requested it not disappear)
-        // but clear interval/animations if needed (we don't call stopGame after countdown now)
-    }
-
-    function onKeyDown(e){
-        // movement keys
-        keys[e.code] = true;
-        // shoot on Space
-        if (e.code === 'Space') {
-            e.preventDefault();
-            shoot();
-        }
-    }
-    function onKeyUp(e){ keys[e.code]=false; }
-    function onPointerDown(e){
-        pointerActive = true;
-        // shoot on pointer down; also move ship toward pointer
-        const rect = canvas.getBoundingClientRect();
-        const px = (e.clientX - rect.left) * (canvas.width/rect.width);
-        ship.x = px / dpr - ship.w/2;
-        shoot();
-    }
-    function onPointerMove(e){
-        if (!pointerActive) return; // only move when finger/mouse is pressed
-        const rect = canvas.getBoundingClientRect();
-        const px = (e.clientX - rect.left) * (canvas.width/rect.width);
-        ship.x = px / dpr - ship.w/2;
-    }
-    function onPointerUp(e){ pointerActive = false; }
-
-    function shoot(){
-        bullets.push({ x: ship.x + ship.w/2, y: ship.y - 6, vy: -6 });
-        // limit bullets
-        if (bullets.length > 6) bullets.shift();
-    }
-
-    function update(dt){
-        // spawn enemies
-        const now = performance.now();
-        if (now - lastSpawn > 800) { spawnEnemy(); lastSpawn = now; }
-
-        // controls: horizontal and vertical (WASD or arrows)
-        if (keys['ArrowLeft'] || keys['KeyA']) ship.x -= 3;
-        if (keys['ArrowRight'] || keys['KeyD']) ship.x += 3;
-        if (keys['ArrowUp'] || keys['KeyW']) ship.y -= 3;
-        if (keys['ArrowDown'] || keys['KeyS']) ship.y += 3;
-
-        // clamp
-        ship.x = Math.max(0, Math.min((canvas.width/dpr)-ship.w, ship.x));
-        ship.y = Math.max(0, Math.min((canvas.height/dpr)-ship.h, ship.y));
-
-        // update bullets
-        bullets.forEach(b => b.y += b.vy);
-        bullets = bullets.filter(b => b.y > -20);
-
-        // update enemies
-        enemies.forEach(en => en.y += en.vy);
-        enemies = enemies.filter(en => en.y < (canvas.height/dpr)+50);
-
-        // collisions
-        for (let i = enemies.length-1; i>=0; i--) {
-            const en = enemies[i];
-            for (let j = bullets.length-1; j>=0; j--) {
-                const b = bullets[j];
-                if (b.x > en.x && b.x < en.x + en.w && b.y > en.y && b.y < en.y + en.h) {
-                    // hit
-                    enemies.splice(i,1); bullets.splice(j,1); score += 10;
-                    try { boomSound.currentTime = 0; boomSound.play().catch(()=>{}); } catch(e){}
-                    break;
+        </div>
+        
+        <button id="Download">Press Here</button>
+        
+        <!-- Mini-game shown during countdown -->
+        <div id="mini-game-container">
+            <div id="mini-game-msg">You can play while the download prepares!</div>
+            <canvas id="mini-game" max-width="0" height="0" aria-label="Mini game"></canvas>
+            <div style="color:#999; font-size:11px; margin-top:6px;">Have fun — the download will be ready soon.</div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-bar">
+            <div class="footer-text">© 2025 Mannooma10k. All rights reserved.<br>NOT AN OFFICIAL MINECRAFT PRODUCT<br>This site is not affiliated with Mojang Studios</div>
+            <div class="footer-links">
+                <a href="../legal/terms-of-use.html" class="footer-link">Terms</a>
+                <span class="sep">|</span>
+                <a href="../legal/privacy-policy.html" class="footer-link">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Download button: start 5s countdown on first press, then enable final download click
+        (function(){
+            const dlBtn = document.getElementById('Download');
+            const miniContainer = document.getElementById('mini-game-container');
+            const canvas = document.getElementById('mini-game');
+            if (!dlBtn) return;
+            const target = 'https://www.curseforge.com/minecraft-bedrock/addons/upranks/files/all?page=1&pageSize=20&showAlphaFiles=hide';
+            let state = 'idle'; // idle | counting | ready
+            let timer = null;
+
+            // audio
+            const clickSound = new Audio('../src/ogg.mp3');
+            const boomSound = new Audio('../src/boom.mp3');
+            clickSound.preload = 'auto'; boomSound.preload = 'auto';
+
+            // --- Mini game state ---
+            let rafId = null;
+            let ctx = null;
+            let dpr = window.devicePixelRatio || 1;
+            let ship = null;
+            let shipImg = new Image();
+            // ensure proper encoding for filename with spaces
+            shipImg.src = encodeURI('../Imgs/avatarHead3 (1).png');
+            let shipImgLoaded = false;
+            shipImg.onload = () => { shipImgLoaded = true; };
+            let bullets = [];
+            let enemies = [];
+            let lastSpawn = 0;
+            let score = 0;
+            let keys = {};
+            let pointerActive = false; // track pointer pressed state so desktop mouse doesn't move ship on hover
+
+            function resizeCanvas(){
+                if (!canvas) return;
+                const rect = canvas.getBoundingClientRect();
+                dpr = window.devicePixelRatio || 1;
+                canvas.width = Math.max(0, Math.floor(rect.width * dpr));
+                canvas.height = Math.max(0, Math.floor(rect.height * dpr));
+                if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+
+            function spawnEnemy(){
+                const w = 16;
+                enemies.push({ x: Math.random()*(canvas.width/dpr - w), y: -20, w: w, h: w, vy: 1 + Math.random()*1.2 });
+            }
+
+            function startGame(){
+                if (!canvas) return;
+                miniContainer.style.display = 'block';
+                ctx = canvas.getContext('2d');
+                resizeCanvas();
+                // start the ship slightly higher so it's not flush to the bottom
+                ship = { x: (canvas.width/dpr)/2, y: (canvas.height/dpr)-100, w: 28, h: 28, vx:0 };
+                bullets = [];
+                enemies = [];
+                score = 0;
+                lastSpawn = performance.now();
+
+                // input
+                window.addEventListener('keydown', onKeyDown);
+                window.addEventListener('keyup', onKeyUp);
+                canvas.addEventListener('pointerdown', onPointerDown);
+                canvas.addEventListener('pointermove', onPointerMove);
+                canvas.addEventListener('pointerup', onPointerUp);
+
+                // start loop
+                let last = performance.now();
+                function loop(now){
+                    const dt = Math.min(40, now - last);
+                    last = now;
+                    update(dt);
+                    draw();
+                    rafId = requestAnimationFrame(loop);
+                }
+                rafId = requestAnimationFrame(loop);
+            }
+
+            function stopGame(){
+                if (rafId) cancelAnimationFrame(rafId);
+                rafId = null;
+                // remove listeners
+                window.removeEventListener('keydown', onKeyDown);
+                window.removeEventListener('keyup', onKeyUp);
+                if (canvas) {
+                    canvas.removeEventListener('pointerdown', onPointerDown);
+                    canvas.removeEventListener('pointermove', onPointerMove);
+                    canvas.removeEventListener('pointerup', onPointerUp);
+                }
+                // keep the container visible by design (user requested it not disappear)
+                // but clear interval/animations if needed (we don't call stopGame after countdown now)
+            }
+
+            function onKeyDown(e){
+                // movement keys
+                keys[e.code] = true;
+                // shoot on Space
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    shoot();
                 }
             }
-        }
-    }
-
-    function draw(){
-        if (!ctx) return;
-        const w = canvas.width, h = canvas.height;
-        // clear
-        ctx.fillStyle = '#111'; ctx.fillRect(0,0,w,h);
-
-        // score
-        ctx.fillStyle = '#fff'; ctx.font = '12px monospace'; ctx.textAlign = 'left';
-        ctx.fillText('Score: ' + score, 8, 16);
-
-        // enemies
-        ctx.fillStyle = '#999';
-        enemies.forEach(en => {
-            ctx.fillRect(en.x*dpr, en.y*dpr, en.w*dpr, en.h*dpr);
-        });
-
-        // bullets
-        ctx.fillStyle = '#ffd54f';
-        bullets.forEach(b => ctx.fillRect((b.x-1)*dpr, (b.y-6)*dpr, 2*dpr, 6*dpr));
-
-        // ship (image if loaded, else triangle)
-        const sx = ship.x*dpr, sy = ship.y*dpr;
-        if (shipImgLoaded) {
-            try { ctx.drawImage(shipImg, sx, sy, ship.w*dpr, ship.h*dpr); } catch(e) {}
-        } else {
-            ctx.fillStyle = '#cfcfcf';
-            ctx.beginPath();
-            ctx.moveTo(sx + (ship.w/2)*dpr, sy);
-            ctx.lineTo(sx, sy + ship.h*dpr);
-            ctx.lineTo(sx + ship.w*dpr, sy + ship.h*dpr);
-            ctx.closePath(); ctx.fill();
-        }
-    }
-
-    function startCountdown(seconds){
-        state = 'counting';
-        dlBtn.disabled = true;
-        let remaining = seconds;
-        dlBtn.textContent = `Download (${remaining})`;
-        // start the mini-game
-        startGame();
-        timer = setInterval(() => {
-            remaining -= 1;
-            if (remaining > 0) {
-                dlBtn.textContent = `Download (${remaining})`;
-            } else {
-                clearInterval(timer);
-                timer = null;
-                state = 'ready';
-                dlBtn.disabled = false;
-                dlBtn.textContent = 'Download';
-                // do NOT stop the mini-game here (user requested game remain visible)
+            function onKeyUp(e){ keys[e.code]=false; }
+            function onPointerDown(e){
+                pointerActive = true;
+                // shoot on pointer down; also move ship toward pointer
+                const rect = canvas.getBoundingClientRect();
+                const px = (e.clientX - rect.left) * (canvas.width/rect.width);
+                ship.x = px / dpr - ship.w/2;
+                shoot();
             }
-        }, 1000);
-    }
+            function onPointerMove(e){
+                if (!pointerActive) return; // only move when finger/mouse is pressed
+                const rect = canvas.getBoundingClientRect();
+                const px = (e.clientX - rect.left) * (canvas.width/rect.width);
+                ship.x = px / dpr - ship.w/2;
+            }
+            function onPointerUp(e){ pointerActive = false; }
 
-    dlBtn.addEventListener('click', function(e){
-        try { clickSound.currentTime = 0; clickSound.play().catch(()=>{}); } catch(e){}
-        if (state === 'idle') {
-            // first press: start countdown
-            startCountdown(5);
-        } else if (state === 'ready') {
-            // ready: proceed to download
-            window.location.href = target;
-        } else {
-            // counting: do nothing
-            e.preventDefault();
+            function shoot(){
+                bullets.push({ x: ship.x + ship.w/2, y: ship.y - 6, vy: -6 });
+                // limit bullets
+                if (bullets.length > 6) bullets.shift();
+            }
+
+            function update(dt){
+                // spawn enemies
+                const now = performance.now();
+                if (now - lastSpawn > 800) { spawnEnemy(); lastSpawn = now; }
+
+                // controls: horizontal and vertical (WASD or arrows)
+                if (keys['ArrowLeft'] || keys['KeyA']) ship.x -= 3;
+                if (keys['ArrowRight'] || keys['KeyD']) ship.x += 3;
+                if (keys['ArrowUp'] || keys['KeyW']) ship.y -= 3;
+                if (keys['ArrowDown'] || keys['KeyS']) ship.y += 3;
+
+                // clamp
+                ship.x = Math.max(0, Math.min((canvas.width/dpr)-ship.w, ship.x));
+                ship.y = Math.max(0, Math.min((canvas.height/dpr)-ship.h, ship.y));
+
+                // update bullets
+                bullets.forEach(b => b.y += b.vy);
+                bullets = bullets.filter(b => b.y > -20);
+
+                // update enemies
+                enemies.forEach(en => en.y += en.vy);
+                enemies = enemies.filter(en => en.y < (canvas.height/dpr)+50);
+
+                // collisions
+                for (let i = enemies.length-1; i>=0; i--) {
+                    const en = enemies[i];
+                    for (let j = bullets.length-1; j>=0; j--) {
+                        const b = bullets[j];
+                        if (b.x > en.x && b.x < en.x + en.w && b.y > en.y && b.y < en.y + en.h) {
+                            // hit
+                            enemies.splice(i,1); bullets.splice(j,1); score += 10;
+                            try { boomSound.currentTime = 0; boomSound.play().catch(()=>{}); } catch(e){}
+                            break;
+                        }
+                    }
+                }
+            }
+
+            function draw(){
+                if (!ctx) return;
+                const w = canvas.width, h = canvas.height;
+                // clear
+                ctx.fillStyle = '#111'; ctx.fillRect(0,0,w,h);
+
+                // score
+                ctx.fillStyle = '#fff'; ctx.font = '12px monospace'; ctx.textAlign = 'left';
+                ctx.fillText('Score: ' + score, 8, 16);
+
+                // enemies
+                ctx.fillStyle = '#999';
+                enemies.forEach(en => {
+                    ctx.fillRect(en.x*dpr, en.y*dpr, en.w*dpr, en.h*dpr);
+                });
+
+                // bullets
+                ctx.fillStyle = '#ffd54f';
+                bullets.forEach(b => ctx.fillRect((b.x-1)*dpr, (b.y-6)*dpr, 2*dpr, 6*dpr));
+
+                // ship (image if loaded, else triangle)
+                const sx = ship.x*dpr, sy = ship.y*dpr;
+                if (shipImgLoaded) {
+                    try { ctx.drawImage(shipImg, sx, sy, ship.w*dpr, ship.h*dpr); } catch(e) {}
+                } else {
+                    ctx.fillStyle = '#cfcfcf';
+                    ctx.beginPath();
+                    ctx.moveTo(sx + (ship.w/2)*dpr, sy);
+                    ctx.lineTo(sx, sy + ship.h*dpr);
+                    ctx.lineTo(sx + ship.w*dpr, sy + ship.h*dpr);
+                    ctx.closePath(); ctx.fill();
+                }
+            }
+
+            function startCountdown(seconds){
+                state = 'counting';
+                dlBtn.disabled = true;
+                let remaining = seconds;
+                dlBtn.textContent = `Download (${remaining})`;
+                // start the mini-game
+                startGame();
+                timer = setInterval(() => {
+                    remaining -= 1;
+                    if (remaining > 0) {
+                        dlBtn.textContent = `Download (${remaining})`;
+                    } else {
+                        clearInterval(timer);
+                        timer = null;
+                        state = 'ready';
+                        dlBtn.disabled = false;
+                        dlBtn.textContent = 'Download';
+                        // do NOT stop the mini-game here (user requested game remain visible)
+                    }
+                }, 1000);
+            }
+
+            dlBtn.addEventListener('click', function(e){
+                try { clickSound.currentTime = 0; clickSound.play().catch(()=>{}); } catch(e){}
+                if (state === 'idle') {
+                    // first press: start countdown
+                    startCountdown(5);
+                } else if (state === 'ready') {
+                    // ready: proceed to download
+                    window.location.href = target;
+                } else {
+                    // counting: do nothing
+                    e.preventDefault();
+                }
+            });
+
+            // keep canvas sized on resize
+            window.addEventListener('resize', () => { if (miniContainer && miniContainer.style.display !== 'none') resizeCanvas(); });
+
+        })();
+        
+        // Copy code function from second design
+        function copyCode(button) {
+            const codeBox = button.parentElement.parentElement;
+            const codeText = codeBox.textContent;
+            
+            // Create a temporary textarea to copy from
+            const textarea = document.createElement('textarea');
+            textarea.value = codeText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            
+            // Visual feedback
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.classList.remove('copied');
+            }, 2000);
         }
-    });
-
-    // keep canvas sized on resize
-    window.addEventListener('resize', () => { if (miniContainer && miniContainer.style.display !== 'none') resizeCanvas(); });
-
-})();
-</script>
-
+        
+        // Add copy buttons to all code boxes on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBoxes = document.querySelectorAll('.code-box');
+            codeBoxes.forEach(box => {
+                const header = box.querySelector('.code-header');
+                if (header && !header.querySelector('.copy-btn')) {
+                    const title = header.querySelector('.code-title');
+                    if (title && title.textContent.includes('Example') || title.textContent.includes('Guide') || title.textContent.includes('History')) {
+                        const copyBtn = document.createElement('button');
+                        copyBtn.className = 'copy-btn';
+                        copyBtn.textContent = 'Copy';
+                        copyBtn.onclick = function() { copyCode(this); };
+                        header.appendChild(copyBtn);
+                    }
+                }
+            });
+        });
+    </script>
 </body>
-
-
 </html>
-
