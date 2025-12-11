@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+
+<url>
+  <loc>https://mannooma10k.github.io/</loc>
+  <lastmod>2025-12-11T05:53:31+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://mannooma10k.github.io/posts/tp_points</loc>
+  <lastmod>2025-12-11T05:53:31+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mannooma10k.github.io/posts/upranks.html</loc>
+  <lastmod>2025-12-11T05:53:31+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mannooma10k.github.io/posts/healthbar.html</loc>
+  <lastmod>2025-12-11T05:53:31+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mannooma10k.github.io/legal/privacy-policy.html</loc>
+  <lastmod>2025-12-11T05:53:31+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mannooma10k.github.io/legal/terms-of-use.html</loc>
+  <lastmod>2025-12-11T05:53:31+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+</urlset>
