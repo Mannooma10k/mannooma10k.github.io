@@ -910,7 +910,83 @@ img, video, iframe, embed { max-width: 100%; height: auto; display: block; }
 
 }
 
+/* --- NEW FLOATING MENU STYLES --- */
 
+/* 1. Hide the new floating button on Desktop */
+#mobile-menu-button {
+    display: none;
+    z-index: 10001; /* Above everything */
+     background-color: #252525; /* Light gray background */
+        border: 2px solid #4a4a4a;
 
-   
+}
+
+#mobile-menu-button:hover {
+    background: #08cc22;
+    border-color: black;
+    transform: translateY(-4px);
+}
+
+/* 2. Mobile Specific Styles */
+@media (max-width: 768px) {
+    
+    /* Show the button and position it above the Dark Mode button */
+    #mobile-menu-button {
+        display: block;
+        bottom: 70px; /* 20px (bottom) + 40px (btn height) + 10px (gap) */
+        right: 20px;
+        position: fixed;
+    }
+
+    /* 3. Transform the Fullscreen Overlay into a Small Popover */
+    .mobile-menu-overlay {
+        /* Keep it inset 0 so clicking outside still closes it (via JS) */
+        background: transparent; /* Remove dark background */
+        align-items: flex-end;   /* Align menu to bottom */
+        justify-content: flex-end; /* Align menu to right */
+        
+        /* Position the inner box relative to the buttons */
+        padding-bottom: 70px;    /* Align with the top button */
+        padding-right: 70px;     /* Push to the left of the buttons */
+    }
+
+    /* The actual small menu box */
+    .mobile-menu-inner {
+        width: 160px;          /* Small width */
+        max-width: none;       /* Remove desktop limits */
+        height: auto;          /* Auto height */
+        padding: 8px;
+        border-radius: 6px;
+        
+        /* Visuals to match the theme */
+        background: #2f2f2f;
+        border: 2px solid #ffa600; /* Orange border to pop */
+        box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+        
+        /* Reset layout for small list */
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    /* Hide the 'X' close button inside the menu (since we have the toggle button) */
+    .mobile-menu-inner .close-menu-btn {
+        display: none;
+    }
+
+    /* Style the links inside to be compact */
+    .mobile-nav .nav-button {
+        width: 100%;
+        text-align: center;
+        padding: 8px;
+        font-size: 10px;
+        margin: 0;
+        background: #3a3a3a;
+    }
+
+    /* Ensure the mobile header justifies correctly without the button */
+    .mobile-header .mobile-inner {
+        justify-content: flex-start; /* Keep logo/title left aligned */
+    }
+}
 
