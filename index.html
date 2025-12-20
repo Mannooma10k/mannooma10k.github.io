@@ -42,38 +42,52 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   
 <style>
-    .headerpc {
-        border: 4px solid #333;
-         margin-right: auto;
-         margin-left: auto;
-    }
-    .adfooter {
-        border: 4px solid #333;
-         margin-right: auto;
-         margin-left: auto;
-    }
-    .headermobile {
-        border: 4px solid #333;
-         margin-right: auto;
-         margin-left: auto;
-    }
-    
-    @media (max-width: 768px) {
-                #ftext {
-            font-size: 8px;
+/* --- ADVERTISEMENT STYLES --- */
+.headerpc, .headermobile, .adsposts, .adfooter {
+    border: 2px solid #ffa600;
+    margin: 10px auto; /* Centers the ad */
+    width: fit-content; /* CRITICAL: Makes border wrap tight */
+    background-color: rgba(255, 166, 0, 0.05);
+    display: block;
+}
+
+/* Size Placeholders */
+.headerpc { max-width: 728px; max-height: 95px; }
+.headermobile { max-width: 320px; max-height: 50px; }
+.adsposts {
+                width: 160px;  /* Force exact width */
+                height: 600px; /* Force exact height */
+                border: 2px solid #ffa600;
+                margin: 2px auto; /* Center it in its grid cell */
+                background-color: rgba(255, 166, 0, 0.05);
+                
+                /* Centering Magic */
+                display: flex;
+                justify-content: center;
+                
+                /* Grid Magic: Span 2 rows so it doesn't break the layout */
+                grid-row: span 9; 
+            }
+.adfooter { max-width: 468px; max-height: 63px; }
+
+/* Responsive Logic */
+@media (max-width: 768px) {
+    .headerpc { display: none; }
+    .headermobile { display: block; }
+    #ftext { font-size: 8px; }
+     .adsposts { 
+                    grid-row: auto; /* Reset row span on mobile */
+                    margin: 20px auto;
                 }
-        .headerpc {
-            display: none;
-        }
-    }
-     @media (min-width: 768px) {
-                #ftext {
-            font-size: 10px;
+                .adfooter {
+                    max-width: 475px; max-height: 63px;
                 }
-        .headermobile {
-            display: none;
-        }
-    }
+}
+@media (min-width: 769px) {
+    .headermobile { display: none; }
+    .headerpc { display: block; }
+    #ftext { font-size: 10px; }
+}
 </style>
     
 
@@ -130,19 +144,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <!-- Mobile header (only shown on small screens) -->
 
             <header class="mobile-header" aria-hidden="false">
-
                 <div class="mobile-inner">
-
                     <img id="reload" src="Imgs/Mannooma.png" alt="logo" class="mobile-logo">
-
                     <div id="reload" class="mobile-title">My Add-Ons</div>
+                    </div>
+            </header>
 
-                    <button id="mobile-menu-button" class="mobile-menu-toggle" aria-label="Open mobile menu">
-                        <i class="fa-solid fa-bars fa-2xl"></i>
-                    </button>
+</div>
 
-                </div>
+         <button id="mobile-menu-button" class="button-changer mobile-menu-toggle" aria-label="Open mobile menu">
+            <i class="fa-solid fa-bars"></i>
+         </button>
 
+        
             </header>
 
             <!-- Mobile menu overlay (hidden by default) -->
@@ -192,18 +206,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <div class="headerpc">
-    <script type="text/javascript">
+ <script type="text/javascript">
   atOptions = {
-  	'key' : '250249f9d8db0c06d612b13c86a064fa',
+  	'key' : '1142ace3ae4a8e86aebe3c69f7a80bd2',
   	'format' : 'iframe',
-  	'height' : 600,
-  	'width' : 160,
+  	'height' : 90,
+  	'width' : 728,
   	'params' : {}
   };
 </script>
 <script
   type="text/javascript"
-  src="https://www.highperformanceformat.com/250249f9d8db0c06d612b13c86a064fa/invoke.js"
+  src="https://www.highperformanceformat.com/1142ace3ae4a8e86aebe3c69f7a80bd2/invoke.js"
 ></script>
 </div>
 
@@ -284,9 +298,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                <p class="post-excerpt">set points and instantly teleport across your world.</p>
 
            </article>
-
-
-
+<div class="adsposts">
+<script type="text/javascript">
+  atOptions = {
+  	'key' : '250249f9d8db0c06d612b13c86a064fa',
+  	'format' : 'iframe',
+  	'height' : 600,
+  	'width' : 160,
+  	'params' : {}
+  };
+</script>
+<script
+  type="text/javascript"
+  src="https://www.highperformanceformat.com/250249f9d8db0c06d612b13c86a064fa/invoke.js"
+></script>
+</div>
            <article class="post" data-url="posts/upranks.html">
 
                <img class="post-image" src="Imgs/upranks.jpg" alt="Post image">
@@ -384,6 +410,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <p class="post-excerpt">FACE CHALLENGES ALONE.
 New mounts, spears, and foes have dropped. Don't rely on a team!</p>
           </article>
+          <div class="adsposts">
+<script type="text/javascript">
+  atOptions = {
+  	'key' : '250249f9d8db0c06d612b13c86a064fa',
+  	'format' : 'iframe',
+  	'height' : 600,
+  	'width' : 160,
+  	'params' : {}
+  };
+</script>
+<script
+  type="text/javascript"
+  src="https://www.highperformanceformat.com/250249f9d8db0c06d612b13c86a064fa/invoke.js"
+></script>
+</div>
           <article class="post" data-url="news/12.9.25.html">
               <img class="post-image" src="Imgs/news.jpg" alt="News image">
               <div class="post-header">
@@ -422,6 +463,21 @@ New mounts, spears, and foes have dropped. Don't rely on a team!</p>
               </div>
               <p class="post-excerpt">A ResourcePack adds foot prints on blocks.</p>
           </article>
+          <div class="adsposts">
+<script type="text/javascript">
+  atOptions = {
+  	'key' : '250249f9d8db0c06d612b13c86a064fa',
+  	'format' : 'iframe',
+  	'height' : 600,
+  	'width' : 160,
+  	'params' : {}
+  };
+</script>
+<script
+  type="text/javascript"
+  src="https://www.highperformanceformat.com/250249f9d8db0c06d612b13c86a064fa/invoke.js"
+></script>
+</div>
           <article class="post" data-url="posts/other2.html">
               <img class="post-image" src="Imgs/other2.png" alt="Other addon image">
               <div class="post-header">
@@ -1221,20 +1277,3 @@ function applyTheme() {
 
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
