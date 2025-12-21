@@ -48,7 +48,6 @@
 
         // --- POPUP CONTROLS ---
         const modal = document.getElementById('game-modal');
-        const dlTarget = 'https://www.curseforge.com/minecraft-bedrock/addons/link-up/files/all?page=1&pageSize=20&showAlphaFiles=hide';
 
         function openGameModal() { 
             modal.style.display = 'block'; 
@@ -396,4 +395,5 @@
                     }
                 }
             });
+
         });
