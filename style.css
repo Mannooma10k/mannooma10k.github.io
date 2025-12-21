@@ -990,3 +990,51 @@ img, video, iframe, embed { max-width: 100%; height: auto; display: block; }
     }
 }
 
+
+
+/* --- ADVERTISEMENT STYLES --- */
+.headerpc, .headermobile, .adsposts, .adfooter {
+    border: 2px solid #ffa600;
+    margin: 10px auto; /* Centers the ad */
+    width: fit-content; /* CRITICAL: Makes border wrap tight */
+    background-color: rgba(255, 166, 0, 0.05);
+    display: block;
+}
+
+/* Size Placeholders */
+.headerpc { max-width: 728px; max-height: 95px; }
+.headermobile { max-width: 320px; max-height: 50px; }
+.adsposts {
+                width: 160px;  /* Force exact width */
+                height: 600px; /* Force exact height */
+                border: 2px solid #ffa600;
+                margin: 2px auto; /* Center it in its grid cell */
+                background-color: rgba(255, 166, 0, 0.05);
+                
+                /* Centering Magic */
+                display: flex;
+                justify-content: center;
+                
+                /* Grid Magic: Span 2 rows so it doesn't break the layout */
+                grid-row: span 9; 
+            }
+.adfooter { max-width: 468px; max-height: 63px; }
+
+/* Responsive Logic */
+@media (max-width: 768px) {
+    .headerpc { display: none; }
+    .headermobile { display: block; }
+    #ftext { font-size: 8px; }
+     .adsposts { 
+                    grid-row: auto; /* Reset row span on mobile */
+                    margin: 20px auto;
+                }
+                .adfooter {
+                    max-width: 475px; max-height: 63px;
+                }
+}
+@media (min-width: 769px) {
+    .headermobile { display: none; }
+    .headerpc { display: block; }
+    #ftext { font-size: 10px; }
+}
