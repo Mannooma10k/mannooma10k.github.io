@@ -1,10 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Home -->
+  <!-- Main Website -->
   <url>
     <loc>https://mannooma10k.github.io/</loc>
-    <lastmod>2025-12-12</lastmod>
-    <priority>1.0</priority>
+    <lastmod>2025-12-10</lastmod>
+    <priority>1.00</priority>
+    <changefreq>weekly</changefreq>
   </url>
+
+  <!-- Addons / Posts -->
+  <url>
+    <loc>https://mannooma10k.github.io/posts/voidSatchel.html</loc>
+    <priority>0.80</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://mannooma10k.github.io/posts/linkup.html</loc>
+    <priority>0.80</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://mannooma10k.github.io/posts/tp_points.html</loc>
+    <priority>0.80</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://mannooma10k.github.io/posts/upranks.html</loc>
+    <priority>0.80</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://mannooma10k.github.io/posts/healthbar.html</loc>
+    <priority>0.80</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <!-- News Updates -->
+  <url>
+    <loc>https://mannooma10k.github.io/news/12.10.25.html</loc>
+    <priority>0.60</priority>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://mannooma10k.github.io/news/12.9.25.html</loc>
+    <priority>0.60</priority>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://mannooma10k.github.io/news/12.2.25.html</loc>
+    <priority>0.60</priority>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://mannooma10k.github.io/news/12.1.25.html</loc>
+    <priority>0.60</priority>
+    <changefreq>never</changefreq>
+  </url>
+  <url>
+    <loc>https://mannooma10k.github.io/news/10.12.25.html</loc>
+    <priority>0.60</priority>
+    <changefreq>never</changefreq>
+  </url>
+
+  <!-- Legal -->
+  <url>
+    <loc>https://mannooma10k.github.io/legal/terms-of-use.html</loc>
+    <priority>0.30</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://mannooma10k.github.io/legal/privacy-policy.html</loc>
+    <priority>0.30</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+
 </urlset>
