@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+    
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Redirect</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="posts/posts.css">
+  <meta name="author" content="Mannooma">
+    <meta name="robots" content="index, follow">
+   <script src="https://kit.fontawesome.com/b8eda85835.js" crossorigin="anonymous"></script>
+
+    <link rel="icon" href="Mannooma.png" type="png">
+  <style>
+    .redirect-wrap { display:flex; flex-direction:column; gap:18px; align-items:center; justify-content:center; min-height:60vh; }
+    .redirect-card { background:rgba(47,47,47,0.95); padding:18px; border-radius:8px; border:2px solid rgba(255,255,255,0.06); box-shadow:0 8px 18px rgba(0,0,0,0.6); max-width:720px; width:95%; }
+    .btn-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin-top:12px; }
+    .muted { color:#dcdcdc; font-size:12px; margin-top:8px; }
+    .progress { font-size:13px; color:#fff; margin-bottom:8px; }
+    #unlock-btn { margin-top:14px; display:block; }
+    #spinner { display:none; margin:14px auto; width:36px; height:36px; border:4px solid rgba(255,255,255,0.08); border-top:4px solid #09b820; border-radius:50%; animation:spin 1s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    /* button state styles using variables from posts.css */
+    .fsbox { padding: 12px; border: 2px solid var(--mc-border); background: #171614; }
+    .mc-btn.counting { background: var(--mc-orange); color: #000; border-color: #000; }
+    .mc-btn.completed { background: var(--mc-green); color: #000; border-color: #000; }
+    .mc-btn { width:100%; }
+    /* ensure vertical scrolling is allowed on this page */
+    html, body, .page-content { height: auto !important; min-height: auto !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch; touch-action: pan-y; }
+    /* hide common site-wide overlays that may block scrolling */
+    .social-overlay, .mobile-menu-overlay, #game-modal, .social-posts { display: none !important; pointer-events: none !important; }
+  </style>
+</head>
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MCJRDZ23"
+
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- End Google Tag Manager (noscript) -->
+
+<div class="star-bg"></div>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M2P94THH"
+
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>   
+ 
+    <header class="header">
+    <h1 id="h1">Unlock Content</h1>
+    <p class="tp">Complete the tasks to continue</p>
+  </header>
+
+
+<div class="headermobile">
+
+    <script type="text/javascript">
+
+  atOptions = {
+
+  	'key' : 'f60b877ad3fe53af1374e90f82ceaf97',
+
+  	'format' : 'iframe',
+
+  	'height' : 50,
+
+  	'width' : 320,
+
+  	'params' : {}
+
+  };
+
+</script>
+
+<script
+
+  type="text/javascript"
+
+  src="https://www.highperformanceformat.com/f60b877ad3fe53af1374e90f82ceaf97/invoke.js"
+
+></script>
+
+</div>
+
+
+
+<div class="headerpc">
+
+ <script type="text/javascript">
+
+  atOptions = {
+
+  	'key' : '1142ace3ae4a8e86aebe3c69f7a80bd2',
+
+  	'format' : 'iframe',
+
+  	'height' : 90,
+
+  	'width' : 728,
+
+  	'params' : {}
+
+  };
+
+</script>
+
+<script
+
+  type="text/javascript"
+
+  src="https://www.highperformanceformat.com/1142ace3ae4a8e86aebe3c69f7a80bd2/invoke.js"
+
+></script>
+
+</div>
+
+
+
+
+
+
+
+  <!-- audio used for button clicks -->
+  <audio id="click-snd" src="src/ogg.mp3" preload="auto"></audio>
+
+  <main class="page-content">
+    <div class="redirect-wrap">
+      <div class="redirect-card">
+        <h2 style="margin:0; font-size:16px;">Continue</h2>
+        <p class="muted">Click each button to open a short tracking page — wait 5s on each to mark it completed. After all are done, press Unlock.</p>
+
+        <div class="progress">UNLOCK PROGRESS: <span id="progress">0/5</span></div>
+
+        <div class="fsbox">
+          <div class="btn-grid" id="buttons">
+            <button class="mc-btn task-btn" data-label="Task 1">Task 1</button>
+            <button class="mc-btn task-btn" data-label="Task 2">Task 2</button>
+            <button class="mc-btn task-btn" data-label="Task 3">Task 3</button>
+            <button class="mc-btn task-btn" data-label="Task 4">Task 4</button>
+            <button class="mc-btn task-btn" data-label="Task 5">Task 5</button>
+          </div>
+
+          <button class="mc-btn" id="unlock-btn" disabled>Unlock</button>
+        </div>
+        <div id="spinner"></div>
+        <div id="redirect-msg" class="muted" style="display:none;margin-top:8px;"></div>
+
+        <p class="muted">If pop-ups are blocked, allow them for this site to ensure the tracking pages open.</p>
+      </div>
+    </div>
+  </main>
+
+    <footer class="site-footer">
+
+                <div class="footer-bar">
+
+                    <div id="ftext" class="footer-text">© 2026 Mannooma10k. All rights reserved.<br><br>This site is not affiliated with Mojang Studios</div>
+
+                    <div class="footer-links"><a href="legal/terms-of-use.html" class="footer-link">Terms</a> <span class="sep">|</span> <a href="legal/privacy-policy.html" class="footer-link">Privacy</a></div>
+
+                </div>
+
+            </footer>
+
+  <script>
+    (function(){
+      // remove any site-wide 'no-scroll' that might be present and hide overlays
+      try { document.body.classList.remove('no-scroll'); } catch(e){}
+      document.documentElement.style.overflowY = 'auto';
+      document.body.style.overflowY = 'auto';
+      try { document.body.style.position = 'static'; } catch(e){}
+      // hide common overlay elements that could block scroll
+      ['.social-overlay', '.mobile-menu-overlay', '#game-modal', '.social-posts', '.mobile-menu-inner'].forEach(sel=>{
+        document.querySelectorAll(sel).forEach(el=>{ el.style.display='none'; el.style.pointerEvents='none'; });
+      });
+
+      const gateUrl = 'https://www.effectivegatecpm.com/ee2t93ng27?key=f8c21c7a3f7c50826998ba17673c28b3';
+      const params = new URLSearchParams(window.location.search);
+      const dl = params.get('dl') || params.get('url') || './index.html';
+
+      const buttons = Array.from(document.querySelectorAll('.task-btn'));
+      const progressSpan = document.getElementById('progress');
+      const unlockBtn = document.getElementById('unlock-btn');
+      const spinner = document.getElementById('spinner');
+      const redirectMsg = document.getElementById('redirect-msg');
+
+      let completed = 0;
+      const total = buttons.length;
+
+      function updateProgress(){
+        progressSpan.textContent = `${completed}/${total}`;
+        if(completed === total){
+          unlockBtn.disabled = false;
+          unlockBtn.classList.add('active');
+        }
+      }
+
+      const clickSound = document.getElementById('click-snd');
+      function playClick(){
+        if(!clickSound) return;
+        try{ clickSound.currentTime = 0; clickSound.play(); }catch(e){ }
+      }
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // play click sound on any button press
+          playClick();
+
+          if(btn.dataset.running === '1' || btn.classList.contains('completed')) return;
+          btn.dataset.running = '1';
+          const label = btn.getAttribute('data-label') || 'Task';
+          // open gate tracking in new tab
+          try { window.open(gateUrl, '_blank'); } catch(e) { /* ignore */ }
+
+          // set counting state (yellow)
+          btn.classList.add('counting');
+
+          let sec = 5;
+          btn.disabled = true;
+          btn.textContent = `${label} (${sec})`;
+          const iv = setInterval(()=>{
+            sec--;
+            if(sec > 0){ btn.textContent = `${label} (${sec})`; return; }
+            clearInterval(iv);
+            btn.classList.remove('visiting');
+            btn.classList.remove('counting');
+            btn.classList.add('completed');
+            btn.textContent = 'Completed';
+            completed++;
+            updateProgress();
+          }, 1000);
+        });
+      });
+
+      unlockBtn.addEventListener('click', () => {
+        // play click when unlocking
+        playClick();
+        if(unlockBtn.disabled) return;
+        // hide buttons and show spinner/message
+        document.getElementById('buttons').style.display = 'none';
+        unlockBtn.style.display = 'none';
+        spinner.style.display = 'block';
+        redirectMsg.style.display = 'block';
+
+        let cd = 3;
+        redirectMsg.textContent = `Redirecting in ${cd}s...`;
+        const t = setInterval(()=>{
+          cd--;
+          redirectMsg.textContent = `Redirecting in ${cd}s...`;
+          if(cd <= 0){
+            clearInterval(t);
+            // navigate to dl
+            window.location.replace(dl);
+          }
+        }, 1000);
+      });
+
+    })();
+  </script>
+   <script src="https://pl28323851.effectivegatecpm.com/1b/da/4d/1bda4d0b1912dcd17175c26713cb33b6.js"></script>
+</body>
+</html>
