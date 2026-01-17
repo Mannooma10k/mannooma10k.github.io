@@ -5,7 +5,6 @@ body {
             min-height: 100vh;
             line-height: 1.8;
             text-shadow: #000 1px 1px 1px;
-            overscroll-behavior-y: contain;
         }
         
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
@@ -633,4 +632,5 @@ body {
             font-size: 18px;
             color: #aaa;
             text-shadow: 2px 2px 0 #000;
+
         }
