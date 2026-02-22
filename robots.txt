@@ -1,4 +1,3 @@
 User-agent: *
-Allow: /
-
+Disallow: /private/
 Sitemap: https://mannooma10k.github.io/mysitemap.xml
