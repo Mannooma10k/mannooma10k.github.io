@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulk UUID v4 Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .uuid-card:active { transform: scale(0.98); }
+        .toast {
+            visibility: hidden;
+            min-width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 12px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+        }
+        .toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen font-sans text-slate-900">
+
+    <div class="max-w-2xl mx-auto px-4 py-12">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-extrabold tracking-tight text-slate-800 mb-2">UUID v4 Generator</h1>
+            <p class="text-slate-600">Generate secure, random Universally Unique Identifiers in bulk.</p>
+        </header>
+
+        <div class="bg-white rounded-2xl shadow-xl p-6 mb-8 border border-slate-100">
+            <div class="flex flex-col sm:flex-row gap-4 items-end sm:items-center justify-between mb-6">
+                <div class="w-full sm:w-auto">
+                    <label for="count" class="block text-sm font-medium text-slate-700 mb-1">Number of UUIDs</label>
+                    <input type="number" id="count" value="5" min="1" max="100" 
+                           class="w-full sm:w-32 px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none">
+                </div>
+                <button onclick="generateBatch()" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-8 rounded-lg transition-colors shadow-lg active:shadow-inner">
+                    Generate New Batch
+                </button>
+            </div>
+
+            <div id="uuidContainer" class="space-y-3">
+                <!-- UUIDs will be injected here -->
+            </div>
+
+            <div id="bulkActions" class="mt-6 pt-6 border-t border-slate-100 flex justify-end hidden">
+                <button onclick="copyAll()" class="text-blue-600 hover:text-blue-800 font-semibold text-sm flex items-center gap-2 px-4 py-2 rounded-md hover:bg-blue-50 transition-all">
+                    Copy All to Clipboard
+                </button>
+            </div>
+        </div>
+
+        <footer class="text-center text-slate-400 text-xs">
+            <p>Powered By Ai.</p>
+        </footer>
+    </div>
+
+    <div id="toast" class="toast">Copied to clipboard!</div>
+
+    <script>
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.className = "toast show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+
+        function generateUUID() {
+            // Priority: crypto.randomUUID (Standard)
+            if (crypto && crypto.randomUUID) {
+                return crypto.randomUUID();
+            }
+            // Fallback for older secure contexts
+            return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+            );
+        }
+
+        function copyToClipboard(text) {
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+            showToast("Copied individual UUID!");
+        }
+
+        function copyAll() {
+            const uuids = Array.from(document.querySelectorAll('.uuid-text'))
+                               .map(el => el.textContent)
+                               .join('\n');
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = uuids;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+            showToast("Copied all UUIDs!");
+        }
+
+        function generateBatch() {
+            const count = parseInt(document.getElementById('count').value) || 1;
+            const container = document.getElementById('uuidContainer');
+            const bulkActions = document.getElementById('bulkActions');
+            
+            container.innerHTML = '';
+            
+            for (let i = 0; i < count; i++) {
+                const uuid = generateUUID();
+                const card = document.createElement('div');
+                card.className = "uuid-card group flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-blue-300 hover:bg-white transition-all cursor-pointer";
+                card.onclick = () => copyToClipboard(uuid);
+                
+                card.innerHTML = `
+                    <code class="uuid-text font-mono text-sm sm:text-base text-slate-700 break-all select-all">${uuid}</code>
+                    <span class="ml-4 opacity-0 group-hover:opacity-100 text-blue-500 text-xs font-bold uppercase tracking-wider transition-opacity hidden sm:block">
+                        Copy
+                    </span>
+                `;
+                container.appendChild(card);
+            }
+
+            if (count > 0) bulkActions.classList.remove('hidden');
+            else bulkActions.classList.add('hidden');
+        }
+
+        // Initial generation
+        window.onload = generateBatch;
+    </script>
+</body>
+</html>
+
