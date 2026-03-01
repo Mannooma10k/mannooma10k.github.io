@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔒 مشفر الروابط</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#000;min-height:100vh;font-family:'Press Start 2P',monospace;display:flex;align-items:center;justify-content:center;padding:20px}
+.star-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background-image:radial-gradient(2px 2px at 15% 25%,white,transparent),radial-gradient(2px 2px at 70% 40%,white,transparent),radial-gradient(2px 2px at 30% 75%,white,transparent),radial-gradient(2px 2px at 85% 60%,white,transparent);background-size:350px 350px;animation:moveStars 14s linear infinite}
+@keyframes moveStars{from{background-position:0 0}to{background-position:0 700px}}
+.box{background:#111;border:2px solid #333;padding:30px;max-width:680px;width:100%}
+h1{color:#55FF55;font-size:13px;text-align:center;margin-bottom:8px;text-shadow:0 0 10px #55FF55}
+.sub{color:#555;font-size:8px;text-align:center;margin-bottom:25px;line-height:2}
+label{color:#aaa;font-size:9px;display:block;margin-bottom:8px;margin-top:16px}
+input{width:100%;background:#1a1a1a;border:1px solid #333;color:#fff;padding:14px;font-family:'Press Start 2P',monospace;font-size:9px;outline:none;direction:ltr}
+input:focus{border-color:#55FF55}
+.btn{width:100%;background:#2a5c1a;border:2px solid #55FF55;color:#fff;padding:14px;font-family:'Press Start 2P',monospace;font-size:11px;cursor:pointer;letter-spacing:2px;margin-top:14px;transition:all 0.2s}
+.btn:hover{background:#3a8c28;transform:translateY(-2px)}
+.btn.blue{background:#1a1a3a;border-color:#03adfc;color:#03adfc;margin-top:8px}
+.result{display:none;margin-top:20px;border-top:1px solid #222;padding-top:20px}
+.out-box{background:#0a1a0a;border:1px solid #2a3a2a;padding:14px;margin-top:8px;word-break:break-all;font-size:9px;color:#55FF55;direction:ltr;line-height:2;user-select:all;cursor:text}
+.out-label{color:#55FF55;font-size:9px;display:block;margin-bottom:6px;margin-top:14px}
+.note{background:#1a1000;border-right:3px solid #ffaa00;padding:10px 14px;font-size:8px;color:#ffaa00;line-height:2;margin-top:14px}
+.copied{color:#55FF55;font-size:8px;text-align:center;margin-top:8px;display:none}
+</style>
+</head>
+<body>
+<div class="star-bg"></div>
+<div class="box">
+  <h1>🔒 مشفر الروابط</h1>
+  <div class="sub">ضع رابط التحميل تاعك وسيعطيك رابط جاهز<br>تحط فيه في صفحة ١</div>
+
+  <label>🔗 رابط التحميل:</label>
+  <input type="text" id="inp" placeholder="https://drive.google.com/...">
+
+  <button class="btn" onclick="go()">🔒 شفّر وأنشئ الرابط</button>
+
+  <div class="result" id="res">
+    <span class="out-label">🔗 الرابط الكامل — هذا اللي تشاركه مع الناس:</span>
+    <div class="out-box" id="fullLink"></div>
+    <button class="btn blue" onclick="copyFull()">📋 انسخ الرابط الكامل</button>
+    <div class="copied" id="msg1">✅ تم النسخ!</div>
+
+    <div class="note">
+      ⚠️ الرابط ده يبدأ من صفحة ١ — الزائر يمشي تلقائياً<br>
+      من صفحة لصفحة والرابط المشفر يتنقل معه<br>
+      حتى يوصل صفحة ٤ ويضغط تحميل ✅
+    </div>
+  </div>
+</div>
+
+<script>
+function go() {
+  const link = document.getElementById('inp').value.trim();
+  if (!link) { alert('ضع الرابط!'); return; }
+
+  // تشفير: Base64 + إزاحة ASCII +3
+  const enc = btoa(link).split('').map(c => String.fromCharCode(c.charCodeAt(0) + 3)).join('');
+  const encSafe = encodeURIComponent(enc);
+
+  // الرابط الكامل — يبدأ من صفحة ١
+  document.getElementById('fullLink').textContent = 'https://mannooma10k.github.io/ads/page1.html?url=' + encSafe;
+
+  document.getElementById('res').style.display = 'block';
+  document.getElementById('res').scrollIntoView({behavior:'smooth'});
+}
+
+function copyFull() {
+  navigator.clipboard.writeText(document.getElementById('fullLink').textContent);
+  show('msg1');
+}
+
+function show(id) {
+  const el = document.getElementById(id);
+  el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 2000);
+}
+</script>
+</body>
+</html>
