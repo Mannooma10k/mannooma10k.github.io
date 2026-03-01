@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ما هي ماين كرافت؟ - الجزء ١</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./posts/posts.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Cairo:wght@400;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background-color:#000;min-height:100vh;line-height:1.8;text-shadow:#000 1px 1px 1px;font-family:'Cairo','Press Start 2P',monospace;direction:rtl}
+:root{--mc-green:#55FF55;--mc-dark:#2D2D2D;--mc-border:#4a4a4a;--mc-blue:#03adfc;--mc-orange:#ffaa00}
+a:link,a:visited{color:inherit;text-decoration:none}
+.star-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;background-image:radial-gradient(2px 2px at 15% 25%,white,transparent),radial-gradient(2px 2px at 70% 40%,white,transparent),radial-gradient(2px 2px at 30% 75%,white,transparent),radial-gradient(2px 2px at 85% 60%,white,transparent);background-size:350px 350px;animation:moveStars 14s linear infinite}
+@keyframes moveStars{from{background-position:0 0}to{background-position:0 700px}}
+.header{padding:1.5rem 1rem;background:rgba(0,0,0,0.8);border-bottom:2px solid var(--mc-border);text-align:center;position:relative;z-index:10}
+.header-title{color:var(--mc-green);font-size:14px;text-shadow:0 0 10px var(--mc-green);letter-spacing:3px;margin-top:12px}
+.stage-badge{display:inline-block;background:#171614;border:2px solid var(--mc-green);color:var(--mc-green);font-size:9px;padding:4px 10px;margin-top:8px;letter-spacing:2px}
+.ad-header-mobile{display:flex;justify-content:center;padding:8px;background:rgba(0,0,0,0.5);border-bottom:1px solid #222}
+.ad-header-pc{display:flex;justify-content:center;padding:8px;background:rgba(0,0,0,0.5);border-bottom:1px solid #222}
+@media(max-width:768px){.ad-header-pc{display:none}}
+@media(min-width:769px){.ad-header-mobile{display:none}}
+.container{max-width:860px;margin:1.5rem auto;padding:1rem;display:flex;gap:20px}
+.main-content{flex:1}
+.sidebar{width:180px;flex-shrink:0}
+.sidebar-sticky{position:sticky;top:20px}
+.fsbox{font-family:'Cairo',sans-serif;font-size:15px;background-color:#171614;border:2px solid #252422;padding:20px;margin:18px 0;box-shadow:5px 5px 10px rgba(0,0,0,0.2);border-radius:1px;color:#fefefe;font-size:13px;line-height:1.8}
+.fsbox p{margin-bottom:14px}
+.fsbox ul{margin-right:20px;margin-bottom:20px}
+.fsbox li{margin-bottom:10px}
+.article-sub-heading{font-family:'Cairo',sans-serif;color:var(--mc-green);font-size:14px;margin:25px 0 15px;text-align:center;border-bottom:1px solid #4a4a4a;padding-bottom:5px}
+#tds{font-family:'Cairo',sans-serif;:center;color:var(--mc-green);margin-bottom:20px;background:#171614;padding:12px 18px;text-shadow:1px 2px 1px #000;box-shadow:2px 3px 2px rgba(0,0,0,0.6),inset 0 -2px 0 rgba(255,255,255,0.02);border:3px solid rgb(71,71,71);line-height:1.6;font-size:13px}
+#tdb{font-family:'Cairo',sans-serif;font-size:15px;line-height:1.6;background:#171614;padding:12px 18px;box-shadow:-3px 0px 0px var(--mc-green);transition:transform .12s ease;text-align:right;margin-bottom:12px}
+#tdb:hover{transform:translateY(-4px);box-shadow:-3px 2px 1px var(--mc-green)}
+#tdu{font-family:'Cairo',sans-serif;font-size:14px;padding:12px 18px;box-shadow:-3px 0px 0px var(--mc-green);font-size:11px;margin-bottom:1rem;background-color:#007ef326;text-align:right}
+.info-box{font-family:'Cairo',sans-serif;font-size:15px;background:rgba(0,122,255,0.1);border-right:4px solid #007aff;border-left:none;padding:15px;margin:20px 0;font-size:11px}
+.warning-box{font-family:'Cairo',sans-serif;font-size:15px;background:rgba(255,149,0,0.1);border-right:4px solid #ff9500;border-left:none;padding:15px;margin:20px 0;font-size:11px}
+.success-box{font-family:'Cairo',sans-serif;font-size:15px;background:rgba(52,199,89,0.1);border-right:4px solid #34c759;border-left:none;padding:15px;margin:20px 0;font-size:11px}
+.progress-bar-wrap{background:#1a1a1a;border:2px solid #333;padding:15px;margin:20px 0;text-align:center}
+.progress-label{color:#aaa;font-size:9px;margin-bottom:8px}
+.progress-track{height:16px;background:#2a2a2a;border:1px solid #444;position:relative}
+.progress-fill{height:100%;background:linear-gradient(90deg,#226622,var(--mc-green));width:25%;transition:width 0.5s}
+.progress-text{color:var(--mc-green);font-size:9px;margin-top:6px}
+.mc-fact{font-family:'Cairo',sans-serif;font-size:14px;background:#1a1a1a;border-right:3px solid var(--mc-orange);padding:12px 15px;margin:15px 0;font-size:11px;color:#ffd580}
+.continue-btn{display:block;width:100%;background:#2a5c1a;border:2px solid var(--mc-green);color:#fff;padding:16px;font-family:'Press Start 2P',monospace;font-size:12px;cursor:pointer;text-align:center;margin:25px 0;letter-spacing:2px;transition:all 0.2s;text-transform:uppercase}
+.continue-btn:hover{background:#3a8c28;transform:translateY(-3px);box-shadow:0 6px 0 #1a3a0a}
+.site-footer{width:100%;padding:26px 0 36px;background:rgba(0,0,0,0.9);box-shadow:0 -6px 12px rgba(27,27,27,0.4);margin-top:40px;border-top:3px solid var(--mc-border);text-align:center}
+.footer-text{font-family:'Cairo',sans-serif;color:#aaa;font-size:9px;text-shadow:2px 2px 0 #000}
+.footer-links{margin-top:8px}
+.footer-link{font-family:'Cairo',sans-serif;color:#21bdf6;text-decoration:none;margin:0 8px;font-size:11px}
+img{max-width:100%;height:auto;border:2px solid #4a4a4a;margin:10px 0}
+#overlay{display:none;position:fixed;inset:0;background:#000;z-index:9999;flex-direction:column;align-items:center;justify-content:center;gap:20px}
+#overlay.show{display:flex}
+#overlay h2{color:var(--mc-green);font-size:16px;text-align:center}
+#overlay p{color:#aaa;font-size:11px}
+#countdown-num{color:#fff;font-size:40px;text-shadow:0 0 20px var(--mc-green)}
+#skip-btn{background:#2f2f2f;border:2px solid #4a4a4a;color:#fff;padding:12px 24px;font-family:'Press Start 2P',monospace;font-size:11px;cursor:pointer;letter-spacing:1px;display:none}
+#skip-btn:hover{background:#4a4a4a}
+@media(max-width:768px){.container{flex-direction:column}.sidebar{width:100%}.fsbox{font-size:11px}.article-sub-heading{font-family:'Cairo',sans-serif;font-size:12px}}
+</style>
+</head>
+<body>
+<div class="star-bg"></div>
+
+<!-- Mobile Header Ad -->
+<div class="ad-header-mobile">
+<script>atOptions={'key':'f60b877ad3fe53af1374e90f82ceaf97','format':'iframe','height':50,'width':320,'params':{}};</script>
+<script src="https://gravelsemesterflourish.com/f60b877ad3fe53af1374e90f82ceaf97/invoke.js"></script>
+</div>
+
+<!-- PC Header Ad -->
+<div class="ad-header-pc">
+<script>atOptions={'key':'1142ace3ae4a8e86aebe3c69f7a80bd2','format':'iframe','height':90,'width':728,'params':{}};</script>
+<script src="https://gravelsemesterflourish.com/1142ace3ae4a8e86aebe3c69f7a80bd2/invoke.js"></script>
+</div>
+
+<div class="header">
+  <div class="header-title">⛏️ دليل ماين كرافت الشامل ⛏️</div>
+  <div class="stage-badge">المرحلة ١ من ٤ — ما هي ماين كرافت؟</div>
+</div>
+
+<!-- Progress Bar -->
+<div style="max-width:860px;margin:1rem auto;padding:0 1rem">
+  <div class="progress-bar-wrap">
+    <div class="progress-label">تقدمك في القراءة</div>
+    <div class="progress-track"><div class="progress-fill" style="width:25%"></div></div>
+    <div class="progress-text">المرحلة ١ / ٤ — ٢٥٪ مكتملة</div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="main-content">
+    <div id="tds">🎮 ما هي لعبة ماين كرافت؟</div>
+
+    <div class="fsbox">
+      <p>
+        ماين كرافت (Minecraft) هي لعبة فيديو من نوع صندوق الرمل (Sandbox) طورها المبرمج السويدي <strong style="color:var(--mc-green)">ماركوس نوتش (Markus Persson)</strong> عام ٢٠٠٩، ثم استحوذت عليها شركة مايكروسوفت عام ٢٠١٤ بصفقة بلغت ٢.٥ مليار دولار!
+      </p>
+
+      <div class="mc-fact">💡 حقيقة: ماين كرافت هي اللعبة الأكثر مبيعاً في تاريخ ألعاب الفيديو بأكثر من ٢٣٨ مليون نسخة مباعة!</div>
+
+      <div class="article-sub-heading">🌍 عالم ماين كرافت</div>
+      <p>عالم اللعبة مبني بالكامل من مكعبات ثلاثية الأبعاد تمثل مواد مختلفة مثل الأرض والصخر والخشب والماء. يمكن للاعب:</p>
+      <ul>
+        <li>🏗️ بناء أي شيء يتخيله من أبسط الكوخ إلى أضخم القلاع</li>
+        <li>⛏️ استخراج الموارد والمعادن من باطن الأرض</li>
+        <li>🧪 صنع الأدوات والأسلحة والدروع</li>
+        <li>🌱 الزراعة وتربية الحيوانات</li>
+        <li>👹 القتال ضد الوحوش في الليل</li>
+        <li>🗺️ استكشاف عوالم ضخمة لا نهاية لها</li>
+      </ul>
+
+      <div id="tdb">
+        <span style="color:var(--mc-green)">⚡ الحجم التقني:</span><br>
+        عالم ماين كرافت ضخم إلى درجة أنه لو أردت أن تمشي من أقصى حدوده لأقصاه، ستحتاج أكثر من <strong style="color:var(--mc-orange)">٨٠٠ سنة</strong> بدون توقف!
+      </div>
+    </div>
+
+    <!-- Posts Ad -->
+    <div style="text-align:center;margin:20px 0;background:#111;border:1px solid #333;padding:10px">
+      <div style="color:#555;font-size:8px;margin-bottom:5px">إعلان</div>
+      <script>atOptions={'key':'250249f9d8db0c06d612b13c86a064fa','format':'iframe','height':600,'width':160,'params':{}};</script>
+      <script src="https://gravelsemesterflourish.com/250249f9d8db0c06d612b13c86a064fa/invoke.js"></script>
+    </div>
+
+    <div class="fsbox">
+      <div class="article-sub-heading">🕹️ أنماط اللعب</div>
+
+      <div id="tdb" style="box-shadow:-3px 0 0 #0bfc03;background:#1a2a1a;margin-bottom:10px">
+        <span style="color:#0bfc03">✅ الوضع الإبداعي (Creative Mode)</span><br>
+        <span style="font-size:10px;color:#ccc">موارد لا محدودة، طيران حر، لا وحوش. مثالي للبنائين والمصممين.</span>
+      </div>
+
+      <div id="tdb" style="box-shadow:-3px 0 0 #fc0303;background:#2a1a1a;margin-bottom:10px">
+        <span style="color:#fc0303">⚔️ وضع البقاء (Survival Mode)</span><br>
+        <span style="font-size:10px;color:#ccc">ابدأ بلا شيء، اجمع الموارد، ابنِ مأوى، واعش بين الوحوش.</span>
+      </div>
+
+      <div id="tdb" style="box-shadow:-3px 0 0 #a7a7a7;background:#1e1e1e;margin-bottom:10px">
+        <span style="color:#a7a7a7">💀 وضع الحياة الواحدة (Hardcore)</span><br>
+        <span style="font-size:10px;color:#ccc">مثل البقاء لكن إذا مت تُمسح اللعبة كلها! للشجعان فقط.</span>
+      </div>
+
+      <div class="info-box">
+        <strong style="color:#21bdf6">🎯 لماذا ماين كرافت شعبية جداً؟</strong><br><br>
+        لأنها لعبة بلا هدف محدد — أنت من يحدد هدفه. يمكنك بناء، استكشاف، قتال، تجارة، أو حتى برمجة داخل اللعبة نفسها!
+      </div>
+    </div>
+
+    <div class="fsbox">
+      <div class="article-sub-heading">📱 المنصات المتاحة</div>
+      <p>ماين كرافت متاحة على تقريباً كل منصة موجودة:</p>
+      <div id="tdu">
+        🖥️ ويندوز / ماك / لينكس &nbsp;|&nbsp; 📱 آيفون / أندرويد &nbsp;|&nbsp; 🎮 PS4/PS5 &nbsp;|&nbsp; 🎮 Xbox &nbsp;|&nbsp; 🎮 Nintendo Switch
+      </div>
+
+      <div class="success-box">
+        <strong style="color:#34c759">✅ إصداران رئيسيان:</strong><br><br>
+        <strong>Java Edition</strong> — للكمبيوتر فقط، يدعم المودات بشكل كامل ورائع<br>
+        <strong>Bedrock Edition</strong> — لكل المنصات، أداء أسرع وتعدد لاعبين عبر المنصات
+      </div>
+    </div>
+
+    <button class="continue-btn" onclick="startCountdown()">
+  ▶ التالي
+    </button>
+  </div>
+
+  <div class="sidebar">
+    <div class="sidebar-sticky">
+      <div style="background:#111;border:1px solid #333;padding:10px;text-align:center;margin-bottom:15px">
+        <div style="color:#555;font-size:8px;margin-bottom:5px">إعلان</div>
+        <script>atOptions={'key':'250249f9d8db0c06d612b13c86a064fa','format':'iframe','height':600,'width':160,'params':{}};</script>
+        <script src="https://gravelsemesterflourish.com/250249f9d8db0c06d612b13c86a064fa/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Countdown Overlay -->
+<div id="overlay">
+  <h2>⛏️ جاري تحميل الجزء التالي...</h2>
+  <div id="countdown-num">5</div>
+  <p>يرجى الانتظار للمتابعة</p>
+  <button id="skip-btn" onclick="goNext()">تخطي ← </button>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-bar">
+    <div class="footer-text">© 2026 Mannooma10k. All rights reserved.
+      <br>
+This site is not affiliated with Mojang Studios<br>
+      أكملت 1 من 4 صفحات
+    </div>
+    <div class="footer-links">
+      <a href="page1.html" class="footer-link">الصفحة الرئيسية</a>
+      <a href="page2.html" class="footer-link">التالي</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://gravelsemesterflourish.com/1b/da/4d/1bda4d0b1912dcd17175c26713cb33b6.js"></script>
+<script>
+// Encrypted smart link — Base64 + char shift obfuscation
+// قراءة الرابط المشفر من URL
+const _params = new URLSearchParams(window.location.search);
+const _enc = _params.get('url') || '';
+
+function startCountdown() {
+  document.getElementById('overlay').classList.add('show');
+  let n = 5;
+  document.getElementById('countdown-num').textContent = n;
+  const t = setInterval(() => {
+    n--;
+    document.getElementById('countdown-num').textContent = n;
+    if (n <= 2) document.getElementById('skip-btn').style.display = 'block';
+    if (n <= 0) { clearInterval(t); goNext(); }
+  }, 1000);
+}
+
+function goNext() {
+  // تمرير الرابط المشفر للصفحة التالية
+  window.location.href = 'page2.html' + (_enc ? '?url=' + encodeURIComponent(_enc) : '');
+}
+</script>
+</body>
+</html>
