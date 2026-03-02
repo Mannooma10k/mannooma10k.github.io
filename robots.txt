@@ -1,4 +1,0 @@
-User-agent: *
-   Allow: /
-   
-   Sitemap: https://mannooma10k.github.io/sitemaps/sitemap.xml
