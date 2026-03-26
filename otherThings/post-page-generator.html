@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mannooma10k — Post Page Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --orange: #ff6200; --bg: #0a0a0a; --surface: #131313;
+      --surface2: #1c1c1c; --border: #2a2a2a; --text: #e8e8e8;
+      --muted: #666; --green: #39d353; --red: #ff4444; --blue: #58a6ff;
+    }
+    body {
+      font-family: 'Space Mono', monospace;
+      background: var(--bg);
+      background-image: radial-gradient(rgba(255,98,0,0.12) 1px, transparent 0);
+      background-size: 28px 28px;
+      color: var(--text);
+      min-height: 100vh;
+      padding: 36px 16px 80px;
+    }
+    .header { text-align: center; margin-bottom: 40px; }
+    .header h1 { font-family: 'Bebas Neue'; font-size: clamp(2.2rem,5vw,4rem); color: var(--orange); text-shadow: 0 0 40px rgba(255,98,0,0.35); letter-spacing:.06em; }
+    .header p { font-size:.68rem; color:var(--muted); letter-spacing:.12em; margin-top:5px; text-transform:uppercase; }
+
+    /* Token bar */
+    .token-bar { max-width:1120px; margin:0 auto 22px; background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:14px 18px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .token-label { font-size:.65rem; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); white-space:nowrap; }
+    .token-bar input { flex:1; min-width:180px; background:var(--bg); border:1px solid var(--border); border-radius:3px; color:var(--text); font-family:'Space Mono'; font-size:.78rem; padding:8px 11px; outline:none; transition:border-color .2s; }
+    .token-bar input:focus { border-color:var(--orange); }
+    .status { font-size:.65rem; padding:5px 12px; border-radius:3px; white-space:nowrap; letter-spacing:.06em; }
+    .status.ok  { background:rgba(57,211,83,.15); color:var(--green); border:1px solid rgba(57,211,83,.3); }
+    .status.bad { background:rgba(255,68,68,.15);  color:var(--red);  border:1px solid rgba(255,68,68,.3); }
+    .status.idle{ background:var(--surface2); color:var(--muted); border:1px solid var(--border); }
+
+    .layout { max-width:1120px; margin:0 auto; display:grid; grid-template-columns:1fr 300px; gap:22px; align-items:start; }
+    @media(max-width:820px){ .layout{ grid-template-columns:1fr; } }
+
+    .panel { background:var(--surface); border:1px solid var(--border); border-radius:4px; overflow:hidden; margin-bottom:20px; }
+    .panel-head { background:var(--surface2); border-bottom:1px solid var(--border); padding:12px 18px; display:flex; align-items:center; gap:9px; }
+    .dot { width:7px; height:7px; border-radius:50%; background:var(--orange); box-shadow:0 0 7px var(--orange); flex-shrink:0; }
+    .panel-head span { font-family:'Bebas Neue'; font-size:1rem; letter-spacing:.1em; color:var(--orange); }
+    .panel-body { padding:20px 18px; }
+
+    label { display:block; font-size:.62rem; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); margin-bottom:6px; }
+    label .req { color:var(--orange); }
+    .field { margin-bottom:17px; }
+    .field:last-child { margin-bottom:0; }
+    input[type=text], input[type=color], textarea, select {
+      width:100%; background:var(--bg); border:1px solid var(--border); border-radius:3px;
+      color:var(--text); font-family:'Space Mono'; font-size:.78rem;
+      padding:9px 11px; outline:none; transition:border-color .2s;
+    }
+    input[type=text]:focus, textarea:focus, select:focus { border-color:var(--orange); }
+    textarea { resize:vertical; min-height:70px; }
+    select option { background:var(--surface2); }
+    .hint { font-size:.6rem; color:var(--muted); margin-top:4px; }
+    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+    @media(max-width:540px){ .row2,.row3{ grid-template-columns:1fr; } }
+
+    /* Color picker row */
+    .color-row { display:flex; gap:10px; align-items:center; }
+    .color-row input[type=color] { width:44px; height:36px; padding:2px; cursor:pointer; flex-shrink:0; }
+    .color-row input[type=text] { flex:1; }
+
+    /* Dynamic list */
+    .dyn-list { display:flex; flex-direction:column; gap:8px; }
+    .dyn-item { display:flex; gap:8px; align-items:center; }
+    .dyn-item input { flex:1; }
+    .dyn-item button { background:none; border:1px solid var(--border); color:var(--muted); width:30px; height:30px; border-radius:3px; cursor:pointer; font-size:.9rem; flex-shrink:0; transition:border-color .2s,color .2s; }
+    .dyn-item button:hover { border-color:var(--red); color:var(--red); }
+    .add-btn { background:none; border:1px dashed var(--border); color:var(--muted); width:100%; padding:7px; border-radius:3px; font-family:'Space Mono'; font-size:.68rem; cursor:pointer; letter-spacing:.08em; margin-top:8px; transition:border-color .2s,color .2s; }
+    .add-btn:hover { border-color:var(--orange); color:var(--orange); }
+
+    /* Compat rows */
+    .compat-row { display:flex; gap:8px; align-items:center; margin-bottom:7px; }
+    .compat-row input[type=text] { flex:1; }
+    .compat-row select { width:110px; flex-shrink:0; font-size:.7rem; }
+
+    /* Generate button */
+    .gen-btn { width:100%; padding:15px; background:var(--orange); color:#000; font-family:'Bebas Neue'; font-size:1.25rem; letter-spacing:.12em; border:none; border-radius:3px; cursor:pointer; transition:background .2s,box-shadow .2s; margin-top:6px; }
+    .gen-btn:hover:not(:disabled) { background:#ff7820; box-shadow:0 0 22px rgba(255,98,0,.45); }
+    .gen-btn:disabled { opacity:.4; cursor:not-allowed; }
+
+    /* Log */
+    .log { margin-top:16px; background:var(--bg); border:1px solid var(--border); border-radius:3px; padding:12px; font-size:.7rem; line-height:1.9; display:none; }
+    .log.on { display:block; }
+    .log .s { color:var(--muted); } .log .s::before { content:'▸ '; color:var(--orange); }
+    .log .ok { color:var(--green); } .log .ok::before { content:'✓ '; }
+    .log .er { color:var(--red); }  .log .er::before { content:'✕ '; }
+
+    .success { display:none; background:rgba(57,211,83,.12); border:1px solid rgba(57,211,83,.35); border-radius:3px; padding:13px 16px; font-size:.72rem; color:var(--green); margin-top:14px; line-height:1.7; }
+    .success.on { display:block; }
+    .success a { color:var(--orange); }
+
+    /* Right col helpers */
+    .info-card { font-size:.68rem; line-height:1.9; color:var(--muted); }
+    .info-card b { color:var(--text); }
+    .info-card code { background:var(--bg); border:1px solid var(--border); padding:1px 5px; border-radius:2px; font-size:.65rem; color:var(--orange); }
+    .tag { display:inline-block; font-size:.58rem; padding:3px 8px; border-radius:2px; margin:2px 2px 2px 0; letter-spacing:.06em; }
+    .tag.g { background:rgba(57,211,83,.12); color:var(--green); border:1px solid rgba(57,211,83,.25); }
+    .tag.r { background:rgba(255,68,68,.12); color:var(--red); border:1px solid rgba(255,68,68,.25); }
+    .tag.b { background:rgba(88,166,255,.12); color:var(--blue); border:1px solid rgba(88,166,255,.25); }
+
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .spin { display:inline-block; width:13px; height:13px; border:2px solid rgba(0,0,0,.3); border-top-color:#000; border-radius:50%; animation:spin .7s linear infinite; vertical-align:middle; margin-right:7px; }
+
+    /* Section tabs */
+    .section-tabs { display:flex; gap:0; margin-bottom:20px; border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+    .stab { flex:1; padding:9px 6px; background:var(--surface2); border:none; color:var(--muted); font-family:'Space Mono'; font-size:.62rem; letter-spacing:.07em; cursor:pointer; text-transform:uppercase; transition:background .15s,color .15s; border-right:1px solid var(--border); }
+    .stab:last-child { border-right:none; }
+    .stab.active { background:var(--orange); color:#000; font-weight:700; }
+
+    .section-content { display:none; }
+    .section-content.active { display:block; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Post Page Generator</h1>
+  <p>Mannooma10k · Creates &amp; Pushes Addon Pages to GitHub</p>
+</div>
+
+<!-- Token -->
+<div class="token-bar">
+  <span class="token-label">GitHub Token</span>
+  <input type="password" id="tok" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+  <button onclick="verifyToken()" class="gen-btn" style="width:auto;font-size:.82rem;padding:8px 18px;margin:0;">VERIFY</button>
+  <span class="status idle" id="tokStatus">NOT VERIFIED</span>
+</div>
+
+<div class="layout">
+  <!-- ── LEFT: Form ── -->
+  <div>
+
+    <!-- Section tabs -->
+    <div class="section-tabs">
+      <button class="stab active" onclick="switchTab('basic',this)">Basic Info</button>
+      <button class="stab" onclick="switchTab('content',this)">Content</button>
+      <button class="stab" onclick="switchTab('compat',this)">Compat</button>
+      <button class="stab" onclick="switchTab('download',this)">Download</button>
+    </div>
+
+    <!-- ── TAB 1: Basic ── -->
+    <div id="tab-basic" class="section-content active">
+      <div class="panel">
+        <div class="panel-head"><div class="dot"></div><span>Addon Identity</span></div>
+        <div class="panel-body">
+          <div class="row2">
+            <div class="field">
+              <label>Addon Name <span class="req">*</span></label>
+              <input type="text" id="addonName" placeholder="e.g. QuickSwap">
+            </div>
+            <div class="field">
+              <label>Page Filename <span class="req">*</span></label>
+              <input type="text" id="fileName" placeholder="e.g. quickswap.html">
+              <p class="hint">Saved to <code>posts/</code> folder</p>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label>Tagline / Subtitle</label>
+              <input type="text" id="tagline" placeholder="NEVER DIE AGAIN!">
+            </div>
+            <div class="field">
+              <label>Minecraft Version</label>
+              <input type="text" id="mcVersion" placeholder="26.1+">
+            </div>
+          </div>
+          <div class="field">
+            <label>SEO Description</label>
+            <textarea id="seoDesc" placeholder="A one-sentence description for search engines..."></textarea>
+          </div>
+          <div class="field">
+            <label>SEO Keywords (comma separated)</label>
+            <input type="text" id="seoKeys" placeholder="Mannooma, quickswap, totem, shield, Minecraft, Addons">
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label>Accent Color <span class="req">*</span></label>
+              <div class="color-row">
+                <input type="color" id="accentPicker" value="#9d0ddb" oninput="syncColor(this)">
+                <input type="text" id="accentHex" value="#9d0ddb" placeholder="#9d0ddb" oninput="syncHex(this)">
+              </div>
+              <p class="hint">Used for the title, borders & highlights</p>
+            </div>
+            <div class="field">
+              <label>YouTube Embed URL</label>
+              <input type="text" id="ytEmbed" placeholder="https://www.youtube.com/embed/VIDEO_ID">
+              <p class="hint">Leave blank to hide video section</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TAB 2: Content ── -->
+    <div id="tab-content" class="section-content">
+      <div class="panel">
+        <div class="panel-head"><div class="dot"></div><span>About the Addon</span></div>
+        <div class="panel-body">
+          <div class="field">
+            <label>Description Paragraph <span class="req">*</span></label>
+            <textarea id="description" style="min-height:100px" placeholder="Describe what the addon does, how it works, why it's useful..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><div class="dot"></div><span>Features List</span></div>
+        <div class="panel-body">
+          <div class="dyn-list" id="featureList"></div>
+          <button class="add-btn" onclick="addItem('featureList','Feature description...')">+ ADD FEATURE</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><div class="dot"></div><span>How To Use Sections</span></div>
+        <div class="panel-body">
+          <p class="hint" style="margin-bottom:14px;">Each section gets a sub-heading. Add warning/info boxes using the type selector.</p>
+          <div id="howtoList"></div>
+          <button class="add-btn" onclick="addHowto()">+ ADD SECTION</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><div class="dot"></div><span>Changelog</span></div>
+        <div class="panel-body">
+          <div class="dyn-list" id="changelogList"></div>
+          <button class="add-btn" onclick="addItem('changelogList','v1.0 - Initial Release')">+ ADD ENTRY</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><div class="dot"></div><span>Screenshots / Images</span></div>
+        <div class="panel-body">
+          <div class="dyn-list" id="imgList"></div>
+          <button class="add-btn" onclick="addItem('imgList','https://...')">+ ADD IMAGE URL</button>
+          <p class="hint" style="margin-top:8px;">Images are shown between How-To sections</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TAB 3: Compat ── -->
+    <div id="tab-compat" class="section-content">
+      <div class="panel">
+        <div class="panel-head"><div class="dot"></div><span>Compatibility</span></div>
+        <div class="panel-body">
+          <p class="hint" style="margin-bottom:14px;">
+            <span class="tag g">✓ Compatible</span> <span class="tag r">✕ Incompatible</span>
+          </p>
+          <div id="compatList"></div>
+          <button class="add-btn" onclick="addCompat()">+ ADD ENTRY</button>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><div class="dot"></div><span>Installation Steps</span></div>
+        <div class="panel-body">
+          <div class="field">
+            <label>Windows 10/11 Steps</label>
+            <textarea id="installWin" style="min-height:90px" placeholder="1. DOWNLOAD THE .MCPACK FILE.&#10;2. DOUBLE-CLICK TO IMPORT.&#10;3. ENABLE &quot;BETA APIS&quot; EXPERIMENT.&#10;4. ACTIVATE BEHAVIOR PACK."></textarea>
+          </div>
+          <div class="field">
+            <label>Android / iOS Steps</label>
+            <textarea id="installMobile" style="min-height:90px" placeholder="1. DOWNLOAD FILE.&#10;2. OPEN WITH MINECRAFT.&#10;3. GO TO WORLD SETTINGS > EXPERIMENTS.&#10;4. ENABLE &quot;BETA APIS&quot;!"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TAB 4: Download ── -->
+    <div id="tab-download" class="section-content">
+      <div class="panel">
+        <div class="panel-head"><div class="dot"></div><span>Download Settings</span></div>
+        <div class="panel-body">
+          <div class="field">
+            <label>CurseForge / Direct Download URL <span class="req">*</span></label>
+            <input type="text" id="dlUrl" placeholder="https://www.curseforge.com/minecraft-bedrock/addons/...">
+          </div>
+          <div class="field">
+            <label>Download Button Note</label>
+            <textarea id="dlNote" placeholder="You have to collect 5 diamonds in order to download the addon, Click the button below to start the game."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Generate Button -->
+    <div class="panel">
+      <div class="panel-body">
+        <button class="gen-btn" id="genBtn" onclick="generate()">GENERATE &amp; PUSH TO GITHUB</button>
+        <div class="log" id="log"></div>
+        <div class="success" id="successBox"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── RIGHT: Reference ── -->
+  <div>
+    <div class="panel">
+      <div class="panel-head"><div class="dot" style="background:#aac;box-shadow:0 0 7px #aac"></div><span style="color:#aac;">Quick Reference</span></div>
+      <div class="panel-body info-card">
+        <b>Accent color</b> — each addon has its own color:<br>
+        <code>#9d0ddb</code> QuickSwap (purple)<br>
+        <code>#55FF55</code> default green<br>
+        <code>#03adfc</code> blue<br>
+        <code>#ffaa00</code> orange<br><br>
+        <b>File path</b><br>
+        Addon pages live at:<br>
+        <code>posts/yourfile.html</code><br><br>
+        <b>YouTube embed</b><br>
+        Use the <code>/embed/ID</code> URL from the share → embed dialog on YouTube.<br><br>
+        <b>Compatibility tags</b><br>
+        <span class="tag g">green bar</span> = works ✓<br>
+        <span class="tag r">red bar</span> = doesn't work ✕<br>
+        <span class="tag b">grey bar</span> = neutral / info<br><br>
+        <b>Download game</b><br>
+        The diamond mini-game will auto-include. Paste the real download URL in the Download tab.
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><div class="dot" style="background:#aac;box-shadow:0 0 7px #aac"></div><span style="color:#aac;">Token Help</span></div>
+      <div class="panel-body info-card">
+        1. <b>github.com → Settings</b><br>
+        2. <b>Developer settings</b><br>
+        3. <b>Personal access tokens (classic)</b><br>
+        4. <b>Generate new token</b><br>
+        5. Tick <b style="color:var(--orange)">repo</b> scope<br>
+        6. Paste token above &amp; verify<br><br>
+        <span style="color:rgba(255,98,0,.6)">⚠ Keep your token private.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const OWNER = 'Mannooma10k', REPO = 'mannooma10k.github.io', BRANCH = 'main';
+
+// ── Tabs ──────────────────────────────────────────────────
+function switchTab(id, el) {
+  document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.stab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  el.classList.add('active');
+}
+
+// ── Color sync ────────────────────────────────────────────
+function syncColor(el) { document.getElementById('accentHex').value = el.value; }
+function syncHex(el) {
+  const v = el.value.trim();
+  if (/^#[0-9a-fA-F]{6}$/.test(v)) document.getElementById('accentPicker').value = v;
+}
+
+// ── Token ─────────────────────────────────────────────────
+function tok() { return document.getElementById('tok').value.trim(); }
+async function verifyToken() {
+  const st = document.getElementById('tokStatus');
+  if (!tok()) { st.className='status bad'; st.textContent='NO TOKEN'; return; }
+  st.className='status idle'; st.textContent='CHECKING...';
+  try {
+    const r = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}`, { headers:{Authorization:`token ${tok()}`} });
+    st.className = r.ok ? 'status ok' : 'status bad';
+    st.textContent = r.ok ? '✓ CONNECTED' : 'INVALID TOKEN';
+  } catch { st.className='status bad'; st.textContent='NETWORK ERROR'; }
+}
+
+// ── Dynamic lists ─────────────────────────────────────────
+function addItem(listId, placeholder) {
+  const wrap = document.getElementById(listId);
+  const div = document.createElement('div');
+  div.className = 'dyn-item';
+  div.innerHTML = `<input type="text" placeholder="${placeholder}"><button onclick="this.parentElement.remove()">×</button>`;
+  wrap.appendChild(div);
+}
+
+function addHowto() {
+  const wrap = document.getElementById('howtoList');
+  const id = Date.now();
+  const div = document.createElement('div');
+  div.style.marginBottom = '14px';
+  div.innerHTML = `
+    <div class="dyn-item" style="margin-bottom:7px;">
+      <input type="text" placeholder="Sub-heading (e.g. Activation)" style="flex:2">
+      <select style="width:130px;flex-shrink:0;font-size:.7rem;">
+        <option value="plain">Plain text</option>
+        <option value="warning">⚠ Warning box</option>
+        <option value="info">ℹ Info box</option>
+        <option value="success">✓ Success box</option>
+      </select>
+      <button onclick="this.closest('div[data-id]').remove()">×</button>
+    </div>
+    <textarea placeholder="Content of this section..." style="width:100%;min-height:65px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-family:'Space Mono';font-size:.75rem;padding:8px;outline:none;resize:vertical;"></textarea>
+  `;
+  div.dataset.id = id;
+  wrap.appendChild(div);
+}
+
+function addCompat() {
+  const wrap = document.getElementById('compatList');
+  const div = document.createElement('div');
+  div.className = 'compat-row';
+  div.innerHTML = `
+    <input type="text" placeholder="e.g. SURVIVAL MODE">
+    <select>
+      <option value="yes">✓ Yes</option>
+      <option value="no">✕ No</option>
+    </select>
+    <button class="dyn-item" style="width:30px;height:30px;background:none;border:1px solid var(--border);color:var(--muted);border-radius:3px;cursor:pointer;" onclick="this.parentElement.remove()">×</button>
+  `;
+  wrap.appendChild(div);
+}
+
+// ── Pre-populate defaults ─────────────────────────────────
+(function init() {
+  // Default features
+  ['Auto-swaps items to offhand when health is low', 'Custom menu via chat command', 'Priority system for multiple items'].forEach(t => {
+    addItem('featureList', 'Feature description...');
+    document.querySelectorAll('#featureList .dyn-item input')[document.querySelectorAll('#featureList .dyn-item input').length-1].value = t;
+  });
+  // Default howto
+  addHowto();
+  // Default compat
+  [['MINECRAFT 26.1+','yes'],['LOCAL MULTIPLAYER','yes'],['MULTIPLAYER REALMS','yes'],['SURVIVAL MODE','yes'],['CREATIVE MODE','yes'],['JAVA EDITION','no'],['BELOW 26.1','no']].forEach(([label, val]) => {
+    addCompat();
+    const rows = document.querySelectorAll('.compat-row');
+    const last = rows[rows.length-1];
+    last.querySelector('input').value = label;
+    last.querySelector('select').value = val;
+  });
+  // Default changelog
+  addItem('changelogList','v1.0 - Initial Release');
+  document.querySelector('#changelogList .dyn-item input').value = 'v1.0 - Initial Release';
+
+  document.getElementById('dlNote').value = "You have to collect 5 diamonds in order to download the addon, Click the button below to start the game.";
+  document.getElementById('installWin').value = "1. DOWNLOAD THE .MCPACK FILE.\n2. DOUBLE-CLICK TO IMPORT.\n3. ENABLE \"BETA APIS\" EXPERIMENT.\n4. ACTIVATE BEHAVIOR PACK.";
+  document.getElementById('installMobile').value = "1. DOWNLOAD FILE.\n2. OPEN WITH MINECRAFT.\n3. GO TO WORLD SETTINGS > EXPERIMENTS.\n4. ENABLE \"BETA APIS\"!";
+})();
+
+// ── Build the post HTML ───────────────────────────────────
+function buildHTML() {
+  const name    = document.getElementById('addonName').value.trim();
+  const accent  = document.getElementById('accentHex').value.trim() || '#55FF55';
+  const tagline = document.getElementById('tagline').value.trim();
+  const mcVer   = document.getElementById('mcVersion').value.trim() || '26.1+';
+  const seoDesc = document.getElementById('seoDesc').value.trim();
+  const seoKeys = document.getElementById('seoKeys').value.trim();
+  const ytEmbed = document.getElementById('ytEmbed').value.trim();
+  const desc    = document.getElementById('description').value.trim();
+  const dlUrl   = document.getElementById('dlUrl').value.trim();
+  const dlNote  = document.getElementById('dlNote').value.trim();
+  const installWin    = document.getElementById('installWin').value.trim();
+  const installMobile = document.getElementById('installMobile').value.trim();
+
+  // Features
+  const features = [...document.querySelectorAll('#featureList .dyn-item input')]
+    .map(i=>i.value.trim()).filter(Boolean);
+
+  // How-to sections
+  const howtoDivs = document.querySelectorAll('#howtoList [data-id]');
+  let howtoHTML = '';
+  howtoDivs.forEach(div => {
+    const heading = div.querySelector('input[type=text]').value.trim();
+    const type    = div.querySelector('select').value;
+    const content = div.querySelector('textarea').value.trim();
+    if (!content) return;
+    if (heading) howtoHTML += `\n    <h2 class="article-sub-heading">${heading}</h2>`;
+    if (type === 'warning') {
+      howtoHTML += `\n    <div class="warning-box"><p style="text-align:left;color:#ccc;font-size:11px;margin-bottom:1rem;">${content}</p></div>`;
+    } else if (type === 'info') {
+      howtoHTML += `\n    <div class="info-box"><p style="text-align:left;color:#ccc;font-size:11px;margin-bottom:1rem;">${content}</p></div>`;
+    } else if (type === 'success') {
+      howtoHTML += `\n    <div class="success-box"><p style="text-align:left;color:#ccc;font-size:11px;margin-bottom:1rem;">${content}</p></div>`;
+    } else {
+      howtoHTML += `\n    <p style="text-align:left;color:#ccc;font-size:11px;margin-bottom:1rem;">${content}</p>`;
+    }
+  });
+
+  // Compat
+  const compatRows = document.querySelectorAll('.compat-row');
+  let compatHTML = '';
+  compatRows.forEach(row => {
+    const label = row.querySelector('input').value.trim();
+    const val   = row.querySelector('select').value;
+    if (!label) return;
+    const id = val === 'yes' ? 'tss' : 'tsx';
+    compatHTML += `\n    <p id="${id}" style="text-align:left;color:#ccc;font-size:11px;margin-bottom:1rem;">${label}</p>`;
+  });
+
+  // Changelog
+  const logs = [...document.querySelectorAll('#changelogList .dyn-item input')]
+    .map(i=>i.value.trim()).filter(Boolean);
+
+  // Images
+  const imgs = [...document.querySelectorAll('#imgList .dyn-item input')]
+    .map(i=>i.value.trim()).filter(Boolean);
+
+  // Video block
+  const videoBlock = ytEmbed ? `
+   <iframe id="vid" width="560" height="315" src="${ytEmbed}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>` : '';
+
+  // Image inserts (scatter between howto)
+  const imgInserts = imgs.map(u => `\n    <img id="imgs" src="${u}" alt="${name} screenshot">`).join('');
+
+  const featHTML = features.map(f => `\n    <p id="tdb">- ${f}</p>`).join('');
+  const logHTML  = logs.map(l => `<li>${l}</li>`).join('');
+  const winSteps = installWin.split('\n').join('<br>\n        ');
+  const mobileSteps = installMobile.split('\n').join('<br>\n        ');
+  const nameSlug = name.replace(/[^a-zA-Z0-9]/g,'').toUpperCase();
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MCJRDZ23');<\/script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>${name} Add-ON Download</title>
+<meta name="description" content="${seoDesc || `Download the ${name} Add-On for Minecraft Bedrock ${mcVer}.`}">
+<meta name="keywords" content="${seoKeys || `Mannooma, ${name.toLowerCase()}, Minecraft, Addons`}">
+<meta name="author" content="Mannooma">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="Mannooma.png" type="png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="posts.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "${name} Addon",
+  "operatingSystem": "Minecraft Bedrock Edition",
+  "applicationCategory": "GameModification",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "${seoDesc || `A Minecraft Bedrock addon: ${name}.`}",
+  "author": { "@type": "Person", "name": "Mony" },
+  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "ratingCount": "120" }
+}
+<\/script>
+
+<style>
+#tdb:hover { box-shadow: -3px 2px 1px ${accent}; }
+#tdb       { box-shadow: -3px 0px 0px ${accent}; }
+.article-sub-heading { color: ${accent}; }
+#tds { color: ${accent}; }
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MCJRDZ23" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div class="star-bg"></div>
+
+<header class="header">
+  <div class="tp">
+    <a href="../index.html">HOME</a> &gt; <a href="#">MY ADD-ONS</a> &gt; ${name}
+  </div>
+  <h1 id="h1" style="color:${accent}">${name} ADD-ON</h1>
+  ${tagline ? `<p style="color:#888;font-size:10px;">${tagline}</p>` : ''}
+</header>
+
+<!--Ads Mobile-->
+<div class="headermobile">
+  <script type="text/javascript">atOptions={'key':'f60b877ad3fe53af1374e90f82ceaf97','format':'iframe','height':50,'width':320,'params':{}};<\/script>
+  <script type="text/javascript" src="https://www.highperformanceformat.com/f60b877ad3fe53af1374e90f82ceaf97/invoke.js"><\/script>
+</div>
+<!--Ads PC-->
+<div class="headerpc">
+  <script type="text/javascript">atOptions={'key':'1142ace3ae4a8e86aebe3c69f7a80bd2','format':'iframe','height':90,'width':728,'params':{}};<\/script>
+  <script type="text/javascript" src="https://www.highperformanceformat.com/1142ace3ae4a8e86aebe3c69f7a80bd2/invoke.js"><\/script>
+</div>
+
+<div class="fsbox">
+  <h1 id="tds">About The Addon</h1>${videoBlock}
+  <p style="text-align:left;color:#ccc;font-size:11px;margin-bottom:1rem;">
+    ${desc}
+  </p>
+</div>
+
+${features.length ? `<div class="fsbox">
+  <h1 id="tds">Add-ON Features</h1>${featHTML}
+</div>` : ''}
+
+${howtoHTML ? `<div class="fsbox">
+  <h1 id="tds">How To Use</h1>${howtoHTML}${imgInserts}
+  <div class="adsposts">
+    <script type="text/javascript">atOptions={'key':'250249f9d8db0c06d612b13c86a064fa','format':'iframe','height':600,'width':160,'params':{}};<\/script>
+    <script type="text/javascript" src="https://www.highperformanceformat.com/250249f9d8db0c06d612b13c86a064fa/invoke.js"><\/script>
+  </div>
+</div>` : ''}
+
+${compatHTML ? `<div class="fsbox">
+  <h1 id="tds">Compatibility</h1>${compatHTML}
+</div>` : ''}
+
+${logs.length ? `<div class="fsbox">
+  <h1 id="tds">Changelog</h1>
+  <ul style="padding-left:20px;color:#aaa;">${logHTML}</ul>
+</div>` : ''}
+
+<div class="fsbox">
+  <h1 id="tds">Installation</h1>
+  <p id="tdu" style="text-align:left;color:#fefefe;font-size:11px;margin-bottom:1rem;background-color:#6a6a6a85;line-height:2;">WINDOWS 10/11:</p>
+  <p id="tsm" style="text-align:left;color:#ccc;font-size:11px;margin-bottom:1rem;line-height:2;">${winSteps}</p>
+  <p id="tdu" style="text-align:left;color:#fefefe;font-size:11px;margin-bottom:1rem;background-color:#6a6a6a85;line-height:2;">ANDROID / IOS (MCPE):</p>
+  <p id="tsm" style="text-align:left;color:#ccc;font-size:11px;margin-bottom:1rem;line-height:2;">${mobileSteps}</p>
+</div>
+
+<div class="fsbox">
+  <h2 id="tds">↓ Download</h2>
+  <div class="warning-box">
+    <p style="text-align:left;color:#ccc;font-size:11px;margin-bottom:1rem;">${dlNote}</p>
+  </div>
+  <button id="Download" onclick="openGameModal()">Press Here</button>
+</div>
+
+<div id="game-modal">
+  <div id="close-modal" onclick="closeGameModal()">X</div>
+  <canvas id="gameCanvas"></canvas>
+  <div id="ui-layer">
+    <div id="top-hud">
+      <div id="xp-text">0</div>
+      <div id="xp-bar-border"><div id="xp-bar-fill"></div></div>
+      <div class="status-text" id="status-text">GENERATING TERRAIN...</div>
+    </div>
+    <div id="center-msg">
+      <div id="start-screen">
+        <h1>Diamonds Collector</h1><br>
+        <p>Collect Diamonds to Speed Up Download</p>
+        <button class="mc-btn" id="start-btn">START GAME</button>
+      </div>
+      <div id="game-over-screen" style="display:none;">
+        <h1 style="color:#ff5555;">YOU DIED!</h1>
+        <p>Score: <span id="final-score">0</span></p>
+        <button class="mc-btn" id="restart-btn">RESPAWN</button>
+      </div>
+      <div id="download-screen" style="display:none;">
+        <h1 class="article-sub-heading" style="margin-bottom:2px;color:#2a9f00;">ADD-ON READY!</h1>
+        <button class="mc-btn" id="download-btn" onclick="triggerFinalDownload()">Download</button>
+      </div>
+    </div>
+    <div id="bottom-hud"><div class="hint">DRAG TO MOVE STEVE</div></div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-bar">
+    <div id="ftext" class="footer-text">© 2026 Mannooma10k. All rights reserved.<br>NOT AN OFFICIAL MINECRAFT PRODUCT<br>This site is not affiliated with Mojang Studios</div>
+    <div class="footer-links">
+      <a href="../legal/terms-of-use.html" class="footer-link">Terms</a>
+      <span class="sep">|</span>
+      <a href="../legal/privacy-policy.html" class="footer-link">Privacy</a>
+    </div>
+  </div>
+</footer>
+
+<script>const dlTarget = '${dlUrl}';<\/script>
+<script src="game.js"><\/script>
+</body>
+</html>`;
+}
+
+// ── Log helpers ───────────────────────────────────────────
+function showLog() {
+  const l = document.getElementById('log');
+  l.innerHTML = ''; l.className = 'log on'; return l;
+}
+function addLine(log, cls, txt) {
+  const d = document.createElement('div');
+  d.className = cls; d.textContent = txt;
+  log.appendChild(d); log.scrollTop = log.scrollHeight;
+}
+
+// ── GitHub helpers ────────────────────────────────────────
+async function ghGet(path) {
+  const r = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`,
+    { headers: { Authorization:`token ${tok()}`, Accept:'application/vnd.github.v3+json' } });
+  if (!r.ok) { const e = await r.json(); throw new Error(e.message || r.status); }
+  return r.json();
+}
+async function ghPut(path, content, sha, msg) {
+  const r = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`,
+    { method:'PUT', headers:{ Authorization:`token ${tok()}`, Accept:'application/vnd.github.v3+json', 'Content-Type':'application/json' },
+      body: JSON.stringify({ message:msg, content, sha: sha||undefined, branch:BRANCH }) });
+  if (!r.ok) { const e = await r.json(); throw new Error(e.message || r.status); }
+  return r.json();
+}
+
+// ── Main generate & push ──────────────────────────────────
+async function generate() {
+  const name     = document.getElementById('addonName').value.trim();
+  const fileName = document.getElementById('fileName').value.trim();
+  const dlUrl    = document.getElementById('dlUrl').value.trim();
+
+  if (!tok())     { alert('Please enter and verify your GitHub token first.'); return; }
+  if (!name)      { alert('Addon name is required.'); return; }
+  if (!fileName)  { alert('Page filename is required (e.g. quickswap.html).'); return; }
+  if (!dlUrl)     { alert('Download URL is required.'); return; }
+  if (!document.getElementById('description').value.trim()) { alert('Description is required.'); return; }
+
+  const btn = document.getElementById('genBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin"></span>GENERATING & PUSHING...';
+  document.getElementById('successBox').className = 'success';
+
+  const log = showLog();
+
+  try {
+    const html = buildHTML();
+    addLine(log,'s','Building post page HTML...');
+    addLine(log,'ok',`HTML generated (${Math.round(html.length/1024)}KB)`);
+
+    // Check if file already exists (to get sha for update)
+    addLine(log,'s',`Checking if posts/${fileName} exists...`);
+    let existingSha = undefined;
+    try {
+      const existing = await ghGet(`posts/${fileName}`);
+      existingSha = existing.sha;
+      addLine(log,'ok','File exists — will update it');
+    } catch {
+      addLine(log,'ok','New file — will create it');
+    }
+
+    // Push post page
+    addLine(log,'s',`Pushing posts/${fileName} to GitHub...`);
+    const encoded = btoa(unescape(encodeURIComponent(html)));
+    await ghPut(`posts/${fileName}`, encoded, existingSha, `Add post page: ${name}`);
+    addLine(log,'ok',`posts/${fileName} pushed ✓`);
+
+    // Done
+    const sb = document.getElementById('successBox');
+    sb.innerHTML = `✓ <b>${name}</b> post page is live!<br>
+      Path: <code>posts/${fileName}</code><br>
+      View: <a href="https://${OWNER.toLowerCase()}.github.io/posts/${fileName}" target="_blank">
+      ${OWNER.toLowerCase()}.github.io/posts/${fileName}</a><br>
+      <span style="color:var(--muted);font-size:.65rem">(may take ~30 seconds to update)</span>`;
+    sb.className = 'success on';
+
+  } catch(e) {
+    addLine(log,'er', e.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'GENERATE &amp; PUSH TO GITHUB';
+  }
+}
+</script>
+</body>
+</html>
