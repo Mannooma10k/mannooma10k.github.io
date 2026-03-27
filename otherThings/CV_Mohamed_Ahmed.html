@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mohamed Ahmed Abdul Aziz — CV</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #0f1923;
+    --navy-mid: #1a2c3d;
+    --gold: #c9a84c;
+    --gold-light: #e2c97e;
+    --cream: #f7f4ef;
+    --text-dark: #1a1a2e;
+    --text-mid: #4a4a6a;
+    --text-light: #8a8aaa;
+    --white: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* ── LAYOUT ── */
+  .page {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    min-height: 100vh;
+    max-width: 1100px;
+    margin: 40px auto;
+    box-shadow: 0 30px 80px rgba(15,25,35,0.22);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    background: var(--navy);
+    color: var(--white);
+    padding: 48px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sidebar::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 40px solid rgba(201,168,76,0.12);
+    pointer-events: none;
+  }
+
+  .sidebar::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    left: -60px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 30px solid rgba(201,168,76,0.08);
+    pointer-events: none;
+  }
+
+  /* Avatar */
+  .avatar-wrap {
+    display: flex;
+    justify-content: center;
+    animation: fadeDown 0.6s ease both;
+  }
+  .avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: var(--navy-mid);
+    border: 3px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 2px;
+    box-shadow: 0 0 0 6px rgba(201,168,76,0.15);
+  }
+
+  /* Sidebar section headers */
+  .s-header {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+  }
+
+  /* Contact */
+  .contact-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .contact-list li {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.82);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .contact-list li .icon {
+    width: 20px;
+    text-align: center;
+    color: var(--gold);
+    flex-shrink: 0;
+    font-size: 13px;
+  }
+  .contact-list li a {
+    color: rgba(255,255,255,0.82);
+    text-decoration: none;
+  }
+  .contact-list li a:hover { color: var(--gold-light); }
+
+  /* Skills */
+  .skill-item {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.82);
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .skill-item::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* Certs */
+  .cert-item {
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1.4;
+  }
+  .cert-item::before {
+    content: '✓';
+    color: var(--gold);
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  /* Personal info */
+  .personal-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .personal-list li {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.75);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .personal-list .icon { color: var(--gold); }
+
+  /* ── MAIN ── */
+  .main {
+    background: var(--white);
+    padding: 52px 48px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    animation: fadeUp 0.7s ease both;
+  }
+
+  /* Hero */
+  .hero {
+    border-bottom: 2px solid var(--cream);
+    padding-bottom: 32px;
+  }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--navy);
+    letter-spacing: -0.5px;
+  }
+  .hero-name span { color: var(--gold); }
+  .hero-title {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    margin-top: 8px;
+  }
+  .hero-badge {
+    display: inline-block;
+    margin-top: 14px;
+    background: var(--navy);
+    color: var(--gold-light);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 2px;
+  }
+
+  /* Section */
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: 0.3px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--cream);
+  }
+
+  /* Summary */
+  .summary-text {
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--text-mid);
+    border-left: 3px solid var(--gold);
+    padding-left: 18px;
+  }
+
+  /* Experience */
+  .exp-list { display: flex; flex-direction: column; gap: 26px; }
+  .exp-item { position: relative; }
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .exp-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .exp-company {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gold);
+    margin-top: 2px;
+  }
+  .exp-meta {
+    font-size: 11.5px;
+    color: var(--text-light);
+    text-align: right;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .exp-meta .loc { color: var(--text-mid); }
+  .exp-divider {
+    width: 30px;
+    height: 2px;
+    background: var(--gold);
+    margin: 8px 0;
+    border-radius: 2px;
+  }
+
+  /* Responsibilities */
+  .resp-section { margin-top: 6px; }
+  .resp-section-title {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 10px;
+  }
+  .resp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 20px;
+  }
+  .resp-item {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.6;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .resp-item::before {
+    content: '▸';
+    color: var(--gold);
+    flex-shrink: 0;
+    font-size: 10px;
+    margin-top: 3px;
+  }
+
+  /* Education */
+  .edu-item { display: flex; gap: 16px; align-items: flex-start; }
+  .edu-year {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--gold);
+    opacity: 0.7;
+    min-width: 56px;
+    line-height: 1;
+  }
+  .edu-detail .deg {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--navy);
+  }
+  .edu-detail .inst {
+    font-size: 12.5px;
+    color: var(--text-light);
+    margin-top: 2px;
+  }
+
+  /* Animations */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .sidebar > * {
+    animation: fadeDown 0.6s ease both;
+  }
+  .sidebar > *:nth-child(1) { animation-delay: 0.05s; }
+  .sidebar > *:nth-child(2) { animation-delay: 0.12s; }
+  .sidebar > *:nth-child(3) { animation-delay: 0.18s; }
+  .sidebar > *:nth-child(4) { animation-delay: 0.24s; }
+  .sidebar > *:nth-child(5) { animation-delay: 0.30s; }
+  .sidebar > *:nth-child(6) { animation-delay: 0.36s; }
+
+  @media (max-width: 800px) {
+    .page { grid-template-columns: 1fr; margin: 0; border-radius: 0; }
+    .main { padding: 36px 28px 48px; }
+    .resp-grid { grid-template-columns: 1fr; }
+    .hero-name { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="avatar-wrap">
+      <div class="avatar">MA</div>
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <div class="s-header">Contact</div>
+      <ul class="contact-list">
+        <li><span class="icon">📍</span>Qalyubia, Obour City, Egypt</li>
+        <li><span class="icon">📞</span>02 – 44958555</li>
+        <li><span class="icon">📱</span>01157855937</li>
+        <li><span class="icon">✉</span><a href="mailto:moah6005@gmail.com">moah6005@gmail.com</a></li>
+      </ul>
+    </div>
+
+    <!-- Education -->
+    <div>
+      <div class="s-header">Education</div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div>
+          <div style="font-size:11px;color:var(--gold);font-weight:500;letter-spacing:1px;">2001</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.85);margin-top:3px;line-height:1.45;">Quality Control Specialist — B.S.</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,0.45);margin-top:2px;">Egypt</div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--gold);font-weight:500;letter-spacing:1px;">1998</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.85);margin-top:3px;line-height:1.45;">Technology Development Diploma & Training</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,0.45);margin-top:2px;">Egypt</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Core Skills -->
+    <div>
+      <div class="s-header">Core Skills</div>
+      <div style="display:flex;flex-direction:column;">
+        <div class="skill-item">Microsoft Office (Advanced)</div>
+        <div class="skill-item">ERP — Great Plains</div>
+        <div class="skill-item">HR Laws &amp; Compliance</div>
+        <div class="skill-item">Business &amp; Report Writing</div>
+        <div class="skill-item">Travel Administration</div>
+        <div class="skill-item">Meeting &amp; Event Planning</div>
+        <div class="skill-item">Document Archiving</div>
+        <div class="skill-item">Work Under Pressure</div>
+      </div>
+    </div>
+
+    <!-- Certificates -->
+    <div>
+      <div class="s-header">Certificates</div>
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <div class="cert-item">HR Management Qualifications</div>
+        <div class="cert-item">Business Writing</div>
+        <div class="cert-item">Effective Communication Skills</div>
+        <div class="cert-item">Time &amp; Stress Management</div>
+        <div class="cert-item">Team Participation</div>
+        <div class="cert-item">Beyond Service to Super Service</div>
+        <div class="cert-item">Business Etiquette &amp; Ethics</div>
+        <div class="cert-item">Inventory Management</div>
+        <div class="cert-item">Professional Report Writing</div>
+      </div>
+    </div>
+
+    <!-- Personal Info -->
+    <div>
+      <div class="s-header">Personal</div>
+      <ul class="personal-list">
+        <li><span class="icon">🎂</span>26 August 1979</li>
+        <li><span class="icon">🌍</span>Egyptian</li>
+        <li><span class="icon">💍</span>Married</li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <main class="main">
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-name">Mohamed Ahmed<br/><span>Abdul Aziz</span></div>
+      <div class="hero-title">Senior Executive Officer · HR &amp; Administration Specialist</div>
+      <div class="hero-badge">16+ Years of Experience &nbsp;|&nbsp; Egypt &amp; Kuwait</div>
+    </div>
+
+    <!-- Summary -->
+    <div>
+      <div class="section-title">Professional Summary</div>
+      <p class="summary-text">
+        Results-driven Executive Assistant and Senior HR Officer with over 16 years of progressive
+        experience across Egypt and Kuwait. Known for exceptional multi-tasking, meticulous attention
+        to detail, and the ability to navigate complex organizational environments with professionalism
+        and precision. Adept at bridging executive leadership with operational teams to drive strategic goals.
+      </p>
+    </div>
+
+    <!-- Experience -->
+    <div>
+      <div class="section-title">Work Experience</div>
+      <div class="exp-list">
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Duty Manager</div>
+              <div class="exp-company">Oncoast.eg</div>
+            </div>
+            <div class="exp-meta">
+              <span>2018 — Present</span>
+              <span class="loc">📍 Egypt</span>
+            </div>
+          </div>
+          <div class="exp-divider"></div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Office Manager</div>
+              <div class="exp-company">MB Climate</div>
+            </div>
+            <div class="exp-meta">
+              <span>2016 — 2018</span>
+              <span class="loc">📍 Kuwait</span>
+            </div>
+          </div>
+          <div class="exp-divider"></div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Senior Executive Officer — HR Dept.</div>
+              <div class="exp-company">National Offset Company</div>
+            </div>
+            <div class="exp-meta">
+              <span>2007 — 2016</span>
+              <span class="loc">📍 Kuwait</span>
+            </div>
+          </div>
+          <div class="exp-divider"></div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Admin Supervisor</div>
+              <div class="exp-company">Alaa Development &amp; Construction Co.</div>
+            </div>
+            <div class="exp-meta">
+              <span>2005 — 2007</span>
+              <span class="loc">📍 Egypt</span>
+            </div>
+          </div>
+          <div class="exp-divider"></div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Admin Assistant</div>
+              <div class="exp-company">El Horia Company</div>
+            </div>
+            <div class="exp-meta">
+              <span>2003 — 2005</span>
+              <span class="loc">📍 Egypt</span>
+            </div>
+          </div>
+          <div class="exp-divider"></div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Supervisor — Services</div>
+              <div class="exp-company">Egyptian Engineering House for Contracting</div>
+            </div>
+            <div class="exp-meta">
+              <span>2000 — 2002</span>
+              <span class="loc">📍 Egypt</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Key Responsibilities -->
+    <div>
+      <div class="section-title">Key Responsibilities</div>
+
+      <div class="resp-section">
+        <div class="resp-section-title">Managerial Expertise</div>
+        <div class="resp-grid">
+          <div class="resp-item">Managed internal &amp; external audit compliance and Court of Accounts responses, with periodic follow-up reporting to senior management.</div>
+          <div class="resp-item">Drafted, reviewed, and finalized correspondence, contracts, agreements, and official books with full linguistic and legal accuracy.</div>
+          <div class="resp-item">Structured and implemented rules, regulations, and operational procedures; migrated documentary workflows from manual to digital systems.</div>
+          <div class="resp-item">Prepared instantaneous, periodic, quarterly, and annual reports by aggregating cross-departmental data and intelligence.</div>
+          <div class="resp-item">Formed, led, and managed teams and committees with strategic task allocation to meet high-priority objectives.</div>
+          <div class="resp-item">Developed and maintained electronic archiving and document management systems enabling fast, secure record retrieval.</div>
+          <div class="resp-item">Handled sensitive business requirements with discretion, ensuring full confidentiality at all times.</div>
+        </div>
+      </div>
+
+      <div class="resp-section" style="margin-top:22px;">
+        <div class="resp-section-title">Government &amp; Public Relations</div>
+        <div class="resp-grid">
+          <div class="resp-item">Extensive liaison experience with public and private sector bodies at both national and regional levels.</div>
+          <div class="resp-item">Media relations experience — monitored and reported published content to senior leadership.</div>
+          <div class="resp-item">Expert in hosting VIPs and high-profile external stakeholders with full protocol adherence.</div>
+          <div class="resp-item">Identified fastest and most cost-effective solutions to overcome governmental and operational hurdles.</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>
