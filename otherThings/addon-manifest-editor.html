@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MC Addon Manifest Editor</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P:wght@400&family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+  :root {
+    --bg:        #060c06;
+    --s0:        #0c140c;
+    --s1:        #111c11;
+    --s2:        #182218;
+    --s3:        #1f2e1f;
+    --border:    #2a4a2a;
+    --border2:   #3a6a3a;
+    --g0:        #4ade80;
+    --g1:        #22c55e;
+    --g2:        #16a34a;
+    --g3:        #15803d;
+    --yellow:    #fbbf24;
+    --red:       #f87171;
+    --blue:      #60a5fa;
+    --purple:    #c084fc;
+    --text:      #c8e8c8;
+    --muted:     #5a7a5a;
+    --px: 2px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Scanline overlay ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.15) 2px, rgba(0,0,0,.15) 4px);
+    pointer-events: none; z-index: 9999;
+  }
+
+  /* ── Pixel border mixin helper ── */
+  .px-box {
+    border: 2px solid var(--border);
+    box-shadow: 0 0 0 1px var(--s0), inset 0 0 0 1px var(--s0);
+  }
+
+  /* ══════════ HEADER ══════════ */
+  header {
+    position: relative;
+    background: var(--s1);
+    border-bottom: 2px solid var(--border2);
+    padding: 28px 32px 24px;
+    overflow: hidden;
+  }
+  header::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--g0), var(--g1), var(--g0), transparent);
+    animation: glowLine 3s ease-in-out infinite;
+  }
+  @keyframes glowLine {
+    0%,100% { opacity: .5; }
+    50%      { opacity: 1; }
+  }
+
+  .header-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; gap: 20px;
+  }
+  .header-icon {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, var(--g2), var(--g3));
+    border: 2px solid var(--g0);
+    display: grid; place-items: center; flex-shrink: 0;
+    box-shadow: 0 0 16px rgba(74,222,128,.4);
+    image-rendering: pixelated;
+    font-size: 26px;
+  }
+  .header-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 13px;
+    color: var(--g0);
+    text-shadow: 0 0 12px rgba(74,222,128,.6), 2px 2px 0 rgba(0,0,0,.8);
+    line-height: 1.6;
+  }
+  .header-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: .05em;
+  }
+
+  /* ══════════ LAYOUT ══════════ */
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  /* ══════════ UPLOAD ZONE ══════════ */
+  .upload-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  @media(max-width:640px){ .upload-grid { grid-template-columns: 1fr; } }
+
+  .drop-zone {
+    background: var(--s1);
+    border: 2px dashed var(--border);
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .drop-zone:hover, .drop-zone.drag { border-color: var(--g0); background: var(--s2); }
+  .drop-zone.loaded { border-style: solid; border-color: var(--g2); }
+  .drop-zone input[type=file] { display: none; }
+  .drop-icon {
+    font-size: 32px; margin-bottom: 10px; display: block;
+    filter: drop-shadow(0 0 6px rgba(74,222,128,.4));
+  }
+  .drop-label {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: var(--g0);
+    display: block; margin-bottom: 8px;
+  }
+  .drop-hint {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px; color: var(--muted);
+  }
+  .drop-loaded-name {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px; color: var(--g0);
+    margin-top: 8px; display: none;
+    word-break: break-all;
+  }
+  .drop-zone.loaded .drop-loaded-name { display: block; }
+  .drop-zone.loaded .drop-hint-default { display: none; }
+  .clear-btn {
+    position: absolute; top: 8px; right: 8px;
+    background: none; border: 1px solid var(--border);
+    color: var(--muted); cursor: pointer;
+    font-size: 11px; padding: 2px 6px;
+    display: none; font-family: 'Share Tech Mono', monospace;
+  }
+  .drop-zone.loaded .clear-btn { display: block; }
+  .clear-btn:hover { border-color: var(--red); color: var(--red); }
+
+  /* ══════════ SECTION TITLE ══════════ */
+  .sec-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    color: var(--g0);
+    letter-spacing: .08em;
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 18px;
+  }
+  .sec-title::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, var(--border2), transparent);
+  }
+
+  /* ══════════ ADDON INFO CARD ══════════ */
+  .info-card {
+    background: var(--s1); border: 1px solid var(--border);
+    padding: 20px 24px;
+    margin-bottom: 28px;
+    display: none;
+    animation: fadeIn .3s ease;
+  }
+  .info-card.show { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+  .info-row {
+    display: flex; gap: 16px; align-items: center;
+    flex-wrap: wrap; margin-bottom: 12px;
+  }
+  .info-row:last-child { margin-bottom: 0; }
+  .info-badge {
+    background: var(--s3); border: 1px solid var(--border);
+    padding: 4px 10px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px; color: var(--muted);
+    white-space: nowrap;
+  }
+  .info-badge span { color: var(--text); }
+
+  /* ══════════ MODE TABS ══════════ */
+  .tabs {
+    display: flex; gap: 0;
+    border: 1px solid var(--border);
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+  .tab-btn {
+    flex: 1; background: var(--s1);
+    border: none; cursor: pointer;
+    padding: 14px 10px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    transition: all .2s;
+    border-right: 1px solid var(--border);
+    letter-spacing: .04em;
+    line-height: 1.7;
+  }
+  .tab-btn:last-child { border-right: none; }
+  .tab-btn:hover { background: var(--s2); color: var(--text); }
+  .tab-btn.active {
+    background: var(--s3);
+    color: var(--g0);
+    box-shadow: inset 0 -2px 0 var(--g0);
+  }
+
+  /* ══════════ PANELS ══════════ */
+  .panel { display: none; }
+  .panel.active { display: block; animation: fadeIn .25s ease; }
+
+  /* ══════════ FORM ELEMENTS ══════════ */
+  .field-group { margin-bottom: 20px; }
+  .field-label {
+    display: block;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px; color: var(--muted);
+    margin-bottom: 7px; letter-spacing: .05em;
+  }
+  .field-label .req { color: var(--g0); }
+
+  input[type=text], input[type=number] {
+    width: 100%;
+    background: var(--s0);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 14px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  input[type=text]:focus, input[type=number]:focus {
+    border-color: var(--g1);
+    box-shadow: 0 0 0 1px var(--g2), 0 0 10px rgba(34,197,94,.15);
+  }
+  input[type=text]::placeholder, input[type=number]::placeholder { color: var(--muted); }
+  input[type=number] { -moz-appearance: textfield; }
+  input[type=number]::-webkit-inner-spin-button { display: none; }
+
+  .version-group {
+    display: flex; gap: 8px; align-items: center;
+  }
+  .version-group input { flex: 1; }
+  .version-sep { color: var(--muted); font-family: 'Share Tech Mono', monospace; }
+
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media(max-width:600px){ .row-2 { grid-template-columns: 1fr; } }
+
+  /* ══════════ TOGGLE ══════════ */
+  .toggle-row {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--s1); border: 1px solid var(--border);
+    padding: 14px 18px; margin-bottom: 20px;
+  }
+  .toggle-wrap {
+    position: relative; width: 48px; height: 26px; flex-shrink: 0;
+  }
+  .toggle-wrap input { opacity: 0; width: 0; height: 0; position: absolute; }
+  .toggle-track {
+    position: absolute; inset: 0;
+    background: var(--s3); border: 1px solid var(--border);
+    cursor: pointer; transition: all .25s;
+    display: flex; align-items: center;
+  }
+  .toggle-thumb {
+    position: absolute; left: 3px;
+    width: 18px; height: 18px;
+    background: var(--muted);
+    transition: all .25s;
+  }
+  .toggle-wrap input:checked + .toggle-track { background: var(--g3); border-color: var(--g1); }
+  .toggle-wrap input:checked + .toggle-track .toggle-thumb { left: 25px; background: var(--g0); }
+  .toggle-info { flex: 1; }
+  .toggle-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px; color: var(--text);
+    margin-bottom: 4px;
+  }
+  .toggle-desc { font-size: 13px; color: var(--muted); font-family: 'Share Tech Mono', monospace; }
+
+  /* ══════════ UUID DISPLAY ══════════ */
+  .uuid-section {
+    background: var(--s0);
+    border: 1px solid var(--border);
+    padding: 18px;
+    margin-bottom: 20px;
+  }
+  .uuid-heading {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    letter-spacing: .06em;
+  }
+  .uuid-row {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 10px;
+    font-family: 'Share Tech Mono', monospace;
+  }
+  .uuid-tag {
+    background: var(--s3); border: 1px solid var(--border);
+    padding: 3px 8px; font-size: 11px; color: var(--muted);
+    white-space: nowrap; flex-shrink: 0; min-width: 90px; text-align: center;
+  }
+  .uuid-tag.changing { border-color: var(--yellow); color: var(--yellow); }
+  .uuid-tag.linked   { border-color: var(--blue); color: var(--blue); }
+  .uuid-val { font-size: 12px; color: var(--muted); word-break: break-all; }
+  .uuid-val.will-change { color: var(--yellow); }
+  .uuid-arrow { color: var(--g0); font-size: 18px; }
+
+  /* ══════════ BUTTONS ══════════ */
+  .btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    padding: 13px 22px;
+    border: none; cursor: pointer;
+    letter-spacing: .05em;
+    transition: all .15s;
+    display: inline-flex; align-items: center; gap: 8px;
+    line-height: 1.5;
+  }
+  .btn-primary {
+    background: var(--g2);
+    color: #fff;
+    border: 2px solid var(--g0);
+    box-shadow: 0 4px 0 var(--g3), 0 0 20px rgba(74,222,128,.2);
+  }
+  .btn-primary:hover {
+    background: var(--g1);
+    box-shadow: 0 4px 0 var(--g2), 0 0 30px rgba(74,222,128,.4);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--g3); }
+
+  .btn-dl {
+    background: var(--s2);
+    color: var(--g0);
+    border: 1px solid var(--border2);
+    font-size: 8px; padding: 10px 16px;
+  }
+  .btn-dl:hover { background: var(--s3); border-color: var(--g0); }
+
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+
+  .btn-icon { font-size: 14px; }
+
+  /* ══════════ OUTPUT / PREVIEW ══════════ */
+  .output-area { display: none; animation: fadeIn .3s ease; }
+  .output-area.show { display: block; }
+
+  .manifest-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  @media(max-width:700px){ .manifest-grid { grid-template-columns: 1fr; } }
+
+  .manifest-card {
+    background: var(--s0);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .manifest-card-header {
+    background: var(--s2);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 16px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .manifest-card-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px; color: var(--g0);
+  }
+  .manifest-card-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px; color: var(--muted);
+  }
+  .manifest-pre {
+    padding: 14px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 380px; overflow-y: auto;
+  }
+  .manifest-pre::-webkit-scrollbar { width: 4px; }
+  .manifest-pre::-webkit-scrollbar-track { background: var(--s0); }
+  .manifest-pre::-webkit-scrollbar-thumb { background: var(--border2); }
+
+  /* JSON syntax highlighting */
+  .j-key   { color: #93c5fd; }
+  .j-str   { color: #86efac; }
+  .j-num   { color: #fde68a; }
+  .j-bool  { color: #c084fc; }
+  .j-null  { color: var(--muted); }
+  .j-changed { color: var(--yellow); font-weight: bold; }
+
+  /* ══════════ DIVIDER ══════════ */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 28px 0;
+  }
+
+  /* ══════════ NOTICE ══════════ */
+  .notice {
+    background: var(--s1); border-left: 3px solid var(--g2);
+    padding: 10px 16px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px; color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .notice.warn { border-color: var(--yellow); }
+  .notice.err  { border-color: var(--red); color: var(--red); }
+
+  /* ══════════ VERSION FIELDS ══════════ */
+  .version-block {
+    background: var(--s0);
+    border: 1px solid var(--border);
+    padding: 18px;
+    margin-bottom: 20px;
+  }
+  .version-block-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px; color: var(--muted);
+    margin-bottom: 14px; letter-spacing: .05em;
+  }
+  .module-version-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 14px; flex-wrap: wrap;
+  }
+  .module-name {
+    background: var(--s3); border: 1px solid var(--border);
+    padding: 6px 12px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px; color: var(--purple);
+    white-space: nowrap;
+  }
+  .ver-eq { color: var(--muted); font-family: 'Share Tech Mono', monospace; }
+  .ver-input { width: 120px !important; flex: none !important; }
+
+  /* ══════════ UUID REGEN ══════════ */
+  .regen-block {
+    background: var(--s0);
+    border: 1px solid var(--border);
+    padding: 18px; margin-bottom: 20px;
+  }
+  .regen-block-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px; color: var(--muted);
+    margin-bottom: 14px; letter-spacing: .06em;
+  }
+  .pack-label {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px; margin-bottom: 10px;
+  }
+  .pack-label.bp { color: var(--yellow); }
+  .pack-label.rp { color: var(--blue); }
+  .pack-divider { height: 1px; background: var(--border); margin: 14px 0; }
+
+  /* ══════════ TOAST ══════════ */
+  .toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--s3); border: 1px solid var(--g2);
+    color: var(--g0);
+    padding: 12px 20px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    z-index: 9998;
+    transform: translateY(80px); opacity: 0;
+    transition: all .3s;
+    pointer-events: none;
+    max-width: 300px;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--s0); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="header-inner">
+    <div class="header-icon">⚒️</div>
+    <div>
+      <div class="header-title">MC Addon<br>Manifest Editor</div>
+      <div class="header-sub">Minecraft Bedrock · Behavior &amp; Resource Pack · manifest.json</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- Upload -->
+  <div class="sec-title">01 &nbsp; LOAD MANIFESTS</div>
+
+  <div class="upload-grid">
+    <!-- BP -->
+    <div class="drop-zone" id="dropBP" onclick="document.getElementById('fileBP').click()">
+      <button class="clear-btn" onclick="clearPack('bp', event)">✕ CLEAR</button>
+      <input type="file" id="fileBP" accept=".json" onchange="handleFile('bp', this)"/>
+      <span class="drop-icon">🔧</span>
+      <span class="drop-label">Behavior Pack</span>
+      <span class="drop-hint drop-hint-default">Drop manifest.json here<br/>or click to browse</span>
+      <span class="drop-loaded-name" id="bpFileName"></span>
+    </div>
+    <!-- RP -->
+    <div class="drop-zone" id="dropRP" onclick="document.getElementById('fileRP').click()">
+      <button class="clear-btn" onclick="clearPack('rp', event)">✕ CLEAR</button>
+      <input type="file" id="fileRP" accept=".json" onchange="handleFile('rp', this)"/>
+      <span class="drop-icon">🎨</span>
+      <span class="drop-label">Resource Pack</span>
+      <span class="drop-hint drop-hint-default">Drop manifest.json here<br/>or click to browse (optional)</span>
+      <span class="drop-loaded-name" id="rpFileName"></span>
+    </div>
+  </div>
+
+  <!-- Info Card -->
+  <div class="info-card" id="infoCard">
+    <div class="sec-title" style="margin-bottom:14px">DETECTED ADDON INFO</div>
+    <div class="info-row">
+      <div class="info-badge">Name <span id="iName">—</span></div>
+      <div class="info-badge">Author <span id="iAuthor">—</span></div>
+      <div class="info-badge">Format <span id="iFormat">—</span></div>
+    </div>
+    <div class="info-row">
+      <div class="info-badge">BP Header UUID <span id="iBpUuid" style="font-size:11px">—</span></div>
+      <div class="info-badge">RP Header UUID <span id="iRpUuid" style="font-size:11px">—</span></div>
+    </div>
+    <div class="info-row">
+      <div class="info-badge">@minecraft/server <span id="iServer">—</span></div>
+      <div class="info-badge">@minecraft/server-ui <span id="iServerUi">—</span></div>
+    </div>
+  </div>
+
+  <!-- Mode Tabs -->
+  <div id="editorArea" style="display:none">
+
+    <div class="sec-title">02 &nbsp; CHOOSE MODE</div>
+
+    <div class="tabs">
+      <button class="tab-btn active" id="tabUpdate" onclick="switchTab('update')">
+        🔄 UPDATE<br>ADDON
+      </button>
+      <button class="tab-btn" id="tabNew" onclick="switchTab('new')">
+        ✨ NEW<br>ADDON
+      </button>
+    </div>
+
+    <!-- ══ UPDATE PANEL ══ -->
+    <div class="panel active" id="panelUpdate">
+
+      <div class="notice">
+        <strong>Update Addon</strong> — Regenerates the cross-linking UUIDs (header &amp; dependency UUIDs between packs).
+        Internal module UUIDs stay the same. Use this to avoid conflicts when distributing a modified version.
+      </div>
+
+      <div class="sec-title">ADDON SETTINGS</div>
+
+      <div class="row-2">
+        <div class="field-group">
+          <label class="field-label">Addon Name <span class="req">*</span></label>
+          <input type="text" id="uName" placeholder="My Addon Name"/>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Author</label>
+          <input type="text" id="uAuthor" placeholder="YourName"/>
+        </div>
+      </div>
+
+      <!-- RP Toggle -->
+      <div class="toggle-row" id="rpToggleRow">
+        <div class="toggle-wrap">
+          <input type="checkbox" id="toggleRP" onchange="onRpToggle()"/>
+          <label class="toggle-track" for="toggleRP">
+            <span class="toggle-thumb"></span>
+          </label>
+        </div>
+        <div class="toggle-info">
+          <div class="toggle-title">Include Resource Pack</div>
+          <div class="toggle-desc">Cross-update UUIDs between BP &amp; RP so they stay linked</div>
+        </div>
+      </div>
+
+      <!-- UUID Preview -->
+      <div class="regen-block" id="uuidPreviewBlock">
+        <div class="regen-block-title">UUIDS THAT WILL CHANGE</div>
+
+        <div class="pack-label bp">⚙ BEHAVIOR PACK</div>
+        <div class="uuid-row">
+          <span class="uuid-tag changing">HEADER</span>
+          <span class="uuid-val will-change" id="prev-bp-header">—</span>
+          <span class="uuid-arrow">→</span>
+          <span style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--yellow)">[NEW UUID]</span>
+        </div>
+        <div class="uuid-row">
+          <span class="uuid-tag linked" id="lbl-bp-dep">DEP[RS]</span>
+          <span class="uuid-val" id="prev-bp-dep" style="color:var(--muted)">—</span>
+          <span class="uuid-arrow" id="arr-bp-dep" style="display:none">→</span>
+          <span id="new-bp-dep-label" style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--blue);display:none">[NEW RS HEADER]</span>
+        </div>
+
+        <div class="pack-divider" id="rpDivider" style="display:none"></div>
+
+        <div id="rpUuidRows" style="display:none">
+          <div class="pack-label rp">🎨 RESOURCE PACK</div>
+          <div class="uuid-row">
+            <span class="uuid-tag changing" style="border-color:var(--blue);color:var(--blue)">HEADER</span>
+            <span class="uuid-val will-change" id="prev-rp-header" style="color:var(--blue)">—</span>
+            <span class="uuid-arrow">→</span>
+            <span style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--blue)">[NEW UUID]</span>
+          </div>
+          <div class="uuid-row">
+            <span class="uuid-tag linked" style="border-color:var(--yellow);color:var(--yellow)">DEP[BP]</span>
+            <span class="uuid-val" id="prev-rp-dep" style="color:var(--muted)">—</span>
+            <span class="uuid-arrow">→</span>
+            <span style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--yellow)">[NEW BP HEADER]</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module Versions -->
+      <div class="version-block" id="versionBlock">
+        <div class="version-block-title">▸ MINECRAFT MODULE VERSIONS (Behavior Pack)</div>
+        <div class="module-version-row">
+          <span class="module-name">@minecraft/server</span>
+          <span class="ver-eq">=</span>
+          <input type="text" class="ver-input" id="uServerVer" placeholder="2.3.0"/>
+        </div>
+        <div class="module-version-row">
+          <span class="module-name">@minecraft/server-ui</span>
+          <span class="ver-eq">=</span>
+          <input type="text" class="ver-input" id="uServerUiVer" placeholder="2.0.0"/>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="runUpdate()">
+        <span class="btn-icon">⚡</span> GENERATE UPDATED MANIFESTS
+      </button>
+
+      <!-- Output -->
+      <div class="output-area" id="updateOutput">
+        <hr class="divider"/>
+        <div class="sec-title">03 &nbsp; OUTPUT</div>
+        <div class="manifest-grid">
+          <div class="manifest-card">
+            <div class="manifest-card-header">
+              <span class="manifest-card-title">🔧 BEHAVIOR PACK</span>
+              <span class="manifest-card-sub">manifest.json</span>
+            </div>
+            <div class="manifest-pre" id="outBP"></div>
+          </div>
+          <div class="manifest-card" id="outRpCard">
+            <div class="manifest-card-header">
+              <span class="manifest-card-title">🎨 RESOURCE PACK</span>
+              <span class="manifest-card-sub">manifest.json</span>
+            </div>
+            <div class="manifest-pre" id="outRP"></div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="downloadAll('update')">
+            <span class="btn-icon">📦</span> DOWNLOAD ALL (.zip)
+          </button>
+          <button class="btn btn-dl" onclick="downloadSingle('bp')">⬇ BP manifest.json</button>
+          <button class="btn btn-dl" id="dlRpBtn" onclick="downloadSingle('rp')">⬇ RP manifest.json</button>
+        </div>
+      </div>
+    </div><!-- /panelUpdate -->
+
+    <!-- ══ NEW ADDON PANEL ══ -->
+    <div class="panel" id="panelNew">
+
+      <div class="notice">
+        <strong>New Addon</strong> — Generates a completely fresh set of UUIDs for ALL entries in both manifests.
+        Perfect for forking an addon or releasing under a new identity.
+      </div>
+
+      <div class="sec-title">NEW ADDON SETTINGS</div>
+
+      <div class="row-2">
+        <div class="field-group">
+          <label class="field-label">New Addon Name <span class="req">*</span></label>
+          <input type="text" id="nName" placeholder="My New Addon"/>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Author</label>
+          <input type="text" id="nAuthor" placeholder="YourName"/>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Description</label>
+        <input type="text" id="nDesc" placeholder="Addon description..."/>
+      </div>
+
+      <!-- Module versions for new too -->
+      <div class="version-block">
+        <div class="version-block-title">▸ MINECRAFT MODULE VERSIONS (Behavior Pack)</div>
+        <div class="module-version-row">
+          <span class="module-name">@minecraft/server</span>
+          <span class="ver-eq">=</span>
+          <input type="text" class="ver-input" id="nServerVer" placeholder="2.3.0"/>
+        </div>
+        <div class="module-version-row">
+          <span class="module-name">@minecraft/server-ui</span>
+          <span class="ver-eq">=</span>
+          <input type="text" class="ver-input" id="nServerUiVer" placeholder="2.0.0"/>
+        </div>
+      </div>
+
+      <div class="regen-block">
+        <div class="regen-block-title">ALL UUIDS WILL BE REPLACED</div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted);line-height:1.8">
+          BP Header &nbsp;·&nbsp; BP Data Module &nbsp;·&nbsp; BP Script Module<br/>
+          RP Header &nbsp;·&nbsp; RP Resources Module<br/>
+          BP↔RP cross-linking dependency UUIDs<br/>
+          <span style="color:var(--g0)">→ All fresh, collision-free UUIDs</span>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="runNew()">
+        <span class="btn-icon">✨</span> GENERATE NEW ADDON MANIFESTS
+      </button>
+
+      <!-- Output -->
+      <div class="output-area" id="newOutput">
+        <hr class="divider"/>
+        <div class="sec-title">03 &nbsp; OUTPUT</div>
+        <div class="manifest-grid">
+          <div class="manifest-card">
+            <div class="manifest-card-header">
+              <span class="manifest-card-title">🔧 BEHAVIOR PACK</span>
+              <span class="manifest-card-sub">manifest.json</span>
+            </div>
+            <div class="manifest-pre" id="newOutBP"></div>
+          </div>
+          <div class="manifest-card">
+            <div class="manifest-card-header">
+              <span class="manifest-card-title">🎨 RESOURCE PACK</span>
+              <span class="manifest-card-sub">manifest.json</span>
+            </div>
+            <div class="manifest-pre" id="newOutRP"></div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="downloadAll('new')">
+            <span class="btn-icon">📦</span> DOWNLOAD ALL (.zip)
+          </button>
+          <button class="btn btn-dl" onclick="downloadSingleNew('bp')">⬇ BP manifest.json</button>
+          <button class="btn btn-dl" onclick="downloadSingleNew('rp')">⬇ RP manifest.json</button>
+        </div>
+      </div>
+    </div><!-- /panelNew -->
+
+  </div><!-- /editorArea -->
+
+</div><!-- /wrap -->
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════ */
+let bpData = null;   // parsed BP manifest
+let rpData = null;   // parsed RP manifest
+let generatedBP = null;
+let generatedRP = null;
+let generatedNewBP = null;
+let generatedNewRP = null;
+
+/* ═══════════════════════════════════════════
+   DRAG & DROP
+═══════════════════════════════════════════ */
+['dropBP','dropRP'].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('drag'); });
+  el.addEventListener('dragleave', () => el.classList.remove('drag'));
+  el.addEventListener('drop', e => {
+    e.preventDefault(); el.classList.remove('drag');
+    const file = e.dataTransfer.files[0];
+    if (!file) return;
+    const type = id === 'dropBP' ? 'bp' : 'rp';
+    loadFile(type, file);
+  });
+});
+
+function handleFile(type, input) {
+  if (!input.files[0]) return;
+  loadFile(type, input.files[0]);
+}
+
+function loadFile(type, file) {
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (type === 'bp') {
+        bpData = data;
+        document.getElementById('bpFileName').textContent = '✔ ' + file.name;
+        document.getElementById('dropBP').classList.add('loaded');
+      } else {
+        rpData = data;
+        document.getElementById('rpFileName').textContent = '✔ ' + file.name;
+        document.getElementById('dropRP').classList.add('loaded');
+      }
+      updateInfoCard();
+      populateFields();
+      document.getElementById('editorArea').style.display = 'block';
+      showToast('✔ Loaded: ' + file.name);
+    } catch(err) {
+      showToast('✕ Invalid JSON: ' + err.message, 'err');
+    }
+  };
+  reader.readAsText(file);
+}
+
+function clearPack(type, e) {
+  e.stopPropagation();
+  if (type === 'bp') {
+    bpData = null;
+    document.getElementById('dropBP').classList.remove('loaded');
+    document.getElementById('bpFileName').textContent = '';
+    document.getElementById('fileBP').value = '';
+  } else {
+    rpData = null;
+    document.getElementById('dropRP').classList.remove('loaded');
+    document.getElementById('rpFileName').textContent = '';
+    document.getElementById('fileRP').value = '';
+  }
+  updateInfoCard();
+  if (!bpData) document.getElementById('editorArea').style.display = 'none';
+}
+
+/* ═══════════════════════════════════════════
+   INFO CARD
+═══════════════════════════════════════════ */
+function updateInfoCard() {
+  const card = document.getElementById('infoCard');
+  if (!bpData) { card.classList.remove('show'); return; }
+  card.classList.add('show');
+
+  const name    = bpData.header?.name || '—';
+  const author  = (bpData.metadata?.authors || []).join(', ') || '—';
+  const fmt     = bpData.format_version || '—';
+  const bpUuid  = bpData.header?.uuid || '—';
+  const rpUuid  = rpData?.header?.uuid || '—';
+
+  const serverDep   = (bpData.dependencies || []).find(d => d.module_name === '@minecraft/server');
+  const serverUiDep = (bpData.dependencies || []).find(d => d.module_name === '@minecraft/server-ui');
+
+  document.getElementById('iName').textContent   = name;
+  document.getElementById('iAuthor').textContent = author;
+  document.getElementById('iFormat').textContent = fmt;
+  document.getElementById('iBpUuid').textContent = bpUuid;
+  document.getElementById('iRpUuid').textContent = rpData ? rpUuid : '(no RP loaded)';
+  document.getElementById('iServer').textContent   = serverDep?.version || '—';
+  document.getElementById('iServerUi').textContent = serverUiDep?.version || '—';
+
+  // Show/hide RP toggle row based on RP being loaded
+  document.getElementById('rpToggleRow').style.display = rpData ? 'flex' : 'none';
+  if (!rpData) {
+    document.getElementById('toggleRP').checked = false;
+    onRpToggle();
+  }
+
+  // UUID preview
+  document.getElementById('prev-bp-header').textContent = bpUuid;
+  const bpDep0 = (bpData.dependencies || []).find(d => d.uuid && !d.module_name);
+  document.getElementById('prev-bp-dep').textContent = bpDep0?.uuid || '(none)';
+  if (rpData) {
+    document.getElementById('prev-rp-header').textContent = rpUuid;
+    const rpDep0 = (rpData.dependencies || []).find(d => d.uuid && !d.module_name);
+    document.getElementById('prev-rp-dep').textContent = rpDep0?.uuid || '(none)';
+  }
+}
+
+/* ═══════════════════════════════════════════
+   POPULATE FORM FIELDS
+═══════════════════════════════════════════ */
+function populateFields() {
+  if (!bpData) return;
+  const name   = bpData.header?.name || '';
+  const author = (bpData.metadata?.authors || [])[0] || '';
+  const serverDep   = (bpData.dependencies || []).find(d => d.module_name === '@minecraft/server');
+  const serverUiDep = (bpData.dependencies || []).find(d => d.module_name === '@minecraft/server-ui');
+
+  document.getElementById('uName').value       = name;
+  document.getElementById('uAuthor').value     = author;
+  document.getElementById('uServerVer').value  = serverDep?.version || '2.3.0';
+  document.getElementById('uServerUiVer').value= serverUiDep?.version || '2.0.0';
+  document.getElementById('nName').value       = name;
+  document.getElementById('nAuthor').value     = author;
+  document.getElementById('nServerVer').value  = serverDep?.version || '2.3.0';
+  document.getElementById('nServerUiVer').value= serverUiDep?.version || '2.0.0';
+  document.getElementById('nDesc').value       = bpData.header?.description || '';
+}
+
+/* ═══════════════════════════════════════════
+   RP TOGGLE
+═══════════════════════════════════════════ */
+function onRpToggle() {
+  const on = document.getElementById('toggleRP').checked;
+  document.getElementById('rpDivider').style.display    = on ? '' : 'none';
+  document.getElementById('rpUuidRows').style.display   = on ? '' : 'none';
+  document.getElementById('arr-bp-dep').style.display   = on ? '' : 'none';
+  document.getElementById('new-bp-dep-label').style.display = on ? '' : 'none';
+}
+
+/* ═══════════════════════════════════════════
+   TAB SWITCH
+═══════════════════════════════════════════ */
+function switchTab(tab) {
+  document.getElementById('tabUpdate').classList.toggle('active', tab === 'update');
+  document.getElementById('tabNew').classList.toggle('active', tab === 'new');
+  document.getElementById('panelUpdate').classList.toggle('active', tab === 'update');
+  document.getElementById('panelNew').classList.toggle('active', tab === 'new');
+}
+
+/* ═══════════════════════════════════════════
+   UUID HELPERS
+═══════════════════════════════════════════ */
+function uuid() {
+  if (crypto.randomUUID) return crypto.randomUUID();
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+    const r = Math.random()*16|0;
+    return (c==='x' ? r : (r&0x3|0x8)).toString(16);
+  });
+}
+
+function deepClone(obj) { return JSON.parse(JSON.stringify(obj)); }
+
+/* ═══════════════════════════════════════════
+   UPDATE ADDON LOGIC
+═══════════════════════════════════════════ */
+function runUpdate() {
+  if (!bpData) { showToast('✕ Load a Behavior Pack first!', 'err'); return; }
+
+  const name         = document.getElementById('uName').value.trim() || bpData.header.name;
+  const author       = document.getElementById('uAuthor').value.trim();
+  const serverVer    = document.getElementById('uServerVer').value.trim();
+  const serverUiVer  = document.getElementById('uServerUiVer').value.trim();
+  const includeRP    = document.getElementById('toggleRP').checked && !!rpData;
+
+  // Clone
+  const bp = deepClone(bpData);
+  const rp = rpData ? deepClone(rpData) : null;
+
+  // New UUIDs
+  const newBpHeader = uuid();
+  const newRpHeader = includeRP ? uuid() : null;
+
+  // Apply BP changes
+  bp.header.name = name;
+  if (author) bp.metadata.authors = [author];
+  bp.header.uuid = newBpHeader;
+
+  // Update BP module versions
+  if (bp.dependencies) {
+    bp.dependencies = bp.dependencies.map(dep => {
+      if (dep.module_name === '@minecraft/server' && serverVer) return {...dep, version: serverVer};
+      if (dep.module_name === '@minecraft/server-ui' && serverUiVer) return {...dep, version: serverUiVer};
+      if (dep.uuid && !dep.module_name && includeRP && newRpHeader) return {...dep, uuid: newRpHeader};
+      return dep;
+    });
+  }
+
+  // Apply RP changes
+  if (includeRP && rp && newRpHeader) {
+    rp.header.name = name;
+    if (author && rp.metadata) rp.metadata.authors = [author];
+    rp.header.uuid = newRpHeader;
+    // RP dep linking to BP header
+    if (rp.dependencies) {
+      rp.dependencies = rp.dependencies.map(dep => {
+        if (dep.uuid && !dep.module_name) return {...dep, uuid: newBpHeader};
+        return dep;
+      });
+    }
+  }
+
+  generatedBP = bp;
+  generatedRP = includeRP ? rp : null;
+
+  // Render output
+  document.getElementById('outBP').innerHTML = syntaxHL(JSON.stringify(bp, null, '\t'), bpData);
+  if (includeRP && rp) {
+    document.getElementById('outRP').innerHTML = syntaxHL(JSON.stringify(rp, null, '\t'), rpData);
+    document.getElementById('outRpCard').style.display = '';
+    document.getElementById('dlRpBtn').style.display = '';
+  } else {
+    document.getElementById('outRpCard').style.display = 'none';
+    document.getElementById('dlRpBtn').style.display = 'none';
+  }
+
+  document.getElementById('updateOutput').classList.add('show');
+  document.getElementById('updateOutput').scrollIntoView({behavior:'smooth', block:'start'});
+  showToast('✔ Manifests generated!');
+}
+
+/* ═══════════════════════════════════════════
+   NEW ADDON LOGIC
+═══════════════════════════════════════════ */
+function runNew() {
+  if (!bpData) { showToast('✕ Load a Behavior Pack first!', 'err'); return; }
+
+  const name        = document.getElementById('nName').value.trim() || 'My Addon';
+  const author      = document.getElementById('nAuthor').value.trim() || 'Author';
+  const desc        = document.getElementById('nDesc').value.trim() || bpData.header?.description || '';
+  const serverVer   = document.getElementById('nServerVer').value.trim() || '2.3.0';
+  const serverUiVer = document.getElementById('nServerUiVer').value.trim() || '2.0.0';
+
+  // Generate all UUIDs
+  const newBpHeader  = uuid();
+  const newBpData    = uuid();
+  const newBpScript  = uuid();
+  const newRpHeader  = uuid();
+  const newRpRes     = uuid();
+
+  // Build BP
+  const bp = deepClone(bpData);
+  bp.header.name        = name;
+  bp.header.description = desc;
+  bp.header.uuid        = newBpHeader;
+  if (bp.metadata) bp.metadata.authors = [author];
+
+  // Replace module UUIDs
+  if (bp.modules) {
+    let modIdx = 0;
+    bp.modules = bp.modules.map(m => {
+      if (m.type === 'data')   return {...m, uuid: newBpData};
+      if (m.type === 'script') return {...m, uuid: newBpScript};
+      return {...m, uuid: uuid()};
+    });
+  }
+
+  // Replace dependency UUIDs
+  if (bp.dependencies) {
+    bp.dependencies = bp.dependencies.map(dep => {
+      if (dep.uuid && !dep.module_name) return {...dep, uuid: newRpHeader};
+      if (dep.module_name === '@minecraft/server')    return {...dep, version: serverVer};
+      if (dep.module_name === '@minecraft/server-ui') return {...dep, version: serverUiVer};
+      return dep;
+    });
+  }
+
+  // Build RP
+  let rp = null;
+  if (rpData) {
+    rp = deepClone(rpData);
+    rp.header.name        = name;
+    rp.header.description = desc;
+    rp.header.uuid        = newRpHeader;
+    if (rp.metadata) rp.metadata.authors = [author];
+    if (rp.modules) rp.modules = rp.modules.map(m => ({...m, uuid: newRpRes}));
+    if (rp.dependencies) {
+      rp.dependencies = rp.dependencies.map(dep => {
+        if (dep.uuid && !dep.module_name) return {...dep, uuid: newBpHeader};
+        return dep;
+      });
+    }
+  } else {
+    // Build RP from scratch
+    rp = {
+      format_version: bpData.format_version || 2,
+      metadata: { authors: [author] },
+      header: {
+        name: name,
+        description: desc,
+        min_engine_version: bpData.header?.min_engine_version || [1,17,0],
+        uuid: newRpHeader,
+        version: [1,0,0]
+      },
+      modules: [{ type: 'resources', uuid: newRpRes, version: [1,0,0] }],
+      dependencies: [{ uuid: newBpHeader, version: [1,0,0] }]
+    };
+  }
+
+  generatedNewBP = bp;
+  generatedNewRP = rp;
+
+  document.getElementById('newOutBP').innerHTML = syntaxHL(JSON.stringify(bp, null, '\t'), bpData);
+  document.getElementById('newOutRP').innerHTML = syntaxHL(JSON.stringify(rp, null, '\t'), rpData || {});
+
+  document.getElementById('newOutput').classList.add('show');
+  document.getElementById('newOutput').scrollIntoView({behavior:'smooth', block:'start'});
+  showToast('✔ New addon manifests ready!');
+}
+
+/* ═══════════════════════════════════════════
+   SYNTAX HIGHLIGHTING
+═══════════════════════════════════════════ */
+function syntaxHL(jsonStr, origObj) {
+  const origStr = JSON.stringify(origObj || {});
+  // Collect original UUIDs
+  const origUuids = new Set(
+    (origStr.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi) || [])
+  );
+
+  return jsonStr
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"((?:[^"\\]|\\.)*)"\s*:/g, '<span class="j-key">"$1"</span>:')
+    .replace(/:\s*"((?:[^"\\]|\\.)*)"([,\n}])/g, (m, val, end) => {
+      // Check if it's a UUID that changed
+      const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(val);
+      if (isUuid && !origUuids.has(val)) {
+        return `: <span class="j-changed">"${val}"</span>${end}`;
+      }
+      return `: <span class="j-str">"${val}"</span>${end}`;
+    })
+    .replace(/:\s*(-?\d+\.?\d*)([,\n}])/g, ': <span class="j-num">$1</span>$2')
+    .replace(/:\s*(true|false)([,\n}])/g, ': <span class="j-bool">$1</span>$2')
+    .replace(/:\s*(null)([,\n}])/g, ': <span class="j-null">$1</span>$2');
+}
+
+/* ═══════════════════════════════════════════
+   DOWNLOAD
+═══════════════════════════════════════════ */
+function downloadJSON(data, filename) {
+  const blob = new Blob([JSON.stringify(data, null, '\t')], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+}
+
+function downloadSingle(pack) {
+  if (pack === 'bp' && generatedBP) downloadJSON(generatedBP, 'BP_manifest.json');
+  if (pack === 'rp' && generatedRP) downloadJSON(generatedRP, 'RP_manifest.json');
+}
+function downloadSingleNew(pack) {
+  if (pack === 'bp' && generatedNewBP) downloadJSON(generatedNewBP, 'BP_manifest.json');
+  if (pack === 'rp' && generatedNewRP) downloadJSON(generatedNewRP, 'RP_manifest.json');
+}
+
+async function downloadAll(mode) {
+  const bp = mode === 'update' ? generatedBP : generatedNewBP;
+  const rp = mode === 'update' ? generatedRP  : generatedNewRP;
+  if (!bp) { showToast('✕ Generate first!', 'err'); return; }
+
+  const zip = new JSZip();
+  const name = (bp.header?.name || 'addon').replace(/[^a-zA-Z0-9_\- ]/g,'').trim();
+  const bpFolder = zip.folder(name + '_BP');
+  const rpFolder = zip.folder(name + '_RP');
+
+  bpFolder.file('manifest.json', JSON.stringify(bp, null, '\t'));
+  if (rp) rpFolder.file('manifest.json', JSON.stringify(rp, null, '\t'));
+
+  const blob = await zip.generateAsync({type:'blob'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name + '_manifests.zip';
+  a.click();
+  showToast('✔ Downloading ' + a.download);
+}
+
+/* ═══════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════ */
+let toastTimer;
+function showToast(msg, type = 'ok') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.borderColor = type === 'err' ? 'var(--red)' : 'var(--g2)';
+  t.style.color       = type === 'err' ? 'var(--red)' : 'var(--g0)';
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
