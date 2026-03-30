@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MCJRDZ23');</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17785284813"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-17785284813');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft 26.10 Bedrock Changelog - Tiny Takeover!</title>
+    <meta name="description" content="The cutest drop in Minecraft history! Tiny Takeover brings new baby mobs with updated models, sounds, and the Golden Dandelion in version 26.10.">
+    <meta name="keywords" content="Mannooma, Minecraft, Bedrock, 26.10, Tiny Takeover, Baby Mobs, Golden Dandelion, Changelog">
+    <meta name="author" content="Mannooma">
+    <link rel="icon" href="Mannooma.png" type="png">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            background-color: #000000;
+            background-position: -5px -5px;
+            min-height: 100vh;
+            line-height: 1.8;
+            text-shadow: #000 1px 1px 1px;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css') format('truetype');
+        }
+
+        :root {
+            --mc-green: #55FF55;
+            --mc-dark: #2D2D2D;
+            --mc-border: #3100e0;
+            --mc-blue: #03adfc;
+            --mc-blue1: #0384fc;
+        }
+
+        a:link, a:visited {
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        .star-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            background-image:
+                radial-gradient(2px 2px at 15% 25%, white, transparent),
+                radial-gradient(2px 2px at 70% 40%, white, transparent),
+                radial-gradient(2px 2px at 30% 75%, white, transparent),
+                radial-gradient(2px 2px at 85% 60%, white, transparent);
+            background-size: 350px 350px;
+            animation: moveStars 14s linear infinite;
+        }
+
+        @keyframes moveStars {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 0 700px;
+            }
+        }
+
+
+
+        .header {
+            padding: 2rem 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 2px solid #4a4a4a;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tp {
+            font-size: 9px;
+            color: #aaa;
+            margin-bottom: 15px;
+            display: block;
+            letter-spacing: 1px;
+        }
+
+        .tp a {
+            color: var(--mc-green);
+            text-decoration: none;
+        }
+
+        .header img {
+            max-width: 600px;
+            width: 90%;
+            image-rendering: pixelated;
+            filter: drop-shadow(0 0 8px var(--mc-green));
+            margin-bottom: 15px;
+        }
+
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        /* hover for page heading */
+        #h1 {
+            color: var(--mc-green);
+        }
+
+        .fsbox {
+            max-width: 800px;
+            background-color: #171614;
+            border: 2px solid #252422;
+            padding: 20px;
+            margin: 18px auto;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 1px;
+            line-height: 1.8;
+            text-align: left;
+            text-shadow: #000 1px 1px 1px;
+            color: #fefefe;
+            font-size: 13px;
+        }
+
+        #tds {
+            text-align: center;
+            color: var(--mc-green);
+            margin-bottom: 20px;
+            background: #2f2f2f;
+            padding: 12px 18px;
+            text-shadow: 1px 2px 1px #000;
+            box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.6), inset 0 -2px 0 rgba(255, 255, 255, 0.02);
+            border: 3px solid rgb(71, 71, 71);
+            line-height: 1.6;
+        }
+
+        /* Style for the author/date information */
+        .article-meta {
+            text-align: center;
+            color: #aaa;
+            font-size: 10px;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            line-height: 1.5;
+        }
+        
+        .article-meta strong {
+            color: #fff;
+            font-weight: normal;
+        }
+
+        /* Style for main article headings */
+        .article-sub-heading {
+            color: var(--mc-green);
+            font-size: 16px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 1px solid #4a4a4a;
+            padding-bottom: 5px;
+        }
+
+        /* Code box styles */
+        .code-box {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 20px 0;
+            position: relative;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            color: #f8f8f2;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #333;
+        }
+
+        .code-title {
+            color: #aaa;
+            font-size: 11px;
+        }
+
+        .copy-btn {
+            background: #2d2d2d;
+            color: #55FF55;
+            border: 1px solid #4a4a4a;
+            padding: 4px 12px;
+            font-size: 11px;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #3a3a3a;
+            border-color: #55FF55;
+        }
+
+        .copy-btn.copied {
+            background: #55FF55;
+            color: #000;
+            border-color: #55FF55;
+        }
+
+        /* List styles */
+        .fsbox ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .fsbox li {
+            margin-bottom: 10px;
+        }
+
+        .sub-list {
+            margin-left: 30px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .sub-list li {
+            margin-bottom: 5px;
+        }
+
+        @media (min-width: 769px) {
+            .fsbox {
+                width: 70%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #h1 {
+                font-size: 14px
+            }
+
+            #tds {
+                font-size: 12px;
+            }
+
+            .fsbox {
+                font-size: 11px;
+                width: 96%;
+            }
+            .article-sub-heading {
+                font-size: 14px;
+            }
+            .code-box {
+                font-size: 10px;
+                padding: 10px;
+            }
+        }
+
+
+        .site-footer {
+            width: 100%;
+            padding: 26px 0 36px 0;
+            background: rgba(0, 0, 0, 0.9);
+            box-shadow: 0 -6px 12px rgba(27, 27, 27, 0.4);
+            margin-top: auto;
+            border-top: 3px solid;
+            border-block-color: #4a4a4a;
+        }
+
+
+
+        .footer-bar {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 6px 20px;
+        }
+
+
+
+        .footer-text {
+            color: #ffffff;
+            font-size: 12px;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+
+
+        .footer-links {
+            margin-top: 8px
+        }
+
+
+
+        .footer-link {
+            color: #21bdf6;
+            text-decoration: none;
+            margin: 0 8px;
+            font-size: 14px;
+        }
+
+
+
+        .footer-link:hover {
+            color: #00bbff;
+            text-decoration: underline
+        }
+  
+  #po {
+    color: #00bbff;
+            text-decoration: underline
+  }
+  #pw {
+    color: #00bbff;
+            text-decoration: underline
+  }
+  
+    </style>
+
+</head>
+
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MCJRDZ23"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div class="star-bg"></div>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M2P94THH"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+    <header class="header">
+        <div class="tp">
+            <a href="../index.html">HOME</a> &gt; <a href="#">NEWS</a> &gt; BEDROCK UPDATE
+        </div>
+        <h1 id="h1">MINECRAFT 26.10 BEDROCK CHANGELOG</h1>
+        <p style="color: #888; font-size: 10px;">The cutest drop in Minecraft history is here with the Tiny Takeover!</p>
+        <div class="article-meta">
+            Written By: <strong>Mannooma</strong> &nbsp;| &nbsp; Published: <strong>12/10/25</strong>
+        </div>
+    </header>
+
+
+
+    <div class="fsbox">
+        <h2 style="text-align: center; color: var(--mc-green); font-size: 18px; margin-bottom: 20px;">Minecraft 26.10 Bedrock Changelog</h2>
+        <h3 style="text-align: center; color: var(--mc-green); margin-bottom: 20px;">The cutest drop in Minecraft history is here!</h3>
+        
+        <p>Ready or not, here comes the Tiny Takeover drop! New versions of baby mobs have stormed Minecraft, causing cuteness overload across biomes and builds. Listen out for heart-melting sounds, craft name tags for your pets, and keep babies forever young with the golden dandelion. The babies are officially on the loose, so get ready to collect, coo over, and create chaos with these tiny rascals!</p>
+
+        <h2 class="article-sub-heading">Drop 1 2026</h2>
+        
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Mobs</h3>
+        <p>Using a Spawn Egg on the corresponding Mob will now spawn the Baby form of that Mob</p>
+        
+        <p><strong>Updated the models and textures of the following Baby Mobs:</strong></p>
+        <ul>
+            <li><strong>Cow</strong> - Tweaked the bounding box of both adult and baby to align with Java Edition and the new model</li>
+            <li><strong>Mooshroom</strong> - Tweaked the bounding box of both adult and baby to align with Java Edition and the new model</li>
+            <li><strong>Pig</strong></li>
+            <li><strong>Wolf</strong> - Tweaked the bounding box of both adult and baby to align with Java Edition and the new model</li>
+            <li><strong>Rabbit</strong> - Both adult and baby Rabbits also received new animations. Tweaked the bounding box to align with the new model</li>
+            <li><strong>Cat</strong> - Tweaked the baby's bounding box to align with the new model</li>
+            <li><strong>Ocelot</strong></li>
+            <li><strong>Chicken</strong> - Tweaked the bounding box to align with the new model</li>
+            <li><strong>Sheep</strong></li>
+            <li><strong>Axolotl</strong> - Added new baby-specific animations for the Axolotl</li>
+            <li><strong>Dolphin</strong></li>
+            <li><strong>Donkey</strong></li>
+            <li><strong>Horse</strong></li>
+            <li><strong>Mule</strong></li>
+            <li><strong>Skeleton Horse</strong></li>
+            <li><strong>Zombie Horse</strong></li>
+            <li><strong>Glow Squid</strong></li>
+            <li><strong>Squid</strong></li>
+            <li><strong>Turtle</strong></li>
+            <li><strong>Polar Bear</strong></li>
+            <li><strong>Goat</strong></li>
+            <li><strong>Fox</strong> - Added new baby-specific animations for the Fox</li>
+            <li><strong>Camel</strong> - Added new baby-specific animations for the Camel</li>
+            <li><strong>Armadillo</strong> - Added new baby-specific animations for the Armadillo</li>
+            <li><strong>Llama</strong></li>
+            <li><strong>Trader Llama</strong></li>
+            <li><strong>Bee</strong></li>
+            <li><strong>Piglin</strong></li>
+            <li><strong>Villager</strong></li>
+            <li><strong>Zombie Villager</strong></li>
+            <li><strong>Zombified Piglin</strong></li>
+            <li><strong>Zombie</strong></li>
+            <li><strong>Husk</strong></li>
+            <li><strong>Drowned</strong></li>
+            <li><strong>Panda</strong></li>
+            <li><strong>Strider</strong></li>
+            <li><strong>Hoglin</strong></li>
+            <li><strong>Sniffer</strong></li>
+            <li><strong>Zoglin</strong></li>
+        </ul>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Sounds</h3>
+        <ul>
+            <li>Baby Pigs, Cats, Horses, Cows, Chickens, and Wolves now have a unique set of sounds</li>
+            <li>Pig, Cat, Cow and Chicken now have adult sound variants</li>
+            <li>Added Note Block trumpet instrument for Block of Copper, Cut Copper and Chiseled Copper</li>
+        </ul>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Golden Dandelion</h3>
+        <p><strong>Introduced Golden Dandelion</strong> as a new type of flower that can be used to stop baby mobs from aging</p>
+        <ul>
+            <li>Can be crafted using a Dandelion and Gold Nuggets</li>
+            <li>Can be used to craft Suspicious Stew</li>
+            <li>Can be crafted into Yellow Dye</li>
+            <li>Placed Golden Dandelion can be picked up by Endermen</li>
+            <li>Can be picked up by mobs who can pick up items</li>
+            <li>Can be used to distract Piglins</li>
+            <li>Displays green particles when used on a Baby Mob
+                <ul class="sub-list">
+                    <li>Particles moving downwards indicate that aging is paused</li>
+                    <li>Particles moving upwards indicate that age has been reset and is now resumed</li>
+                </ul>
+            </li>
+            <li>Plays pause growth and reset growth sounds on use</li>
+        </ul>
+
+        <p><strong>Enabled the Golden Dandelion effect on the following Baby Mobs:</strong></p>
+        <p>Baby Armadillo, Baby Axolotl, Baby Bee, Baby Camel, Baby Cat, Baby Chicken, Baby Cow, Baby Dolphin, Baby Donkey, Baby Fox, Ghastling, Baby Hoglin, Baby Goat, Baby Horse, Baby Llama, Baby Mooshroom, Baby Mule, Baby Nautilus, Baby Ocelot, Baby Panda, Baby Pig, Baby Polar Bear, Baby Rabbit, Baby Sheep, Baby Sniffer, Baby Strider, Baby Trader Llama, Baby Turtle, Baby Wolf, and Tadpole</p>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Items</h3>
+        <ul>
+            <li>Name Tags are now craftable, using paper and any metal nugget</li>
+        </ul>
+
+        <h2 class="article-sub-heading">Features and Bug Fixes</h2>
+        
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Accessibility</h3>
+        <ul>
+            <li>Fixed issue where text to speech doesn't get enabled on launch despite the 'Text To Speech For UI' toggle being enabled</li>
+            <li>Added a key binding for Describe, a feature that will let you know through text and TTS what block or mob you have in front of you (Available for keyboard and controller inputs)</li>
+            <li>Updated the name of Describe to Identify Block, a feature that lets you know through text and text to speech (TTS) what block or mob you have in front of you</li>
+        </ul>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Achievements</h3>
+        <ul>
+            <li>Fixed the issue preventing some item related achievements from being obtained</li>
+        </ul>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Blocks</h3>
+        <ul>
+            <li>Stone and Deepslate can now be crafted into their Cobbled variants in the Stonecutter</li>
+            <li>Dead bush can be placed on farmland</li>
+            <li>Corner stairs next to a stair block of a different type will no longer leak water for worlds of base game version 26.10 or higher (MCPE-104070)</li>
+        </ul>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Character Creator</h3>
+        <ul>
+            <li>Selected appearance should no longer reset to 3rd appearance at times upon starting up the client</li>
+            <li>Skins will be correctly shown to other players when switching to a Classic skin and then back to a Character Creator choice</li>
+            <li>While playing in a multiplayer world, users will no longer be randomly messaged about other users updating their appearances when no change was actually made</li>
+            <li>Fixed an issue that could cause invalid classic skins to be shown as blank skins</li>
+        </ul>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Gameplay</h3>
+        <ul>
+            <li>Cooldowns on custom items now visualize correctly</li>
+            <li>Fixed a bug where the Trial Spawner in some cases spawned too many mobs (MCPE-186092)</li>
+        </ul>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Graphical</h3>
+        <ul>
+            <li>Armor trims are now visible again when worn by players or adult mobs (MCPE-236105)</li>
+            <li>Added static/colorized block light shading to particles in Vibrant Visuals</li>
+            <li>Fixed an issue where some players on PlayStation had vertical sync disabled, causing image tearing</li>
+            <li>Items being quickly moved between inventory slots now have the back of their faces rendered too (MCPE-229843)</li>
+            <li>Fixed a bug where some light source blocks held in hand would appear unlit when near other light source blocks in Vibrant Visuals</li>
+            <li>Added static local lighting support for more entities and items, including pistons, moving blocks, signs, beds and chests in Vibrant Visuals</li>
+            <li>Fixed UI icons not showing at the lowest GUI scale setting (MCPE-234762)</li>
+            <li>Fix player flickering when flying at high speed towards the camera (MCPE-23451)</li>
+            <li>Fixed broken or incorrect textures after loading a world (MCPE-202009)</li>
+        </ul>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Input</h3>
+        <ul>
+            <li>Fixed an issue on Windows where the mouse highlight appeared in game when "Show location of pointer when I press the CTRL key" option was enabled in Windows settings (MCPE-168787)</li>
+            <li>Fixed an issue on Windows where the system's ClickLock mouse setting was not recognized (MCPE-231488)</li>
+            <li>Fixed a bug on Windows where the system setting "Scrolling direction" had no effect (MCPE-232634)</li>
+        </ul>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Items</h3>
+        <ul>
+            <li>Combining an Enchanted Shield with an Illager Banner now correctly transfers the enchantments to the crafted Illager Banner Shield (MCPE-174103)</li>
+            <li>Bundle and Wolf Armor no longer have larger scale with textures bigger than 16x (MCPE-225207)</li>
+            <li>Clocks, Compasses, and Recovery Compasses no longer have a corrupted appearance after turning high resolution texture packs on/off (MCPE-173775)</li>
+            <li>Fixed player inventory sometimes not being updated properly when picking up items already held in off-hand (MCPE-235655)</li>
+            <li>Name Tags can no longer be bought from Librarians</li>
+            <li>Name Tags are added as an Ordinary Trade to Wandering Traders at 1 for 1 Emerald, with a 7% probability and 5 Name Tags in stock</li>
+            <li>Name Tags can no longer be obtained from chests in Ancient Cities or Woodland Mansions</li>
+            <li>Librarian Villagers on Master level can now trade red or yellow Candles</li>
+        </ul>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Marketplace</h3>
+        <ul>
+            <li>Fixed the inability to download RealismCraft 2.X add-on from "Create from..." menu with active Marketplace Pass subscription (MCPE-232505)</li>
+        </ul>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Mobs</h3>
+        <ul>
+            <li>Copper Golem now properly picks up Spears, Tridents, and Crossbows</li>
+            <li>Baby Polar Bear no longer becomes hostile towards the player (MCPE-173833)</li>
+            <li>The movement of Boats, Horses, Donkeys, and Mules is now as responsive as it used to be before the release of the Mounts of Mayhem game drop (MCPE-231719)</li>
+            <li>Boats' paddle animation no longer glitches when paddling backwards</li>
+            <li>Zombie Horses can no longer catch fire while in water (MCPE-229542)</li>
+            <li>Ghast's no longer display old face textures while shooting fireballs (MCPE-218741)</li>
+            <li>Fixed incorrect allele range syntax for the Panda and Goat</li>
+            <li>Zombie Horses no longer flee from sunlight</li>
+            <li>Baby Skeleton Horses no longer grow up (MCPE-234733)</li>
+            <li>Adjusted which blocks Zombie Horses, Skeleton Horses and Camel Husks try to avoid - they try to avoid water, they try to avoid dangerous blocks, they do not try to avoid rails</li>
+            <li>Fixed an issue causing villagers to occasionally appear lying on the ground rather than in their bed while sleeping (MCPE-119736)</li>
+        </ul>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Movement</h3>
+        <ul>
+            <li>Fixed desync in player position when toggling input permissions (MCPE-232109)</li>
+        </ul>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Music</h3>
+        <ul>
+            <li>Fixed long running sounds such as jukebox music from playing in the menu when leaving a multiplayer world</li>
+        </ul>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Realms</h3>
+        <ul>
+            <li>Added message and logic for error joining a Realm whose owner is banned</li>
+            <li>Fixed crash when opening Realms tab with 150+ joined Realms</li>
+            <li>Added a trailing space to the Server Region localized string</li>
+            <li>The information dropdown for Realm saves now displays the correct version format</li>
+            <li>Fix text is unreadable on "Your Realm is ready" screen on large UI</li>
+            <li>Fixing the download world button for Realms not present on old UI</li>
+            <li>Fixed broken modals shown when client attempts to play on a Realm</li>
+            <li>Added Realm purchase success modal, shown when purchase is successful but fetching the Realm fails</li>
+        </ul>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Saves</h3>
+        <ul>
+            <li>Ensure worlds created after signing out are saved to the new Users\Shared directory on Windows</li>
+        </ul>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Sound</h3>
+        <ul>
+            <li>Baby wolves now correctly play baby variant sounds</li>
+        </ul>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Stability and Performance</h3>
+        <ul>
+            <li>Fixed an issue where Marketplace textures would be cached when re-entering worlds and could potentially degrade performance on some platforms</li>
+            <li>Fixed a crash that sometimes happened when players were climbing</li>
+            <li>Fixed slow server when loading into a world with too many blocks scheduled for ticking (MCPE-224638)</li>
+            <li>Fixed game freezes and large save files when spending time near Lava flow in the Nether (MCPE-224638)</li>
+        </ul>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">Switch</h3>
+        <ul>
+            <li>Reduced audio delays when entering a world (MCPE-177148)</li>
+        </ul>
+
+        <h3 class="article-sub-heading" style="font-size: 14px; text-align: left; border-bottom: none;">User Interface</h3>
+        <ul>
+            <li>Added a Recipe Book for Furnace, Smoker, and Blast Furnace as an experimental feature</li>
+            <li>Fixed screen narration reading previously typed chat messages letter by letter when context changed</li>
+            <li>Added button enumeration narration to the death screen when text to speech is enabled</li>
+            <li>Text input fields now support arrow key navigation between lines and keyboard shortcuts such as Ctrl+V on Android</li>
+            <li>Text input fields in Ore UI now support mouse caret positioning and selection on Android</li>
+            <li>Improved the chat auto scroll behavior to allow reading older messages while new messages are being sent</li>
+            <li>Player is now able to change time using the "Time" button in the chat/command window when "Always Day" option is enabled (MCPE-226307)</li>
+            <li>Added new registry keys so the Preview and Retail games don't share each other's previous window size and position (MCPE-233168)</li>
+            <li>Fixed the Bed and Death screens fading animations (MCPE-235024)</li>
+            <li>Add a few missing characters to the default font (MCPE-183866)</li>
+            <li>Fixed a crash caused by High-Data-Volume text in Books (MCPE-235419)</li>
+            <li>Added an option to disable pausing the game when the application loses focus (Desktop only)</li>
+            <li>Fix a bug where the opacity of the pick block button could not be adjusted (MCPE-191027)</li>
+            <li>Fixed a bug that caused the "Go to Settings" button from the Skin Type modal to navigate to the JSON UI Settings (MCPE-235400)</li>
+            <li>Updating the inventory and sdl screens to properly reflect purchases made when navigating back to it from a related page</li>
+            <li>Touch controls: updated the interact button design</li>
+            <li>Fixed an issue with images for the Marketplace Pass and Realms FAQs pages being excessively large</li>
+            <li>Fixed back button not working after exiting friend's profile (MCPE-232736)</li>
+            <li>Add support for more mouse cursor types to Ore UI on Windows</li>
+            <li>Fixed double item trades overlapping in Trader Screen Pocket UI (MCPE-235009)</li>
+            <li>Updated headers in pocket UI inventory</li>
+            <li>Hardcore worlds in the Play screen will now display the number of days played if the "show days played" gamerule is enabled</li>
+            <li>Updated Servers Tab to display custom servers even if Minecraft provided servers were not found</li>
+            <li>Fixed narration for elements outside a scroller</li>
+            <li>Fixed characters rotating incorrectly in UI when riding a mob</li>
+            <li>Fixed an issue that prevented some Ore UI Keyboard & Mouse settings from being saved when modified while in-game (MCPE-235690)</li>
+            <li>Add experimental toggle to enable the new Furnace Recipe Book</li>
+            <li>The "How to play" section has been moved from Settings to the Pause screen</li>
+            <li>Made it possible to move the caret position within signs using a mouse or touch (MCPE-174365)</li>
+            <li>Unified inventory search in both Creative and Survival gamemodes</li>
+            <li>General improvements and bug fixes related to closed captions (MCPE-233144, MCPE-233116)</li>
+            <li>Navigation tabs for the new Service-driven Inventory Screen</li>
+            <li>Some sign-in errors have new codenames to avoid overlap with codenames for networking errors, sign-in error codenames are no longer localized</li>
+            <li>Improvements to closed captions UI (MCPE-234709)</li>
+            <li>Fixed scaling values on certain devices (MCPE-234792)</li>
+        </ul>
+
+        <h2 class="article-sub-heading">Technical Updates Summary</h2>
+        <p>This version includes extensive technical updates for:</p>
+        <ul>
+            <li><strong>AI Goals:</strong> Updated schemas for minecraft:behavior goals to be stricter when parsing. Entities with invalid data will now fail to load in versions 1.26.10 and newer.</li>
+            <li><strong>API:</strong> Released multiple @minecraft/server APIs from beta to stable (v2.6.0 and v2.7.0-beta). Includes new Camera, World, and @minecraft/server-net functionality.</li>
+            <li><strong>Blocks:</strong> Added support for multi-block structures, minecraft:multi_block trait, and minecraft:chest_obstruction component. Fixed rotation issues for blocks in item frames.</li>
+            <li><strong>Character Creator:</strong> Added ban skin detection and improved appearance caching.</li>
+            <li><strong>Client Entities:</strong> Added "held_item_scale" field to entity.json schema.</li>
+            <li><strong>Commands:</strong> Fixed "/reload all" and "/setblock"/"/fill" commands issues.</li>
+            <li><strong>Components:</strong> Replaced "simulate_waves" with "movement_type" in minecraft:buoyant. Added "can_auto_step_from_liquid" field.</li>
+            <li><strong>Dedicated Server:</strong> Added HTTP configuration capabilities for @minecraft/server-net module.</li>
+            <li><strong>Editor:</strong> Massive improvements including API updates, new timeline controls, jigsaw tool updates, and performance enhancements.</li>
+            <li><strong>Entity Components:</strong> Added pause/reset growth functionality. Split minecraft:pushable into two new components.</li>
+            <li><strong>Features:</strong> Fixed feature loading to support subdirectories.</li>
+            <li><strong>Graphical:</strong> Colored block lighting improvements, texture streaming feature rollout, and various visual fixes.</li>
+            <li><strong>JSON Schema:</strong> Updated canopy_decorator schema for block placement sequences.</li>
+            <li><strong>Experimental:</strong> Voxel Shapes, Data-Driven UI (DDUI), and various other experimental features.</li>
+        </ul>
+
+        <p style="text-align: center; color: #55FF55; font-style: italic; margin-top: 25px; margin-bottom: 25px; font-weight: bold;">
+            For complete technical documentation and detailed information, please visit the official Minecraft documentation.
+        </p>
+
+        <p style="text-align: center; margin-top: 30px;">
+            That's all for the Tiny Takeover drop! Get ready to collect those adorable baby mobs, craft those Golden Dandelions, and enjoy creating chaos with the cutest creatures in Minecraft!
+        </p>
+
+    </div>
+
+
+
+    <footer class="site-footer">
+
+        <div class="footer-bar">
+
+            <div class="footer-text">© 2026 Mannooma10k. All rights reserved.<br>This site is not affiliated with Mojang Studios</div>
+
+            <div class="footer-links"><a href="../legal/terms-of-use.html" class="footer-link">Terms</a> <span class="sep">|</span> <a href="../legal/privacy-policy.html" class="footer-link">Privacy</a></div>
+
+        </div>
+
+    </footer>
+
+    <script>
+        function copyCode(button) {
+            const codeBox = button.parentElement.parentElement;
+            const codeText = codeBox.textContent;
+            
+            // Create a temporary textarea to copy from
+            const textarea = document.createElement('textarea');
+            textarea.value = codeText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            
+            // Visual feedback
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.classList.remove('copied');
+            }, 2000);
+        }
+        
+        // Add copy buttons to all code boxes on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBoxes = document.querySelectorAll('.code-box');
+            codeBoxes.forEach(box => {
+                const header = box.querySelector('.code-header');
+                if (header && !header.querySelector('.copy-btn')) {
+                    const title = header.querySelector('.code-title');
+                    if (title && title.textContent.includes('Example')) {
+                        const copyBtn = document.createElement('button');
+                        copyBtn.className = 'copy-btn';
+                        copyBtn.textContent = 'Copy';
+                        copyBtn.onclick = function() { copyCode(this); };
+                        header.appendChild(copyBtn);
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
