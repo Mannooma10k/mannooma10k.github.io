@@ -19,31 +19,7 @@
 /* ─────────────────────────────────────────
    BASE
 ───────────────────────────────────────── */
-html { scroll-behavior: smooth; }
 
-body {
-  font-family: 'Press Start 2P', monospace;
-  background-color: var(--mc-bg);
-  color: #fefefe;
-  min-height: 100vh;
-  line-height: 1.8;
-  text-shadow: #000 1px 1px 1px;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-a { color: inherit; text-decoration: none; }
-img { max-width: 100%; height: auto; }
-
-/* ─────────────────────────────────────────
-   ANIMATED STAR BACKGROUNDS
-───────────────────────────────────────── */
-
-
-/* ─────────────────────────────────────────
-   PAGE WRAPPER
-───────────────────────────────────────── */
 .page-wrapper {
   position: relative;
   z-index: 1;
@@ -278,6 +254,4 @@ img { max-width: 100%; height: auto; }
   .link-title    { font-size: 9px; }
   .link-sub      { font-size: 6px; }
   .link-icon     { width: 40px; height: 40px; }
-  .footer-text   { font-size: 7px; }
-  .footer-link   { font-size: 7px; }
 }
