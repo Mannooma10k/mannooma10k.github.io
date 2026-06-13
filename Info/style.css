@@ -66,32 +66,7 @@ img { max-width: 100%; height: auto; }
   to   { background-position: 0 700px; }
 }
 
-/* ─────────────────────────────────────────
-   FLOATING PIXEL PARTICLES
-───────────────────────────────────────── */
-.particles {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
 
-.particle {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  image-rendering: pixelated;
-  opacity: 0;
-  animation: floatUp var(--dur, 8s) var(--delay, 0s) linear infinite;
-}
-
-@keyframes floatUp {
-  0%   { transform: translateY(110vh) rotate(0deg);   opacity: 0; }
-  10%  { opacity: 0.7; }
-  90%  { opacity: 0.4; }
-  100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-}
 
 /* ─────────────────────────────────────────
    PAGE WRAPPER
