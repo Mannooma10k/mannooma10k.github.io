@@ -1,1391 +1,385 @@
 <!DOCTYPE html>
-
-
-
-<html>
-
-
-
-    <head>
-
-
-
-        <!-- Google Tag Manager -->
-
-
-
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-
-
-
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-
-
-
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-
-
-
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-
-
-
-})(window,document,'script','dataLayer','GTM-MCJRDZ23');</script>
-
-
-
-<!-- End Google Tag Manager -->
-
-
-
-        <title>Mannooma10k | Minecraft Add-ons</title>
-
-
-
-        <meta charset="UTF-8">
-
-
-
-        <meta name="description" content="Survival and multiplayer Minecraft addons, resource packs, and updated news—all in one place!">
-
-
-
-        <meta name="keywords" content="Mannooma, Minecraft, Addons, Mods, Maps, Skins, Texture Packs">
-
-
-
-        <meta name="author" content="Mannooma">
-
-
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-
-        <link rel="icon" type="png" href="Mannooma.png">
-
-
-
-        <link rel="stylesheet" href="style.css">
-
-
-
-        <script src="https://kit.fontawesome.com/b8eda85835.js" crossorigin="anonymous"></script>
-
-
-
-    </head>
-
-
-
-
-
-    <!-- Main Body -->
-
-
-
-     <body>
-
-
-
-        <!-- Google Tag Manager (noscript) -->
-
-
-
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MCJRDZ23"
-
-
-
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-
-
-
-<!-- End Google Tag Manager (noscript) -->
-
-
-
-            <header class="site-header">
-
-
-
-                <div class="header-bar">
-
-
-
-                    <div class="header-inner">
-
-
-
-                    <div class="logo-wrap">
-
-
-
-                        <img src="Imgs/Mannooma.png" alt="logo" class="logo">
-
-
-
-                    </div>
-
-
-
-                    <div class="title-wrap">
-
-
-
-                        <div id="reload" class="site-title">My Add-Ons</div>
-
-
-
-                        
-
-
-
-                    </div>
-
-
-
-                    <nav class="main-nav" aria-label="Main navigation">
-
-
-
-                        <button class="nav-button">MY-ADDONS</button>
-
-
-
-                        <button id="aboutme" class="nav-button">About Me</button>
-
-
-
-                        <button class="nav-button">NEWS</button>
-
-
-
-                        <button class="nav-button">OTHER ADDONS</button>
-
-
-
-                    </nav>
-
-
-
-                    </div>
-
-
-
-                </div>
-
-
-
-            </header>
-
-
-
-            <!-- Mobile header (only shown on small screens) -->
-
-
-
-            <header class="mobile-header" aria-hidden="false">
-
-                <div class="mobile-inner">
-
-                    <img id="reload" src="Imgs/Mannooma.png" alt="logo" class="mobile-logo">
-
-                    <div id="reload" class="mobile-title">My Add-Ons</div>
-
-                    </div>
-
-            </header>
-
-
-
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snipline — link shortener</title>
+<style>
+  :root{
+    --ink:#1c1b1a;
+    --paper:#f6f4ef;
+    --line:#d8d3c8;
+    --thread:#b14a2b;
+    --thread-deep:#8a3a21;
+    --mono: "IBM Plex Mono", "SF Mono", Menlo, monospace;
+    --serif: "Source Serif 4", Georgia, serif;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:18px;
+    line-height:1.5;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:48px 20px 80px;
+  }
+
+  .wrap{
+    width:100%;
+    max-width:640px;
+  }
+
+  header{
+    border-bottom:1px solid var(--line);
+    padding-bottom:24px;
+    margin-bottom:36px;
+  }
+
+  .mark{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--thread);
+    margin:0 0 10px;
+  }
+
+  h1{
+    font-size:38px;
+    font-weight:600;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+
+  .sub{
+    font-family:var(--mono);
+    font-size:14px;
+    color:#6b6660;
+    margin:10px 0 0;
+  }
+
+  form{
+    display:flex;
+    gap:0;
+    border:1px solid var(--ink);
+    border-radius:2px;
+    overflow:hidden;
+    margin-bottom:14px;
+  }
+
+  input[type="url"]{
+    flex:1;
+    border:none;
+    background:transparent;
+    padding:16px 18px;
+    font-family:var(--mono);
+    font-size:15px;
+    color:var(--ink);
+    outline:none;
+    min-width:0;
+  }
+
+  input[type="url"]::placeholder{
+    color:#a8a29a;
+  }
+
+  .code-field{
+    display:flex;
+    align-items:center;
+    border-left:1px solid var(--line);
+    padding-left:12px;
+  }
+
+  .code-field span{
+    font-family:var(--mono);
+    font-size:14px;
+    color:#a8a29a;
+    padding-left:6px;
+  }
+
+  input[type="text"]{
+    border:none;
+    background:transparent;
+    padding:16px 16px 16px 4px;
+    font-family:var(--mono);
+    font-size:15px;
+    color:var(--ink);
+    outline:none;
+    width:120px;
+  }
+
+  input[type="text"]::placeholder{
+    color:#c4bfb6;
+  }
+
+  button{
+    border:none;
+    background:var(--thread);
+    color:var(--paper);
+    font-family:var(--mono);
+    font-size:14px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:0 26px;
+    cursor:pointer;
+    transition:background 120ms ease;
+  }
+
+  button:hover{background:var(--thread-deep);}
+  button:disabled{background:#c4bfb6; cursor:default;}
+
+  .hint{
+    font-family:var(--mono);
+    font-size:12px;
+    color:#9b958c;
+    margin:0 0 40px;
+  }
+
+  .result{
+    border:1px solid var(--line);
+    border-left:3px solid var(--thread);
+    border-radius:2px;
+    padding:20px 22px;
+    margin-bottom:16px;
+    display:none;
+  }
+
+  .result.show{display:block;}
+
+  .result .label{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:#9b958c;
+    margin:0 0 8px;
+  }
+
+  .result-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+
+  .short-link{
+    font-family:var(--mono);
+    font-size:18px;
+    font-weight:600;
+    color:var(--thread);
+    text-decoration:none;
+    word-break:break-all;
+  }
+
+  .short-link:hover{text-decoration:underline;}
+
+  .copy-btn{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    background:transparent;
+    color:var(--ink);
+    border:1px solid var(--ink);
+    padding:6px 12px;
+    border-radius:2px;
+  }
+
+  .copy-btn:hover{background:var(--ink); color:var(--paper);}
+
+  .result .original{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#6b6660;
+    margin:10px 0 0;
+    word-break:break-all;
+  }
+
+  .error{
+    font-family:var(--mono);
+    font-size:14px;
+    color:var(--thread-deep);
+    margin:0 0 16px;
+    display:none;
+  }
+
+  .error.show{display:block;}
+
+  footer{
+    margin-top:48px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-family:var(--mono);
+    font-size:12px;
+    color:#9b958c;
+  }
+
+  footer a{color:var(--thread); text-decoration:none;}
+  footer a:hover{text-decoration:underline;}
+
+  .setup-note{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--thread-deep);
+    background:#f2e8e0;
+    border:1px solid #e3cdc0;
+    border-radius:2px;
+    padding:12px 14px;
+    margin-bottom:28px;
+    line-height:1.6;
+    display:none;
+  }
+  .setup-note.show{display:block;}
+  .setup-note code{background:#e3cdc0; padding:1px 4px; border-radius:2px;}
+
+  @media (max-width:520px){
+    form{flex-direction:column; border:1px solid var(--ink);}
+    .code-field{border-left:none; border-top:1px solid var(--line); padding-left:18px;}
+    input[type="text"]{width:auto; flex:1;}
+    button{padding:14px; width:100%;}
+    h1{font-size:30px;}
+  }
+
+  *:focus-visible{
+    outline:2px solid var(--thread);
+    outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="mark">snipline</p>
+    <h1>Make a link shorter.</h1>
+    <p class="sub">Paste a long URL, get one that fits.</p>
+  </header>
+
+  <div id="setupNote" class="setup-note">
+    <strong>Setup needed:</strong> set <code>WORKER_URL</code> at the top of the script in this page to your deployed
+    Cloudflare Worker URL (e.g. <code>https://link-shortener.yourname.workers.dev</code>).
+  </div>
+
+  <form id="shortenForm">
+    <input
+      type="url"
+      id="longUrl"
+      placeholder="https://example.com/a/very/long/path"
+      required
+      autocomplete="off"
+    >
+    <div class="code-field">
+      <span>/</span>
+      <input type="text" id="customCode" placeholder="custom (optional)" autocomplete="off">
+    </div>
+    <button type="submit" id="submitBtn">Snip it</button>
+  </form>
+  <p class="hint">Leave the custom slug blank for a random one. Codes can use letters, numbers, _ and -.</p>
+
+  <p class="error" id="errorMsg"></p>
+
+  <div class="result" id="result">
+    <p class="label">Your link</p>
+    <div class="result-row">
+      <a class="short-link" id="shortLink" href="#" target="_blank" rel="noopener"></a>
+      <button class="copy-btn" id="copyBtn" type="button">Copy</button>
+    </div>
+    <p class="original" id="originalUrl"></p>
+  </div>
+
+  <footer>
+    Powered by a small Cloudflare Worker · <a href="https://mannooma10k.github.io" target="_blank" rel="noopener">mannooma10k.github.io</a>
+  </footer>
 </div>
 
-
-
-         <button id="mobile-menu-button" class="button-changer mobile-menu-toggle" aria-label="Open mobile menu">
-
-            <i class="fa-solid fa-bars"></i>
-
-         </button>
-
-
-
-        
-
-            </header>
-
-
-
-            <!-- Mobile menu overlay (hidden by default) -->
-
-
-
-            <div id="mobile-menu" class="mobile-menu-overlay" aria-hidden="true">
-
-
-
-                <div class="mobile-menu-inner" role="dialog" aria-modal="true" aria-label="Mobile navigation">
-
-                   <button id="mobile-menu-close" class="close-menu-btn" aria-label="Close menu">
-
-                        <i class="fa-solid fa-xmark"></i>
-
-                    </button>
-
-                    <nav class="mobile-nav">
-
-
-
-                        <button class="nav-button">MY-ADDONS</button>
-
-
-
-                        <button id="phoneMe" class="nav-button">About Me</button>
-
-
-
-                        <button class="nav-button">NEWS</button>
-
-
-
-                        <button class="nav-button">OTHER ADDONS</button>
-
-
-
-                    </nav>
-
-
-
-                </div>
-
-
-
-            </div>
-
-
-
-            <br>
-
-
-
-
-
-
-
-
-
-            <!-- Post Content -->
-
-<div class="headermobile">
-
-    <script type="text/javascript">
-
-  atOptions = {
-
-  	'key' : 'f60b877ad3fe53af1374e90f82ceaf97',
-
-  	'format' : 'iframe',
-
-  	'height' : 50,
-
-  	'width' : 320,
-
-  	'params' : {}
-
-  };
-
+<script>
+  // ---- CONFIGURE THIS ----
+  // Replace with your deployed Cloudflare Worker URL (no trailing slash).
+  const WORKER_URL = "https://link-shortener.mannooma.workers.dev";
+  // ------------------------
+
+  const form = document.getElementById("shortenForm");
+  const longUrlInput = document.getElementById("longUrl");
+  const customCodeInput = document.getElementById("customCode");
+  const submitBtn = document.getElementById("submitBtn");
+  const result = document.getElementById("result");
+  const shortLink = document.getElementById("shortLink");
+  const originalUrl = document.getElementById("originalUrl");
+  const errorMsg = document.getElementById("errorMsg");
+  const copyBtn = document.getElementById("copyBtn");
+  const setupNote = document.getElementById("setupNote");
+
+  if (WORKER_URL.includes("YOUR-WORKER-NAME")) {
+    setupNote.classList.add("show");
+  }
+
+  function showError(message) {
+    errorMsg.textContent = message;
+    errorMsg.classList.add("show");
+    result.classList.remove("show");
+  }
+
+  function clearError() {
+    errorMsg.classList.remove("show");
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    clearError();
+
+    const url = longUrlInput.value.trim();
+    const code = customCodeInput.value.trim();
+
+    if (WORKER_URL.includes("YOUR-WORKER-NAME")) {
+      showError("Worker URL not configured yet — see the setup note above.");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "…";
+
+    try {
+      const res = await fetch(`${WORKER_URL}/api/shorten`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(code ? { url, code } : { url }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        showError(data.error || "Something went wrong.");
+        return;
+      }
+
+      shortLink.href = data.short;
+      shortLink.textContent = data.short.replace(/^https?:\/\//, "");
+      originalUrl.textContent = data.url;
+      result.classList.add("show");
+      copyBtn.textContent = "Copy";
+    } catch (err) {
+      showError("Could not reach the shortener service.");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Snip it";
+    }
+  });
+
+  copyBtn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(shortLink.href);
+      copyBtn.textContent = "Copied";
+      setTimeout(() => (copyBtn.textContent = "Copy"), 1500);
+    } catch {
+      copyBtn.textContent = "Press Ctrl+C";
+    }
+  });
 </script>
-
-<script
-
-  type="text/javascript"
-
-  src="https://www.highperformanceformat.com/f60b877ad3fe53af1374e90f82ceaf97/invoke.js"
-
-></script>
-
-</div>
-
-
-
-<div class="headerpc">
-
- <script type="text/javascript">
-
-  atOptions = {
-
-  	'key' : '1142ace3ae4a8e86aebe3c69f7a80bd2',
-
-  	'format' : 'iframe',
-
-  	'height' : 90,
-
-  	'width' : 728,
-
-  	'params' : {}
-
-  };
-
-</script>
-
-<script
-
-  type="text/javascript"
-
-  src="https://www.highperformanceformat.com/1142ace3ae4a8e86aebe3c69f7a80bd2/invoke.js"
-
-></script>
-
-</div>
-
-
-
-
-
-   <div class="page-content">
-
-
-
-        
-
-
-
-       <section class="posts">
-
-
-
-           
-
-             <article class="post" data-url="posts/infinite-durability.html">
-
-               <img class="post-image" src="https://media.forgecdn.net/attachments/1605/224/20260330_044451-png.png" alt="Post image">
-
-
-
-               <div class="post-header">
-
-
-
-                   <h2 class="post-title">Infinite Durability</h2>
-
-
-
-                   <span class="version">1.26</span>
-
-
-
-               </div>
-
-
-
-               <div class="rating">
-
-
-
-                   <div class="stars" role="radiogroup" aria-label="Rating">
-
-
-
-                       <button class="star" data-value="1" aria-label="1 star">☆</button>
-
-
-
-                       <button class="star" data-value="2" aria-label="2 stars">☆</button>
-
-
-
-                       <button class="star" data-value="3" aria-label="3 stars">☆</button>
-
-
-
-                       <button class="star" data-value="4" aria-label="4 stars">☆</button>
-
-
-
-                       <button class="star" data-value="5" aria-label="5 stars">☆</button>
-
-
-
-                   </div>
-
-
-
-                   <div class="rate-text">Rate this!</div>
-
-
-
-               </div>
-
-
-
-               <p class="post-excerpt">Prevents all tools, weapons, and armor from losing durability</p>
-
-
-
-           </article>
-           
-           <article class="post" data-url="posts/look&learn.html">
-
-               <img class="post-image" src="https://media.forgecdn.net/attachments/1601/121/20260327_133120-png.png" alt="Post image">
-
-
-
-               <div class="post-header">
-
-
-
-                   <h2 class="post-title">look&Learn</h2>
-
-
-
-                   <span class="version">1.26</span>
-
-
-
-               </div>
-
-
-
-               <div class="rating">
-
-
-
-                   <div class="stars" role="radiogroup" aria-label="Rating">
-
-
-
-                       <button class="star" data-value="1" aria-label="1 star">☆</button>
-
-
-
-                       <button class="star" data-value="2" aria-label="2 stars">☆</button>
-
-
-
-                       <button class="star" data-value="3" aria-label="3 stars">☆</button>
-
-
-
-                       <button class="star" data-value="4" aria-label="4 stars">☆</button>
-
-
-
-                       <button class="star" data-value="5" aria-label="5 stars">☆</button>
-
-
-
-                   </div>
-
-
-
-                   <div class="rate-text">Rate this!</div>
-
-
-
-               </div>
-
-
-
-               <p class="post-excerpt">look at anything, you'll learn what it is</p>
-
-
-
-           </article>
-
-           
-
-           <article class="post" data-url="posts/quickswap.html">
-
-               <img class="post-image" src="https://media.forgecdn.net/attachments/1555/465/1772162835367-png.png" alt="Post image">
-
-
-
-               <div class="post-header">
-
-
-
-                   <h2 class="post-title">QuickSwap</h2>
-
-
-
-                   <span class="version">1.26</span>
-
-
-
-               </div>
-
-
-
-               <div class="rating">
-
-
-
-                   <div class="stars" role="radiogroup" aria-label="Rating">
-
-
-
-                       <button class="star" data-value="1" aria-label="1 star">☆</button>
-
-
-
-                       <button class="star" data-value="2" aria-label="2 stars">☆</button>
-
-
-
-                       <button class="star" data-value="3" aria-label="3 stars">☆</button>
-
-
-
-                       <button class="star" data-value="4" aria-label="4 stars">☆</button>
-
-
-
-                       <button class="star" data-value="5" aria-label="5 stars">☆</button>
-
-
-
-                   </div>
-
-
-
-                   <div class="rate-text">Rate this!</div>
-
-
-
-               </div>
-
-
-
-               <p class="post-excerpt">Auto-swaps totems or shields to offhand at Danger!</p>
-
-
-
-           </article>
-
-           
-           <article class="post" data-url="posts/dynamic_light.html">
-
-               <img class="post-image" src="https://modbay.org/uploads/posts/2026-03/44cee87606_mannoomas-dynamic-light-cover.webp" alt="Post image">
-
-
-
-               <div class="post-header">
-
-
-
-                   <h2 class="post-title">Dynamic Light</h2>
-
-
-
-                   <span class="version">1.26</span>
-
-
-
-               </div>
-
-
-
-               <div class="rating">
-
-
-
-                   <div class="stars" role="radiogroup" aria-label="Rating">
-
-
-
-                       <button class="star" data-value="1" aria-label="1 star">☆</button>
-
-
-
-                       <button class="star" data-value="2" aria-label="2 stars">☆</button>
-
-
-
-                       <button class="star" data-value="3" aria-label="3 stars">☆</button>
-
-
-
-                       <button class="star" data-value="4" aria-label="4 stars">☆</button>
-
-
-
-                       <button class="star" data-value="5" aria-label="5 stars">☆</button>
-
-
-
-                   </div>
-
-
-
-                   <div class="rate-text">Rate this!</div>
-
-
-
-               </div>
-
-
-
-               <p class="post-excerpt">Hold torches, lanterns & more to glow, Java-style for Bedrock.</p>
-
-
-
-           </article>
-
-      
-           
-             <article class="post" data-url="posts/elevators.html">
-
-               <img class="post-image" src="https://media.forgecdn.net/attachments/1546/831/1771730389231-png.png" alt="Post image">
-
-
-
-               <div class="post-header">
-
-
-
-                   <h2 class="post-title">Elevators</h2>
-
-
-
-                   <span class="version">1.26</span>
-
-
-
-               </div>
-
-
-
-               <div class="rating">
-
-
-
-                   <div class="stars" role="radiogroup" aria-label="Rating">
-
-
-
-                       <button class="star" data-value="1" aria-label="1 star">☆</button>
-
-
-
-                       <button class="star" data-value="2" aria-label="2 stars">☆</button>
-
-
-
-                       <button class="star" data-value="3" aria-label="3 stars">☆</button>
-
-
-
-                       <button class="star" data-value="4" aria-label="4 stars">☆</button>
-
-
-
-                       <button class="star" data-value="5" aria-label="5 stars">☆</button>
-
-
-
-                   </div>
-
-
-
-                   <div class="rate-text">Rate this!</div>
-
-
-
-               </div>
-
-
-
-               <p class="post-excerpt">Create seamless multi-floor elevators! Jump to go UP, Sneak to go DOWN.</p>
-
-
-
-           </article>
-
-           
-            <article class="post" data-url="posts/pocketSmelter.html">
-
-               <img class="post-image" src="https://media.forgecdn.net/attachments/1464/844/1768297403615-png.png" alt="Post image">
-
-
-
-               <div class="post-header">
-
-
-
-                   <h2 class="post-title">Pocket Smelter</h2>
-
-
-
-                   <span class="version">1.26</span>
-
-
-
-               </div>
-
-
-
-               <div class="rating">
-
-
-
-                   <div class="stars" role="radiogroup" aria-label="Rating">
-
-
-
-                       <button class="star" data-value="1" aria-label="1 star">☆</button>
-
-
-
-                       <button class="star" data-value="2" aria-label="2 stars">☆</button>
-
-
-
-                       <button class="star" data-value="3" aria-label="3 stars">☆</button>
-
-
-
-                       <button class="star" data-value="4" aria-label="4 stars">☆</button>
-
-
-
-                       <button class="star" data-value="5" aria-label="5 stars">☆</button>
-
-
-
-                   </div>
-
-
-
-                   <div class="rate-text">Rate this!</div>
-
-
-
-               </div>
-
-
-
-               <p class="post-excerpt">Toggle fuel modes: burn your XP or use Coal/Logs from your inventory.</p>
-
-
-
-           </article>
-
-           <article class="post" data-url="posts/voidSatchel.html">
-
-
-
-               <img class="post-image" src="https://media.forgecdn.net/attachments/1458/806/1767967552162-png.png" alt="Post image">
-
-
-
-               <div class="post-header">
-
-
-
-                   <h2 class="post-title">Void Satchel</h2>
-
-
-
-                   <span class="version">1.26</span>
-
-
-
-               </div>
-
-
-
-               <div class="rating">
-
-
-
-                   <div class="stars" role="radiogroup" aria-label="Rating">
-
-
-
-                       <button class="star" data-value="1" aria-label="1 star">☆</button>
-
-
-
-                       <button class="star" data-value="2" aria-label="2 stars">☆</button>
-
-
-
-                       <button class="star" data-value="3" aria-label="3 stars">☆</button>
-
-
-
-                       <button class="star" data-value="4" aria-label="4 stars">☆</button>
-
-
-
-                       <button class="star" data-value="5" aria-label="5 stars">☆</button>
-
-
-
-                   </div>
-
-
-
-                   <div class="rate-text">Rate this!</div>
-
-
-
-               </div>
-
-
-
-               <p class="post-excerpt">An automated trash system that filters selected item, saves inventory space.</p>
-
-
-
-           </article>
-
-           <article class="post" data-url="posts/linkup.html">
-
-
-
-               <img class="post-image" src="https://media.forgecdn.net/attachments/1374/980/1761769561810-png.png" alt="Post image">
-
-
-
-               <div class="post-header">
-
-
-
-                   <h2 class="post-title">LinkUp</h2>
-
-
-
-                   <span class="version">1.26</span>
-
-
-
-               </div>
-
-
-
-               <div class="rating">
-
-
-
-                   <div class="stars" role="radiogroup" aria-label="Rating">
-
-
-
-                       <button class="star" data-value="1" aria-label="1 star">☆</button>
-
-
-
-                       <button class="star" data-value="2" aria-label="2 stars">☆</button>
-
-
-
-                       <button class="star" data-value="3" aria-label="3 stars">☆</button>
-
-
-
-                       <button class="star" data-value="4" aria-label="4 stars">☆</button>
-
-
-
-                       <button class="star" data-value="5" aria-label="5 stars">☆</button>
-
-
-
-                   </div>
-
-
-
-                   <div class="rate-text">Rate this!</div>
-
-
-
-               </div>
-
-
-
-               <p class="post-excerpt">Lost in a cave or miles from home? send and receive items instantly—no waiting.</p>
-
-
-
-           </article>
-
-
-
-           <article class="post" data-url="posts/tp_points.html">
-
-
-
-               <img class="post-image" src="Imgs/tp_points.png" alt="Post image">
-
-
-
-               <div class="post-header">
-
-
-
-                   <h2 class="post-title">Tp Points</h2>
-
-
-
-                   <span class="version">1.26</span>
-
-
-
-               </div>
-
-
-
-               <div class="rating">
-
-
-
-                   <div class="stars" role="radiogroup" aria-label="Rating">
-
-
-
-                       <button class="star" data-value="1" aria-label="1 star">☆</button>
-
-
-
-                       <button class="star" data-value="2" aria-label="2 stars">☆</button>
-
-
-
-                       <button class="star" data-value="3" aria-label="3 stars">☆</button>
-
-
-
-                       <button class="star" data-value="4" aria-label="4 stars">☆</button>
-
-
-
-                       <button class="star" data-value="5" aria-label="5 stars">☆</button>
-
-
-
-                   </div>
-
-
-
-                   <div class="rate-text">Rate this!</div>
-
-
-
-               </div>
-
-
-
-               <p class="post-excerpt">set points and instantly teleport across your world.</p>
-
-
-
-           </article>
-
-           <article class="post" data-url="posts/upranks.html">
-
-
-
-               <img class="post-image" src="https://media.forgecdn.net/attachments/1476/733/untitled17_20260116091310-png.png" alt="Post image">
-
-
-
-               <div class="post-header">
-
-
-
-                   <h2 class="post-title">UpRanks+</h2>
-
-
-
-                   <span class="version">1.26</span>
-
-
-
-               </div>
-
-
-
-               <div class="rating">
-
-
-
-                   <div class="stars" role="radiogroup" aria-label="Rating">
-
-
-
-                       <button class="star" data-value="1" aria-label="1 star">☆</button>
-
-
-
-                       <button class="star" data-value="2" aria-label="2 stars">☆</button>
-
-
-
-                       <button class="star" data-value="3" aria-label="3 stars">☆</button>
-
-
-
-                       <button class="star" data-value="4" aria-label="4 stars">☆</button>
-
-
-
-                       <button class="star" data-value="5" aria-label="5 stars">☆</button>
-
-
-
-                   </div>
-
-
-
-                   <div class="rate-text">Rate this!</div>
-
-
-
-               </div>
-
-
-
-               <p class="post-excerpt">Set ranks easily for your players also (you can change their names)</p>
-
-
-
-           </article>
-
-
-
-
-
-
-
-           <article class="post" data-url="posts/healthbar.html">
-
-
-
-               <img class="post-image" src="https://modbay.org/uploads/posts/2025-10/8f9085cf16_health-bar-cover.webp" alt="Post image">
-
-
-
-               <div class="post-header">
-
-
-
-                   <h2 class="post-title">Health Bar</h2>
-
-
-
-                   <span class="version">1.26</span>
-
-
-
-               </div>
-
-
-
-               <div class="rating">
-
-
-
-                   <div class="stars" role="radiogroup" aria-label="Rating">
-
-
-
-                       <button class="star" data-value="1" aria-label="1 star">☆</button>
-
-
-
-                       <button class="star" data-value="2" aria-label="2 stars">☆</button>
-
-
-
-                       <button class="star" data-value="3" aria-label="3 stars">☆</button>
-
-
-
-                       <button class="star" data-value="4" aria-label="4 stars">☆</button>
-
-
-
-                       <button class="star" data-value="5" aria-label="5 stars">☆</button>
-
-
-
-                   </div>
-
-
-
-                   <div class="rate-text">Rate this!</div>
-
-
-
-               </div>
-
-
-
-               <p class="post-excerpt">Displays a customizable health bar above players and mobs.</p>
-
-
-
-           </article>
-
-
-
-       </section>
-
-
-
-      <!-- News posts (hidden by default) -->
-
-      <section class="news-posts" aria-hidden="true">
-
-          <article class="post" data-url="news/30.3.2026.html">
-
-              <img class="post-image" src="Imgs/1.26.10.png" alt="News image">
-
-              <div class="post-header">
-
-                  <h2 class="post-title" style:"line-height:1.8">MINECRAFT 1.26.10 BEDROCK CHANGELOG
-
-                  </h2>
-
-                  <span class="version">NEWS</span>
-
-              </div>
-
-              <p class="post-excerpt">Tiny Takeover charges into Minecraft today with new features, mobs</p>
-
-          </article>
-
-          <article class="post" data-url="news/10.12.25.html">
-
-              <img class="post-image" src="Imgs/1.21.130.jpg" alt="News image">
-
-              <div class="post-header">
-
-                  <h2 class="post-title" style:"line-height:1.8">MINECRAFT 1.21.130 BEDROCK CHANGELOG
-
-                  </h2>
-
-                  <span class="version">NEWS</span>
-
-              </div>
-
-              <p class="post-excerpt">Mounts of Mayhem charges into Minecraft today with new features, mobs, and weapons!</p>
-
-          </article>
-
-          <article class="post" data-url="news/12.10.25.html">
-
-              <img class="post-image" src="Imgs/mayhem.jpg" alt="News image">
-
-              <div class="post-header">
-
-                  <h2 class="post-title" style:"line-height:1.8">MOUNTS OF MAYHEM IS HERE!
-
-                  </h2>
-
-                  <span class="version">NEWS</span>
-
-              </div>
-
-              <p class="post-excerpt">FACE CHALLENGES ALONE.
-
-New mounts, spears, and foes have dropped. Don't rely on a team!</p>
-
-          </article>
-
-          <article class="post" data-url="news/12.9.25.html">
-
-              <img class="post-image" src="Imgs/news.jpg" alt="News image">
-
-              <div class="post-header">
-
-                  <h2 class="post-title" style:"line-height:1.8">Minecraft 1.21.11 Candidate 3
-
-                  </h2> <br>
-
-<p style="color: #aaa;margin-top: 1px;font-size: 5px;">(A Minecraft Java Edition)</p>
-
-                  <span class="version">NEWS</span>
-
-              </div>
-
-              <p class="post-excerpt">Mojang just dropped Release Candidate 3 for 1.21.11, Get the details on what's fixed.</p>
-
-          </article>
-
-          <article class="post" data-url="news/12.2.25.html">
-
-              <img class="post-image" src="Imgs/news.jpg" alt="News image">
-
-              <div class="post-header">
-
-                  <h2 class="post-title">Minecraft’s New Version Numbering System</h2>
-
-                  <span class="version">NEWS</span>
-
-              </div>
-
-              <p class="post-excerpt">Mojang adjusts internal version numbers — see what it means for addons.</p>
-
-          </article>
-
-          <article class="post" data-url="news/12.1.25.html">
-
-              <img class="post-image" src="Imgs/news.jpg" alt="News image">
-
-              <div class="post-header">
-
-                  <h2 class="post-title">Website Announcement</h2>
-
-                  <span class="version">NEWS</span>
-
-              </div>
-
-              <p class="post-excerpt">Celebration of the Release of the website.</p>
-
-          </article>
-
-      </section>
-
-
-
-      <!-- Other Addons posts (hidden by default) -->
-
-      <section class="other-posts" aria-hidden="true">
-
-          <article class="post" data-url="posts/other1.html">
-
-              <img class="post-image" src="Imgs/other1.png" alt="Other addon image">
-
-              <div class="post-header">
-
-                  <h2 class="post-title">Foot Printer ResourcePack</h2>
-
-                  <span class="version">26.1</span>
-
-              </div>
-
-              <p class="post-excerpt">A ResourcePack adds foot prints on blocks.</p>
-
-          </article>
-
-          <article class="post" data-url="posts/other2.html">
-
-              <img class="post-image" src="Imgs/other2.png" alt="Other addon image">
-
-              <div class="post-header">
-
-                  <h2 class="post-title">LandClaim</h2>
-
-                  <span class="version">26.1</span>
-
-              </div>
-
-              <p class="post-excerpt">Adds new HUD effects, particles and transitions for custom maps.</p>
-
-          </article>
-
-          <article class="post" data-url="posts/other3.html">
-
-              <img class="post-image" src="Imgs/other3.png" alt="Other addon image">
-
-              <div class="post-header">
-
-                  <h2 class="post-title">Waypoints</h2>
-
-                  <span class="version">26.1</span>
-
-              </div>
-
-              <p class="post-excerpt">Lightweight economy addon for small servers and testing.</p>
-
-          </article>
-
-      </section>
-
-
-
-        <!-- Social overlay (floating above posts) -->
-
-       
-
-
-
-   </div>
-
-
-
-         
-
-             <button id="changerBtn" class="button-changer"><i id="changerIcon" class="fa-solid fa-moon" style="color: white;"></i></button>
-
-
-
-         
-
-             
-
-            <footer class="site-footer">
-
-
-
-                <div class="footer-bar">
-
-
-
-                    <div id="ftext" class="footer-text">© 2026 Mannooma10k. All rights reserved.<br><br>This site is not affiliated with Mojang Studios</div>
-
-
-
-                    <div class="footer-links"><a href="legal/terms-of-use.html" class="footer-link">Terms</a> <span class="sep">|</span> <a href="legal/privacy-policy.html" class="footer-link">Privacy</a></div>
-
-
-
-                </div>
-
-
-
-            </footer>
-
-         <script src="https://pl28323851.effectivegatecpm.com/1b/da/4d/1bda4d0b1912dcd17175c26713cb33b6.js"></script>
-
-
-
-    </body>
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Js section -->
-
-
-
-        <script src="script.js"></script>
-
-
-
-
-
-
-
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
