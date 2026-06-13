@@ -268,49 +268,6 @@ img { max-width: 100%; height: auto; }
 /* ─────────────────────────────────────────
    FOOTER
 ───────────────────────────────────────── */
-.site-footer {
-  width: 100%;
-  padding: 26px 0 36px;
-  background: rgba(0,0,0,0.9);
-  box-shadow: 0 -6px 12px rgba(27,27,27,0.4);
-  margin-top: auto;
-  border-top: 3px solid var(--mc-border);
-}
-
-.footer-bar {
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 6px 20px;
-}
-
-.footer-text {
-  color: #ffffff;
-  font-size: 8px;
-  text-shadow: 2px 2px 0 #000;
-  line-height: 2;
-}
-
-.footer-links {
-  margin-top: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 4px;
-}
-
-.footer-link {
-  color: var(--mc-blue);
-  text-decoration: none;
-  margin: 0 8px;
-  font-size: 8px;
-  transition: color 0.15s ease;
-}
-
-.footer-link:hover {
-  color: #00bbff;
-  text-decoration: underline;
-}
 
 /* ─────────────────────────────────────────
    RESPONSIVE
