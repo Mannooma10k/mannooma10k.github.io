@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Runline — JS Playground</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#0F1116;
+    --bg-panel:#171A21;
+    --bg-editor:#12141A;
+    --bg-elevated:#1E222C;
+    --amber:#E8A33D;
+    --amber-dim:#9C7433;
+    --blue:#6EA8D8;
+    --sage:#7FB88F;
+    --red:#E2685F;
+    --text:#ECEAE3;
+    --text-muted:#767C89;
+    --border:#262B36;
+    --font-display:'Sora', sans-serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0; padding:0; height:100%;
+    background:var(--bg-deep);
+    color:var(--text);
+    font-family:var(--font-body);
+    overflow:hidden;
+  }
+
+  .app{
+    display:flex;
+    flex-direction:column;
+    height:100vh;
+  }
+
+  /* ---------- topbar ---------- */
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:12px 18px;
+    background:var(--bg-panel);
+    border-bottom:1px solid var(--border);
+    flex-shrink:0;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  .brand .mark{
+    width:22px; height:22px;
+    border-radius:5px;
+    background:linear-gradient(135deg, var(--amber), var(--amber-dim));
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono);
+    font-weight:600;
+    font-size:13px;
+    color:#171407;
+    box-shadow:0 0 14px rgba(232,163,61,0.35);
+  }
+
+  .brand .word{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:0.2px;
+  }
+
+  .brand .word small{
+    display:block;
+    font-family:var(--font-mono);
+    font-weight:400;
+    font-size:10.5px;
+    color:var(--text-muted);
+    letter-spacing:0.5px;
+    margin-top:1px;
+  }
+
+  .actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  button{
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:12.5px;
+    border:1px solid var(--border);
+    background:var(--bg-elevated);
+    color:var(--text);
+    padding:8px 14px;
+    border-radius:7px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    transition:transform 0.1s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+
+  button:hover{ border-color:#3A4152; background:#242935; }
+  button:active{ transform:translateY(1px); }
+
+  #runBtn{
+    background:linear-gradient(135deg, var(--amber), var(--amber-dim));
+    color:#1A1408;
+    border:none;
+    box-shadow:0 0 0 rgba(232,163,61,0);
+  }
+  #runBtn:hover{ box-shadow:0 0 18px rgba(232,163,61,0.4); }
+
+  #runBtn .kbd, #clearBtn .kbd{
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    opacity:0.65;
+    font-weight:400;
+  }
+
+  /* ---------- workspace ---------- */
+  .workspace{
+    flex:1;
+    display:grid;
+    grid-template-columns: 1fr 6px 1fr;
+    min-height:0;
+  }
+
+  .pane{
+    display:flex;
+    flex-direction:column;
+    min-height:0;
+    min-width:0;
+  }
+
+  .pane-label{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-muted);
+    padding:9px 16px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    letter-spacing:0.3px;
+    flex-shrink:0;
+    background:var(--bg-panel);
+  }
+
+  .status-pill{
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    padding:2px 8px;
+    border-radius:20px;
+    background:var(--bg-elevated);
+    color:var(--text-muted);
+    border:1px solid var(--border);
+    transition:color 0.2s ease, border-color 0.2s ease;
+  }
+  .status-pill.running{ color:var(--blue); border-color:var(--blue); }
+  .status-pill.ok{ color:var(--sage); border-color:var(--sage); }
+  .status-pill.err{ color:var(--red); border-color:var(--red); }
+
+  /* ---------- editor ---------- */
+  .editor-pane{ background:var(--bg-editor); }
+
+  .editor-shell{
+    flex:1;
+    display:flex;
+    min-height:0;
+    position:relative;
+  }
+
+  .gutter{
+    font-family:var(--font-mono);
+    font-size:13.5px;
+    line-height:22px;
+    color:var(--text-muted);
+    text-align:right;
+    padding:14px 10px 14px 0;
+    background:var(--bg-editor);
+    user-select:none;
+    overflow:hidden;
+    white-space:pre;
+    border-right:1px solid var(--border);
+    min-width:38px;
+  }
+
+  #code{
+    flex:1;
+    resize:none;
+    border:none;
+    outline:none;
+    background:var(--bg-editor);
+    color:var(--text);
+    font-family:var(--font-mono);
+    font-size:13.5px;
+    line-height:22px;
+    padding:14px 16px;
+    white-space:pre;
+    overflow:auto;
+    tab-size:2;
+  }
+
+  /* ---------- divider ---------- */
+  .divider{
+    background:var(--border);
+    cursor:col-resize;
+    position:relative;
+  }
+  .divider:hover, .divider.active{ background:var(--amber-dim); }
+
+  /* ---------- console ---------- */
+  .console-pane{
+    background:var(--bg-panel);
+    position:relative;
+  }
+
+  .console-output{
+    flex:1;
+    overflow-y:auto;
+    padding:8px 0;
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    line-height:1.55;
+    position:relative;
+  }
+
+  .console-pane::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    top:37px;
+    pointer-events:none;
+    background:repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.012) 0px,
+      rgba(255,255,255,0.012) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    mix-blend-mode:overlay;
+  }
+
+  .entry{
+    display:flex;
+    gap:10px;
+    padding:5px 16px;
+    border-left:2px solid transparent;
+    align-items:flex-start;
+  }
+  .entry + .entry{ border-top:1px solid rgba(255,255,255,0.02); }
+
+  .entry.log{ border-left-color:#3A4152; }
+  .entry.info{ border-left-color:var(--blue); }
+  .entry.warn{ border-left-color:var(--amber); background:rgba(232,163,61,0.05); }
+  .entry.error{ border-left-color:var(--red); background:rgba(226,104,95,0.06); }
+  .entry.system{ border-left-color:var(--sage); }
+
+  .entry .ts{
+    color:var(--text-muted);
+    font-size:11px;
+    flex-shrink:0;
+    padding-top:1px;
+    width:64px;
+  }
+
+  .entry .body{
+    flex:1;
+    min-width:0;
+    white-space:pre-wrap;
+    word-break:break-word;
+    color:var(--text);
+  }
+  .entry.error .body{ color:#F0A099; }
+  .entry.warn .body{ color:#F3C377; }
+  .entry.info .body{ color:#9CC5E8; }
+  .entry.system .body{ color:var(--sage); }
+
+  .entry .body .obj{
+    display:block;
+    color:var(--text-muted);
+    margin-top:2px;
+  }
+
+  .entry .stack{
+    display:block;
+    color:var(--text-muted);
+    font-size:11px;
+    margin-top:3px;
+  }
+
+  .console-empty{
+    padding:16px;
+    color:var(--text-muted);
+    font-size:12.5px;
+    font-family:var(--font-mono);
+  }
+
+  /* ---------- statusbar ---------- */
+  .statusbar{
+    flex-shrink:0;
+    display:flex;
+    justify-content:space-between;
+    padding:6px 16px;
+    background:var(--bg-panel);
+    border-top:1px solid var(--border);
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-muted);
+  }
+
+  /* ---------- scrollbars ---------- */
+  ::-webkit-scrollbar{ width:9px; height:9px; }
+  ::-webkit-scrollbar-track{ background:transparent; }
+  ::-webkit-scrollbar-thumb{ background:#2A3040; border-radius:5px; }
+  ::-webkit-scrollbar-thumb:hover{ background:#394155; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 780px){
+    .workspace{ grid-template-columns:1fr !important; grid-template-rows:1fr 6px 1fr; }
+    .divider{ cursor:row-resize; }
+    .brand .word small{ display:none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="mark">›_</div>
+      <div class="word">Runline<small>JAVASCRIPT PLAYGROUND</small></div>
+    </div>
+    <div class="actions">
+      <button id="clearBtn" title="Clear console">
+        Clear
+      </button>
+      <button id="runBtn" title="Run script">
+        Run ▶ <span class="kbd">⌘/Ctrl ⏎</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="workspace" id="workspace">
+    <section class="pane editor-pane">
+      <div class="pane-label"><span>script.js</span></div>
+      <div class="editor-shell">
+        <div class="gutter" id="gutter">1</div>
+        <textarea id="code" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea>
+      </div>
+    </section>
+
+    <div class="divider" id="divider"></div>
+
+    <section class="pane console-pane">
+      <div class="pane-label">
+        <span>console</span>
+        <span class="status-pill" id="statusPill">idle</span>
+      </div>
+      <div class="console-output" id="output"></div>
+    </section>
+  </main>
+
+  <footer class="statusbar">
+    <span id="lineCol">Ln 1, Col 1</span>
+    <span id="runInfo">ready</span>
+  </footer>
+</div>
+
+<div id="iframeHost" style="display:none;"></div>
+
+<script>
+(function(){
+  const codeEl = document.getElementById('code');
+  const gutterEl = document.getElementById('gutter');
+  const outputEl = document.getElementById('output');
+  const runBtn = document.getElementById('runBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const statusPill = document.getElementById('statusPill');
+  const lineColEl = document.getElementById('lineCol');
+  const runInfoEl = document.getElementById('runInfo');
+  const iframeHost = document.getElementById('iframeHost');
+  const divider = document.getElementById('divider');
+  const workspace = document.getElementById('workspace');
+
+  const DEFAULT_CODE =
+'// Welcome to Runline — write JavaScript, then hit Run.\n' +
+'// console.log / info / warn / error all show up on the right.\n\n' +
+'console.log("Hello from Runline 👋");\n\n' +
+'const fleet = [\n' +
+'  { name: "Enderling", speed: 12 },\n' +
+'  { name: "Redstone Hare", speed: 27 },\n' +
+'];\n\n' +
+'console.info("Fleet loaded:", fleet);\n\n' +
+'const fastest = fleet.reduce((a, b) => (b.speed > a.speed ? b : a));\n' +
+'console.log(`Fastest unit: ${fastest.name} (${fastest.speed})`);\n\n' +
+'// Async code and awaited timers work too:\n' +
+'async function ping() {\n' +
+'  console.log("pinging...");\n' +
+'  await new Promise((r) => setTimeout(r, 400));\n' +
+'  console.log("pong ✅");\n' +
+'}\n' +
+'await ping();\n\n' +
+'// Uncomment to see error handling:\n' +
+'// throw new Error("Something went sideways");\n';
+
+  codeEl.value = DEFAULT_CODE;
+
+  // ---------- gutter / line tracking ----------
+  function updateGutter(){
+    const lines = codeEl.value.split('\n').length;
+    let s = '';
+    for(let i=1;i<=lines;i++){ s += i + (i<lines ? '\n' : ''); }
+    gutterEl.textContent = s;
+    gutterEl.scrollTop = codeEl.scrollTop;
+  }
+
+  function updateLineCol(){
+    const pos = codeEl.selectionStart;
+    const upTo = codeEl.value.slice(0, pos);
+    const lines = upTo.split('\n');
+    const line = lines.length;
+    const col = lines[lines.length-1].length + 1;
+    lineColEl.textContent = `Ln ${line}, Col ${col}`;
+  }
+
+  codeEl.addEventListener('input', () => { updateGutter(); updateLineCol(); });
+  codeEl.addEventListener('scroll', () => { gutterEl.scrollTop = codeEl.scrollTop; });
+  codeEl.addEventListener('click', updateLineCol);
+  codeEl.addEventListener('keyup', updateLineCol);
+
+  // ---------- editor conveniences ----------
+  const PAIRS = { '(':')', '[':']', '{':'}', '"':'"', "'":"'", '`':'`' };
+
+  codeEl.addEventListener('keydown', (e) => {
+    const start = codeEl.selectionStart;
+    const end = codeEl.selectionEnd;
+    const val = codeEl.value;
+
+    if (e.key === 'Tab'){
+      e.preventDefault();
+      if (e.shiftKey){
+        const lineStart = val.lastIndexOf('\n', start-1) + 1;
+        if (val.slice(lineStart, lineStart+2) === '  '){
+          codeEl.value = val.slice(0, lineStart) + val.slice(lineStart+2);
+          codeEl.selectionStart = codeEl.selectionEnd = Math.max(lineStart, start-2);
+        }
+      } else {
+        codeEl.value = val.slice(0,start) + '  ' + val.slice(end);
+        codeEl.selectionStart = codeEl.selectionEnd = start+2;
+      }
+      updateGutter();
+      return;
+    }
+
+    if (e.key === 'Enter'){
+      e.preventDefault();
+      const lineStart = val.lastIndexOf('\n', start-1) + 1;
+      const currentLine = val.slice(lineStart, start);
+      const indentMatch = currentLine.match(/^\s*/);
+      let indent = indentMatch ? indentMatch[0] : '';
+      const prevChar = val[start-1];
+      const nextChar = val[start];
+      const opensBlock = '{[('.includes(prevChar);
+      const closesBlock = ')]}'.includes(nextChar);
+
+      if (opensBlock && closesBlock){
+        const inner = '\n' + indent + '  ';
+        const outer = '\n' + indent;
+        codeEl.value = val.slice(0,start) + inner + outer + val.slice(end);
+        codeEl.selectionStart = codeEl.selectionEnd = start + inner.length;
+      } else if (opensBlock){
+        const insert = '\n' + indent + '  ';
+        codeEl.value = val.slice(0,start) + insert + val.slice(end);
+        codeEl.selectionStart = codeEl.selectionEnd = start + insert.length;
+      } else {
+        const insert = '\n' + indent;
+        codeEl.value = val.slice(0,start) + insert + val.slice(end);
+        codeEl.selectionStart = codeEl.selectionEnd = start + insert.length;
+      }
+      updateGutter();
+      return;
+    }
+
+    if (PAIRS[e.key] && start === end){
+      const closer = PAIRS[e.key];
+      const isQuote = e.key === '"' || e.key === "'" || e.key === '`';
+      if (isQuote && val[start] === e.key){
+        e.preventDefault();
+        codeEl.selectionStart = codeEl.selectionEnd = start+1;
+        return;
+      }
+      e.preventDefault();
+      codeEl.value = val.slice(0,start) + e.key + closer + val.slice(end);
+      codeEl.selectionStart = codeEl.selectionEnd = start+1;
+      updateGutter();
+      return;
+    }
+
+    if (')]}"\'`'.includes(e.key) && val[start] === e.key && start === end){
+      e.preventDefault();
+      codeEl.selectionStart = codeEl.selectionEnd = start+1;
+      return;
+    }
+
+    if (e.key === 'Backspace' && start === end && start > 0){
+      const before = val[start-1];
+      const after = val[start];
+      if (PAIRS[before] === after){
+        e.preventDefault();
+        codeEl.value = val.slice(0,start-1) + val.slice(start+1);
+        codeEl.selectionStart = codeEl.selectionEnd = start-1;
+        updateGutter();
+        return;
+      }
+    }
+
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter'){
+      e.preventDefault();
+      runCode();
+    }
+  });
+
+  // ---------- console rendering ----------
+  function fmtTime(){
+    const d = new Date();
+    return d.toTimeString().slice(0,8);
+  }
+
+  function renderValue(v){
+    if (v.__type === 'undefined') return 'undefined';
+    if (v.__type === 'error'){
+      let s = document.createElement('span');
+      const label = document.createElement('span');
+      label.textContent = v.message || 'Error';
+      s.appendChild(label);
+      if (v.stack){
+        const stack = document.createElement('span');
+        stack.className = 'stack';
+        stack.textContent = v.stack;
+        s.appendChild(stack);
+      }
+      return s;
+    }
+    if (v.__type === 'function'){
+      return 'ƒ ' + v.repr;
+    }
+    if (v.__type === 'object'){
+      const s = document.createElement('span');
+      s.className = 'obj';
+      s.textContent = v.repr;
+      return s;
+    }
+    return String(v.value);
+  }
+
+  function appendEntry(level, args){
+    const empty = outputEl.querySelector('.console-empty');
+    if (empty) empty.remove();
+
+    const row = document.createElement('div');
+    row.className = 'entry ' + level;
+
+    const ts = document.createElement('span');
+    ts.className = 'ts';
+    ts.textContent = fmtTime();
+    row.appendChild(ts);
+
+    const body = document.createElement('span');
+    body.className = 'body';
+
+    args.forEach((a, i) => {
+      if (i > 0) body.appendChild(document.createTextNode('  '));
+      const rendered = renderValue(a);
+      if (typeof rendered === 'string'){
+        body.appendChild(document.createTextNode(rendered));
+      } else {
+        body.appendChild(rendered);
+      }
+    });
+
+    row.appendChild(body);
+    outputEl.appendChild(row);
+    outputEl.scrollTop = outputEl.scrollHeight;
+  }
+
+  function appendSystem(text){
+    const row = document.createElement('div');
+    row.className = 'entry system';
+    const ts = document.createElement('span');
+    ts.className = 'ts';
+    ts.textContent = fmtTime();
+    const body = document.createElement('span');
+    body.className = 'body';
+    body.textContent = text;
+    row.appendChild(ts);
+    row.appendChild(body);
+    outputEl.appendChild(row);
+    outputEl.scrollTop = outputEl.scrollHeight;
+  }
+
+  function clearConsole(){
+    outputEl.innerHTML = '<div class="console-empty">// output will appear here</div>';
+    statusPill.className = 'status-pill';
+    statusPill.textContent = 'idle';
+    runInfoEl.textContent = 'ready';
+  }
+
+  // ---------- sandboxed execution ----------
+  let currentIframe = null;
+  let runToken = 0;
+
+  const SANDBOX_SCRIPT = [
+    '(function(){',
+    '  function serialize(a){',
+    '    try{',
+    '      if (a instanceof Error) return {__type:"error", message:a.message, stack:a.stack};',
+    '      if (typeof a === "undefined") return {__type:"undefined"};',
+    '      if (typeof a === "function") return {__type:"function", repr:a.toString().slice(0,200)};',
+    '      if (typeof a === "object" && a !== null) return {__type:"object", repr:safeStringify(a)};',
+    '      if (typeof a === "bigint") return {__type:"primitive", value:a.toString()+"n"};',
+    '      return {__type:"primitive", value:a};',
+    '    } catch(e){ return {__type:"primitive", value:String(a)}; }',
+    '  }',
+    '  function safeStringify(obj){',
+    '    var seen = [];',
+    '    try {',
+    '      return JSON.stringify(obj, function(k,v){',
+    '        if (typeof v === "object" && v !== null){',
+    '          if (seen.indexOf(v) !== -1) return "[Circular]";',
+    '          seen.push(v);',
+    '        }',
+    '        if (typeof v === "function") return "[Function]";',
+    '        return v;',
+    '      }, 2) || String(obj);',
+    '    } catch(e){',
+    '      try { return String(obj); } catch(_) { return "[Unserializable]"; }',
+    '    }',
+    '  }',
+    '  function send(level, args){',
+    '    parent.postMessage({type:"console", level:level, args:args.map(serialize), token: window.__token}, "*");',
+    '  }',
+    '  ["log","info","warn","error","debug"].forEach(function(level){',
+    '    console[level] = function(){ send(level === "debug" ? "log" : level, Array.prototype.slice.call(arguments)); };',
+    '  });',
+    '  window.addEventListener("error", function(e){',
+    '    send("error", [{message:e.message, stack:(e.error && e.error.stack) || ""}].map(function(x){return {__type:"error", message:x.message, stack:x.stack};}));',
+    '  });',
+    '  window.addEventListener("unhandledrejection", function(e){',
+    '    var reason = e.reason;',
+    '    var msg = "Unhandled promise rejection: " + (reason && reason.message ? reason.message : reason);',
+    '    send("error", [{__type:"error", message: msg, stack:(reason && reason.stack) || ""}]);',
+    '  });',
+    '  window.addEventListener("message", function(evt){',
+    '    if (evt.data && evt.data.type === "run"){',
+    '      window.__token = evt.data.token;',
+    '      var code = evt.data.code;',
+    '      var start = performance.now();',
+    '      (async function(){',
+    '        try {',
+    '          await (0, eval)("(async()=>{" + code + "\\n})()");',
+    '          parent.postMessage({type:"done", ok:true, ms: performance.now()-start, token: evt.data.token}, "*");',
+    '        } catch(err){',
+    '          send("error", [err]);',
+    '          parent.postMessage({type:"done", ok:false, ms: performance.now()-start, token: evt.data.token}, "*");',
+    '        }',
+    '      })();',
+    '    }',
+    '  });',
+    '  parent.postMessage({type:"ready", token: window.__token}, "*");',
+    '})();'
+  ].join('\n');
+
+  function buildIframe(){
+    if (currentIframe){ currentIframe.remove(); }
+    const iframe = document.createElement('iframe');
+    iframe.setAttribute('sandbox', 'allow-scripts');
+    iframe.srcdoc = '<!DOCTYPE html><html><head></head><body><script>' + SANDBOX_SCRIPT + '<\/script></body></html>';
+    iframeHost.appendChild(iframe);
+    currentIframe = iframe;
+    return iframe;
+  }
+
+  window.addEventListener('message', (evt) => {
+    const data = evt.data;
+    if (!data || typeof data !== 'object') return;
+    if (data.token !== runToken) return;
+
+    if (data.type === 'ready'){
+      currentIframe.contentWindow.postMessage({ type:'run', code: pendingCode, token: runToken }, '*');
+    } else if (data.type === 'console'){
+      appendEntry(data.level, data.args);
+    } else if (data.type === 'done'){
+      statusPill.className = 'status-pill ' + (data.ok ? 'ok' : 'err');
+      statusPill.textContent = data.ok ? 'done' : 'error';
+      runInfoEl.textContent = (data.ok ? 'finished in ' : 'failed after ') + Math.round(data.ms) + 'ms';
+      runBtn.disabled = false;
+    }
+  });
+
+  let pendingCode = '';
+
+  function runCode(){
+    runToken++;
+    pendingCode = codeEl.value;
+    statusPill.className = 'status-pill running';
+    statusPill.textContent = 'running';
+    runInfoEl.textContent = 'executing…';
+    runBtn.disabled = true;
+    buildIframe();
+  }
+
+  runBtn.addEventListener('click', runCode);
+  clearBtn.addEventListener('click', clearConsole);
+
+  // ---------- resizable divider ----------
+  let dragging = false;
+  divider.addEventListener('mousedown', () => {
+    dragging = true;
+    divider.classList.add('active');
+    document.body.style.userSelect = 'none';
+  });
+  window.addEventListener('mousemove', (e) => {
+    if (!dragging) return;
+    const rect = workspace.getBoundingClientRect();
+    const isRow = getComputedStyle(workspace).gridTemplateRows !== 'none' && window.innerWidth <= 780;
+    if (isRow){
+      const y = e.clientY - rect.top;
+      const pct = Math.min(80, Math.max(20, (y/rect.height)*100));
+      workspace.style.gridTemplateRows = pct + '% 6px ' + (100-pct-2) + '%';
+    } else {
+      const x = e.clientX - rect.left;
+      const pct = Math.min(80, Math.max(20, (x/rect.width)*100));
+      workspace.style.gridTemplateColumns = pct + '% 6px ' + (100-pct-2) + '%';
+    }
+  });
+  window.addEventListener('mouseup', () => {
+    dragging = false;
+    divider.classList.remove('active');
+    document.body.style.userSelect = '';
+  });
+
+  // ---------- init ----------
+  clearConsole();
+  updateGutter();
+  updateLineCol();
+  appendSystem('Runline ready — press Run or ⌘/Ctrl+Enter to execute.');
+})();
+</script>
+</body>
+</html>
