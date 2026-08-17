@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CF → Addon Page Converter | MANNOOMA Tools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#151515;
+    --panel:#1e1e1e;
+    --panel-2:#232323;
+    --line:#3a3a3a;
+    --gold:#ffa600;
+    --green:#08cc22;
+    --red:#ff5252;
+    --text:#e6e6e6;
+    --dim:#9a9a9a;
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  html,body{margin:0;background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;}
+  ::selection{background:var(--gold);color:#111;}
+
+  h1,h2,.pixel{font-family:'Press Start 2P',cursive;}
+
+  a{color:#21bdf6;}
+
+  /* pixel-corner card, matches the rest of the MANNOOMA tools */
+  .pixel-box{
+    background:var(--panel);
+    border:2px solid var(--line);
+    position:relative;
+    clip-path:polygon(0 8px,8px 8px,8px 0,calc(100% - 8px) 0,calc(100% - 8px) 8px,100% 8px,100% calc(100% - 8px),calc(100% - 8px) calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,8px calc(100% - 8px),0 calc(100% - 8px));
+  }
+
+  header.top{
+    padding:18px 20px;
+    border-bottom:3px solid var(--gold);
+    background:linear-gradient(180deg,#1a1a1a,#151515);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  header.top .eyebrow{font-size:10px;color:var(--gold);letter-spacing:2px;}
+  header.top h1{font-size:16px;margin:6px 0 0;color:#fff;text-shadow:2px 2px 0 #000;}
+  header.top p{margin:6px 0 0;color:var(--dim);font-size:11px;max-width:520px;line-height:1.6;}
+
+  .layout{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    min-height:calc(100vh - 96px);
+  }
+  @media (max-width:980px){ .layout{grid-template-columns:1fr;} }
+
+  .pane{padding:22px;}
+  .pane.input{border-right:2px dashed var(--line);}
+  @media (max-width:980px){ .pane.input{border-right:none;border-bottom:2px dashed var(--line);} }
+
+  .pane-title{
+    font-size:11px;
+    color:var(--gold);
+    letter-spacing:1px;
+    text-transform:uppercase;
+    margin:0 0 14px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .pane-title .n{
+    background:var(--gold);color:#111;width:18px;height:18px;
+    display:inline-flex;align-items:center;justify-content:center;
+    font-family:'Press Start 2P',cursive;font-size:9px;border-radius:3px;
+  }
+
+  fieldset{border:1px solid var(--line);border-radius:6px;margin:0 0 16px;padding:14px;}
+  legend{padding:0 6px;font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;}
+
+  label{display:block;font-size:11px;color:var(--dim);margin:10px 0 4px;}
+  label:first-child{margin-top:0;}
+  input[type=text],input[type=url],textarea,select{
+    width:100%;background:var(--panel-2);border:1px solid var(--line);color:var(--text);
+    padding:8px 10px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12px;
+    resize:vertical;
+  }
+  input[type=text]:focus,textarea:focus{outline:2px solid var(--gold);border-color:var(--gold);}
+  textarea.code{min-height:180px;font-size:11px;line-height:1.5;}
+  .row{display:flex;gap:10px;}
+  .row > div{flex:1;}
+
+  .chip-group{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    border:1px solid var(--line);background:var(--panel-2);color:var(--dim);
+    padding:6px 10px;border-radius:20px;font-size:10px;cursor:pointer;user-select:none;
+    transition:all .12s ease;
+  }
+  .chip.on{border-color:var(--green);color:#fff;background:rgba(8,204,34,.15);}
+  .chip.off-mode.on{border-color:var(--red);background:rgba(255,82,82,.15);}
+
+  .btn{
+    font-family:'Press Start 2P',cursive;
+    font-size:11px;
+    background:var(--gold);color:#111;border:none;
+    padding:12px 16px;border-radius:4px;cursor:pointer;
+    box-shadow:4px 4px 0 #000;
+    transition:transform .1s ease;
+  }
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 #000;}
+  .btn:active{transform:translate(0,0);box-shadow:2px 2px 0 #000;}
+  .btn.secondary{background:var(--panel-2);color:var(--text);border:1px solid var(--line);box-shadow:none;}
+  .btn.secondary:hover{border-color:var(--gold);transform:none;box-shadow:none;}
+
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+
+  .summary{list-style:none;margin:0;padding:0;font-size:11px;}
+  .summary li{display:flex;align-items:center;gap:8px;padding:4px 0;color:var(--dim);}
+  .summary li.ok{color:var(--green);}
+  .summary li.warn{color:var(--red);}
+  .summary li .dot{width:8px;height:8px;border-radius:2px;background:currentColor;flex:none;}
+
+  .out-actions{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+  pre.output{
+    background:#0f0f0f;border:1px solid var(--line);border-radius:6px;
+    padding:14px;max-height:70vh;overflow:auto;font-size:11px;line-height:1.55;
+    white-space:pre-wrap;word-break:break-word;
+  }
+  .toast{
+    position:fixed;bottom:18px;right:18px;background:var(--green);color:#111;
+    padding:10px 16px;border-radius:4px;font-size:11px;font-family:'Press Start 2P',cursive;
+    box-shadow:4px 4px 0 #000;opacity:0;transform:translateY(10px);
+    transition:all .2s ease;pointer-events:none;z-index:50;
+  }
+  .toast.show{opacity:1;transform:translateY(0);}
+
+  .hint{font-size:10px;color:#666;margin-top:4px;}
+  .color-swatch{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:6px;border:1px solid #000;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div>
+    <div class="eyebrow">MANNOOMA TOOLS</div>
+    <h1>CurseForge &rarr; Addon Page Converter</h1>
+    <p>Paste a CurseForge description, fill in what CurseForge doesn't have, and get back a page in your <code>wrap-anchor.htm</code> format &mdash; same fsbox sections, same posts.css/game.js hooks.</p>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- INPUT PANE -->
+  <div class="pane input">
+
+    <p class="pane-title"><span class="n">1</span> Paste CurseForge Code</p>
+    <fieldset>
+      <legend>Source</legend>
+      <textarea id="cfSource" class="code" placeholder="Paste the raw CurseForge description HTML here..."></textarea>
+      <div class="actions">
+        <button class="btn" id="parseBtn">⚒ Parse CurseForge Code</button>
+      </div>
+      <ul class="summary" id="summary"></ul>
+    </fieldset>
+
+    <p class="pane-title"><span class="n">2</span> Addon Info</p>
+    <fieldset>
+      <legend>Identity</legend>
+      <div class="row">
+        <div>
+          <label for="fName">Addon Name</label>
+          <input type="text" id="fName" placeholder="Tree Capitator">
+        </div>
+        <div>
+          <label for="fSlug">Page slug (filename)</label>
+          <input type="text" id="fSlug" placeholder="tree-capitator">
+        </div>
+      </div>
+      <label for="fSubtitle">Subtitle (small line under the title)</label>
+      <input type="text" id="fSubtitle" placeholder="CHOP ENTIRE TREES INSTANTLY">
+      <label for="fDesc">Short description (used for meta tags + About section)</label>
+      <textarea id="fDesc" rows="2" placeholder="One or two sentences describing the addon."></textarea>
+      <label for="fKeywords">Extra keywords (comma separated, added after "Mannooma,")</label>
+      <input type="text" id="fKeywords" placeholder="Tree Capitator, Chop, Axe">
+      <label for="fAccent">Accent color</label>
+      <input type="text" id="fAccent" value="#2a9f00" placeholder="#2a9f00">
+      <p class="hint">Used for the title color and the tdb/tds accents (like #0040ff on Wrap Anchor).</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>Video</legend>
+      <label for="fVideoId">YouTube video ID (auto-filled from CurseForge if found)</label>
+      <input type="text" id="fVideoId" placeholder="CjB48cfyYuU">
+    </fieldset>
+
+    <fieldset>
+      <legend>Compatibility</legend>
+      <div class="chip-group" id="compatChips"></div>
+      <label for="fMcVersion" style="margin-top:12px;">Minecraft version text</label>
+      <input type="text" id="fMcVersion" value="MINECRAFT 26.1+">
+    </fieldset>
+
+    <fieldset>
+      <legend>Changelog (one entry per line)</legend>
+      <textarea id="fChangelog" rows="3">v1.0 - Initial Release</textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>Installation steps (auto-filled from CurseForge if found — one step per line)</legend>
+      <textarea id="fInstall" rows="5"></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>Features (auto-filled — one per line)</legend>
+      <textarea id="fFeatures" rows="5"></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>Permissions (auto-filled — one per line)</legend>
+      <div class="row">
+        <div>
+          <label>Allowed</label>
+          <textarea id="fAllowed" rows="3"></textarea>
+        </div>
+        <div>
+          <label>Not allowed</label>
+          <textarea id="fNotAllowed" rows="3"></textarea>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Support links (auto-filled if found)</legend>
+      <label for="fDiscord">Discord invite URL</label>
+      <input type="text" id="fDiscord" placeholder="https://discord.gg/...">
+      <label for="fSupportLink">Support / donate URL (Buy Me a Coffee, Ko-fi, etc.)</label>
+      <input type="text" id="fSupportLink" placeholder="https://buymeacoffee.com/...">
+      <label for="fSupportLabel">Support link label</label>
+      <input type="text" id="fSupportLabel" value="Support me">
+    </fieldset>
+
+    <fieldset>
+      <legend>Download</legend>
+      <label for="fCfUrl">CurseForge files URL (used for the diamond-game redirect)</label>
+      <input type="text" id="fCfUrl" placeholder="https://www.curseforge.com/minecraft-bedrock/addons/YOUR-SLUG/files">
+    </fieldset>
+
+  </div>
+
+  <!-- OUTPUT PANE -->
+  <div class="pane output">
+    <p class="pane-title"><span class="n">3</span> Generated Page</p>
+    <div class="out-actions">
+      <button class="btn" id="generateBtn">⚒ Assemble Page</button>
+      <button class="btn secondary" id="copyBtn">Copy code</button>
+      <button class="btn secondary" id="downloadBtn">Download .html</button>
+    </div>
+    <pre class="output" id="outputCode">// Fill in the form and click "Assemble Page".</pre>
+  </div>
+
+</div>
+
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+(function(){
+  "use strict";
+
+  const $ = (id) => document.getElementById(id);
+
+  /* ---------- compatibility chips ---------- */
+  const COMPAT_OPTIONS = [
+    {id:'localmp', label:'Local Multiplayer', def:true},
+    {id:'realms', label:'Multiplayer Realms', def:true},
+    {id:'survival', label:'Survival Mode', def:true},
+    {id:'creative', label:'Creative Mode', def:true},
+    {id:'java', label:'Java Edition', def:false},
+    {id:'legacy', label:'Below MC Version', def:false},
+  ];
+  const compatState = {};
+  const compatWrap = $('compatChips');
+  COMPAT_OPTIONS.forEach(opt => {
+    compatState[opt.id] = opt.def;
+    const chip = document.createElement('span');
+    chip.className = 'chip' + (opt.def ? ' on' : ' off-mode') + (opt.def ? '' : '');
+    chip.textContent = opt.label;
+    chip.dataset.id = opt.id;
+    updateChipVisual(chip, opt.def);
+    chip.addEventListener('click', () => {
+      compatState[opt.id] = !compatState[opt.id];
+      updateChipVisual(chip, compatState[opt.id]);
+    });
+    compatWrap.appendChild(chip);
+  });
+  function updateChipVisual(chip, on){
+    chip.classList.toggle('on', on);
+    chip.classList.toggle('off-mode', !on);
+  }
+
+  /* ---------- helpers ---------- */
+  function stripTags(html){
+    const d = document.createElement('div');
+    d.innerHTML = html;
+    return d.textContent.replace(/\s+/g,' ').trim();
+  }
+  function escapeHtml(str){
+    return String(str || '')
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  function escapeAttr(str){
+    return escapeHtml(str).replace(/"/g,'&quot;');
+  }
+  function slugify(str){
+    return String(str || '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g,'-')
+      .replace(/^-+|-+$/g,'');
+  }
+  function linesFromTextarea(id){
+    return $(id).value.split('\n').map(s => s.trim()).filter(Boolean);
+  }
+  function youtubeIdFromSrc(src){
+    if(!src) return '';
+    const m = src.match(/embed\/([a-zA-Z0-9_-]{6,})/) || src.match(/[?&]v=([a-zA-Z0-9_-]{6,})/) || src.match(/youtu\.be\/([a-zA-Z0-9_-]{6,})/);
+    return m ? m[1] : '';
+  }
+
+  /* ---------- parse pasted CurseForge HTML ---------- */
+  function parseCurseForge(){
+    const raw = $('cfSource').value.trim();
+    const summary = $('summary');
+    summary.innerHTML = '';
+    const log = (ok, text) => {
+      const li = document.createElement('li');
+      li.className = ok ? 'ok' : 'warn';
+      li.innerHTML = '<span class="dot"></span>' + escapeHtml(text);
+      summary.appendChild(li);
+    };
+
+    if(!raw){
+      log(false, 'Paste something first.');
+      return;
+    }
+
+    const doc = new DOMParser().parseFromString(raw, 'text/html');
+
+    // Video
+    const iframe = doc.querySelector('iframe[src*="youtu"]');
+    const videoId = iframe ? youtubeIdFromSrc(iframe.getAttribute('src')) : '';
+    if(videoId){ $('fVideoId').value = videoId; log(true, 'Showcase video found (' + videoId + ')'); }
+    else { log(false, 'No YouTube embed found — fill in manually.'); }
+
+    // Walk top-level children, tag spoiler blocks by the nearest preceding H1
+    const children = Array.from(doc.body.children);
+    let currentSection = '';
+    let howToNode = null, featuresNode = null;
+    children.forEach(el => {
+      if(/^h[12]$/i.test(el.tagName)){
+        currentSection = stripTags(el.innerHTML).toLowerCase();
+      } else if(el.classList && el.classList.contains('spoiler')){
+        if(currentSection.includes('how to use') || currentSection.includes('install')) howToNode = el;
+        else if(currentSection.includes('feature')) featuresNode = el;
+      }
+    });
+
+    // Features
+    if(featuresNode){
+      const items = Array.from(featuresNode.querySelectorAll('li')).map(li => stripTags(li.innerHTML));
+      if(items.length){
+        $('fFeatures').value = items.join('\n');
+        log(true, items.length + ' feature(s) found');
+      } else { log(false, 'Features spoiler found, but no list items inside.'); }
+    } else { log(false, 'No "Features" section found — fill in manually.'); }
+
+    // How to use / install steps
+    if(howToNode){
+      const steps = Array.from(howToNode.querySelectorAll('p'))
+        .map(p => stripTags(p.innerHTML))
+        .filter(t => t.length > 0);
+      if(steps.length){
+        $('fInstall').value = steps.join('\n');
+        log(true, steps.length + ' install step(s) found');
+      } else { log(false, '"How To Use" section found, but no steps inside.'); }
+    } else { log(false, 'No "How To Use" section found — fill in manually.'); }
+
+    // Permissions
+    const allowed = Array.from(doc.querySelectorAll('span[style*="2dc26b"]')).map(s => stripTags(s.innerHTML));
+    const notAllowed = Array.from(doc.querySelectorAll('span[style*="e03e2d"]')).map(s => stripTags(s.innerHTML));
+    if(allowed.length){ $('fAllowed').value = allowed.join('\n'); log(true, allowed.length + ' "allowed" permission(s) found'); }
+    else { log(false, 'No "allowed" permissions found.'); }
+    if(notAllowed.length){ $('fNotAllowed').value = notAllowed.join('\n'); log(true, notAllowed.length + ' "not allowed" permission(s) found'); }
+    else { log(false, 'No "not allowed" permissions found.'); }
+
+    // Support links
+    const links = Array.from(doc.querySelectorAll('a[href]'));
+    const discord = links.find(a => /discord\.gg|discord\.com/i.test(a.getAttribute('href')));
+    const support = links.find(a => /buymeacoffee|ko-fi|patreon|paypal/i.test(a.getAttribute('href')));
+    if(discord){ $('fDiscord').value = discord.getAttribute('href'); log(true, 'Discord link found'); }
+    else { log(false, 'No Discord link found.'); }
+    if(support){
+      $('fSupportLink').value = support.getAttribute('href');
+      if(/buymeacoffee/i.test(support.getAttribute('href'))) $('fSupportLabel').value = 'Buy me a coffee';
+      log(true, 'Support/donate link found');
+    } else { log(false, 'No support/donate link found.'); }
+
+    // Name guess: look for a Tree/whatever capitalized proper noun inside the how-to text
+    if(!$('fName').value.trim() && howToNode){
+      const text = stripTags(howToNode.innerHTML);
+      const guess = text.match(/(?:Find|activate|enable)\s+([A-Z][A-Za-z0-9 ]{2,30})\s+and/i);
+      if(guess){ $('fName').value = guess[1].trim(); }
+    }
+    if($('fName').value.trim() && !$('fSlug').value.trim()){
+      $('fSlug').value = slugify($('fName').value);
+    }
+  }
+
+  $('fName').addEventListener('input', () => {
+    if(!$('fSlug').dataset.touched){
+      $('fSlug').value = slugify($('fName').value);
+    }
+  });
+  $('fSlug').addEventListener('input', () => { $('fSlug').dataset.touched = '1'; });
+
+  $('parseBtn').addEventListener('click', parseCurseForge);
+
+  /* ---------- build the final page ---------- */
+  function generatePage(){
+    const name = $('fName').value.trim() || 'Untitled Addon';
+    const subtitle = $('fSubtitle').value.trim();
+    const desc = $('fDesc').value.trim();
+    const keywords = $('fKeywords').value.trim();
+    const accent = $('fAccent').value.trim() || '#0040ff';
+    const videoId = $('fVideoId').value.trim();
+    const mcVersion = $('fMcVersion').value.trim();
+    const changelog = linesFromTextarea('fChangelog');
+    const installSteps = linesFromTextarea('fInstall');
+    const features = linesFromTextarea('fFeatures');
+    const allowed = linesFromTextarea('fAllowed');
+    const notAllowed = linesFromTextarea('fNotAllowed');
+    const discord = $('fDiscord').value.trim();
+    const supportLink = $('fSupportLink').value.trim();
+    const supportLabel = $('fSupportLabel').value.trim() || 'Support me';
+    const cfUrl = $('fCfUrl').value.trim() || 'https://www.curseforge.com/minecraft-bedrock/addons/YOUR-SLUG/files';
+
+    const compatLines = COMPAT_OPTIONS.map(opt => {
+      const on = compatState[opt.id];
+      const label = opt.id === 'localmp' || opt.id === 'realms' || opt.id === 'survival' || opt.id === 'creative'
+        ? opt.label.toUpperCase() : opt.label.toUpperCase();
+      const idAttr = on ? 'tss' : 'tsx';
+      return `    <p id="${idAttr}" style="text-align:left;color:#ccc;font-size:11px;margin-bottom:1rem;">${escapeHtml(label)}</p>`;
+    }).join('\n');
+
+    const mcLine = `    <p id="tss" style="text-align:left;color:#ccc;font-size:11px;margin-bottom:1rem;">${escapeHtml(mcVersion)}</p>`;
+
+    const featuresHtml = features.length
+      ? features.map(f => `    <p id="tdb">- ${escapeHtml(f)}</p>`).join('\n')
+      : `    <p id="tdb">- Add your features here</p>`;
+
+    const installHtml = installSteps.length
+      ? installSteps.map((s,i) => `        ${i+1}. ${escapeHtml(s).toUpperCase()}.<br>`).join('\n')
+      : `        1. DOWNLOAD THE FILE.<br>\n        2. OPEN WITH MINECRAFT.<br>\n        3. ACTIVATE THE PACK.`;
+
+    const changelogHtml = changelog.length
+      ? changelog.map(c => `<li>${escapeHtml(c)}</li>`).join('')
+      : `<li>v1.0 - Initial Release</li>`;
+
+    const allowedHtml = allowed.length
+      ? allowed.map(a => `<li><span style="color:#2dc26b;">${escapeHtml(a)}</span></li>`).join('\n    ')
+      : `<li><span style="color:#2dc26b;">Showcase this addon WITH CREDITING</span></li>`;
+
+    const notAllowedHtml = notAllowed.length
+      ? notAllowed.map(a => `<li><span style="color:#e03e2d;">${escapeHtml(a)}</span></li>`).join('\n    ')
+      : `<li><span style="color:#e03e2d;">Repost this addon to other sites</span></li>`;
+
+    const supportLinksHtml = [
+      discord ? `<a href="${escapeAttr(discord)}" rel="nofollow">Join our Discord server</a>` : '',
+      supportLink ? `<a href="${escapeAttr(supportLink)}" rel="nofollow">${escapeHtml(supportLabel)}</a>` : ''
+    ].filter(Boolean).join(', ');
+
+    const videoBlock = videoId
+      ? `  <iframe id="vid" width="560" height="315" src="https://www.youtube.com/embed/${escapeAttr(videoId)}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`
+      : `  <!-- no showcase video set -->`;
+
+    const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MCJRDZ23');<\/script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>${escapeHtml(name)} Add-ON Download</title>
+<meta name="description" content="${escapeAttr(desc)}">
+<meta name="keywords" content="Mannooma${keywords ? ', ' + escapeAttr(keywords) : ''}">
+<meta name="author" content="Mannooma">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="Mannooma.png" type="png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="posts.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "${name.replace(/"/g,'\\"')} Addon",
+  "operatingSystem": "Minecraft Bedrock Edition",
+  "applicationCategory": "GameModification",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "${desc.replace(/"/g,'\\"')}",
+  "author": { "@type": "Person", "name": "Mony" },
+  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "ratingCount": "1" }
+}
+<\/script>
+
+<style>
+#tdb:hover { box-shadow: -3px 2px 1px ${accent}; }
+#tdb       { box-shadow: -3px 0px 0px ${accent}; }
+.article-sub-heading { color: ${accent}; }
+#tds { color: ${accent}; }
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MCJRDZ23" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div class="star-bg"></div>
+
+<header class="header">
+  <div class="tp">
+    <a href="../index.html">HOME</a> &gt; <a href="#">MY ADD-ONS</a> &gt; ${escapeHtml(name)}
+  </div>
+  <h1 id="h1" style="color:${accent}">${escapeHtml(name)} ADD-ON</h1>
+  <p style="color:#888;font-size:10px;">${escapeHtml(subtitle)}</p>
+</header>
+
+<!--Ads Mobile-->
+<div class="headermobile">
+  <script type="text/javascript">atOptions={'key':'f60b877ad3fe53af1374e90f82ceaf97','format':'iframe','height':50,'width':320,'params':{}};<\/script>
+  <script type="text/javascript" src="https://www.highperformanceformat.com/f60b877ad3fe53af1374e90f82ceaf97/invoke.js"><\/script>
+</div>
+<!--Ads PC-->
+<div class="headerpc">
+  <script type="text/javascript">atOptions={'key':'1142ace3ae4a8e86aebe3c69f7a80bd2','format':'iframe','height':90,'width':728,'params':{}};<\/script>
+  <script type="text/javascript" src="https://www.highperformanceformat.com/1142ace3ae4a8e86aebe3c69f7a80bd2/invoke.js"><\/script>
+</div>
+
+<div class="fsbox">
+  <h1 id="tds">About The Addon</h1>
+${videoBlock}
+  <p style="text-align:left;color:#ccc;font-size:11px;margin-bottom:1rem;">
+    ${escapeHtml(desc)}
+  </p>
+</div>
+
+<div class="fsbox">
+  <h1 id="tds">Add-ON Features</h1>
+${featuresHtml}
+</div>
+
+<div class="fsbox">
+  <h1 id="tds">Compatibility</h1>
+${mcLine}
+${compatLines}
+</div>
+
+<div class="fsbox">
+  <h1 id="tds">Changelog</h1>
+  <ul style="padding-left:20px;color:#aaa;">${changelogHtml}</ul>
+</div>
+
+<div class="fsbox">
+  <h1 id="tds">Installation</h1>
+  <p id="tdu" style="text-align:left;color:#fefefe;font-size:11px;margin-bottom:1rem;background-color:#6a6a6a85;line-height:2;">HOW TO INSTALL:</p>
+  <p id="tsm" style="text-align:left;color:#ccc;font-size:11px;margin-bottom:1rem;line-height:2;">
+${installHtml}
+  </p>
+</div>
+
+<div class="fsbox">
+  <h1 id="tds">Permissions</h1>
+  <p style="text-align:left;color:#ccc;font-size:11px;margin-bottom:.5rem;"><strong>You are allowed to:</strong></p>
+  <ul style="padding-left:20px;margin-bottom:1rem;">
+    ${allowedHtml}
+  </ul>
+  <p style="text-align:left;color:#ccc;font-size:11px;margin-bottom:.5rem;"><strong>You are NOT allowed to:</strong></p>
+  <ul style="padding-left:20px;">
+    ${notAllowedHtml}
+  </ul>
+</div>
+
+${supportLinksHtml ? `<div class="fsbox">
+  <h1 id="tds">Support</h1>
+  <p style="text-align:left;color:#ccc;font-size:11px;margin-bottom:1rem;">If you had any problem with the addon, ${supportLinksHtml}.</p>
+</div>
+
+` : ''}<div class="fsbox">
+  <h2 id="tds">&darr; Download</h2>
+  <div class="warning-box">
+    <p style="text-align:left;color:#ccc;font-size:11px;margin-bottom:1rem;">You have to collect 5 diamonds in order to download the addon, Click the button below to start the game.</p>
+  </div>
+  <button id="Download" onclick="openGameModal()">Press Here</button>
+</div>
+
+<div id="game-modal">
+  <div id="close-modal" onclick="closeGameModal()">X</div>
+  <canvas id="gameCanvas"></canvas>
+  <div id="ui-layer">
+    <div id="top-hud">
+      <div id="xp-text">0</div>
+      <div id="xp-bar-border"><div id="xp-bar-fill"></div></div>
+      <div class="status-text" id="status-text">GENERATING TERRAIN...</div>
+    </div>
+    <div id="center-msg">
+      <div id="start-screen">
+        <h1>Diamonds Collector</h1><br>
+        <p>Collect Diamonds to Speed Up Download</p>
+        <button class="mc-btn" id="start-btn">START GAME</button>
+      </div>
+      <div id="game-over-screen" style="display:none;">
+        <h1 style="color:#ff5555;">YOU DIED!</h1>
+        <p>Score: <span id="final-score">0</span></p>
+        <button class="mc-btn" id="restart-btn">RESPAWN</button>
+      </div>
+      <div id="download-screen" style="display:none;">
+        <h1 class="article-sub-heading" style="margin-bottom:2px;color:#2a9f00;">ADD-ON READY!</h1>
+        <button class="mc-btn" id="download-btn" onclick="triggerFinalDownload()">Download</button>
+      </div>
+    </div>
+    <div id="bottom-hud"><div class="hint">DRAG TO MOVE STEVE</div></div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-bar">
+    <div id="ftext" class="footer-text">© 2026 Mannooma10k. All rights reserved.<br>NOT AN OFFICIAL MINECRAFT PRODUCT<br>This site is not affiliated with Mojang Studios</div>
+    <div class="footer-links">
+      <a href="../legal/terms-of-use.html" class="footer-link">Terms</a>
+      <span class="sep">|</span>
+      <a href="../legal/privacy-policy.html" class="footer-link">Privacy</a>
+    </div>
+  </div>
+</footer>
+
+<script>const dlTarget = 'https://mannooma10k.github.io/redirect?url=${cfUrl}';<\/script>
+<script src="game.js"><\/script>
+</body>
+</html>
+`;
+
+    $('outputCode').textContent = html;
+    return html;
+  }
+
+  $('generateBtn').addEventListener('click', generatePage);
+
+  $('copyBtn').addEventListener('click', async () => {
+    const code = $('outputCode').textContent;
+    if(!code || code.startsWith('//')) return;
+    try{
+      await navigator.clipboard.writeText(code);
+      showToast('Copied!');
+    }catch(e){
+      const ta = document.createElement('textarea');
+      ta.value = code; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      showToast('Copied!');
+    }
+  });
+
+  $('downloadBtn').addEventListener('click', () => {
+    const code = $('outputCode').textContent;
+    if(!code || code.startsWith('//')) return;
+    const slug = slugify($('fSlug').value || $('fName').value || 'addon-page');
+    const blob = new Blob([code], {type:'text/html'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = slug + '.html';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('Downloaded!');
+  });
+
+  function showToast(msg){
+    const t = $('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(showToast._timer);
+    showToast._timer = setTimeout(() => t.classList.remove('show'), 1600);
+  }
+
+  // Prefill with the addon page they shared, as a working example
+  $('cfSource').value = `<p><img src="https://media.forgecdn.net/attachments/description/1645559/description_0c998886-7378-4004-b1c1-427e5254fa93.png" alt="" width="850" height="520"></p>
+<h1><strong>ShowCase</strong></h1>
+<p><iframe src="https://www.youtube.com/embed/CjB48cfyYuU?si=lHVY8oco1jM97Fdz" width="560" height="314" allowfullscreen="allowfullscreen"></iframe></p>
+<p>&nbsp;</p>
+<h1><strong>How To Use</strong></h1>
+<div class="spoiler">
+<p style="font-weight: 400; color: #999;"><strong>Download the .maddon file</strong></p>
+<p style="font-weight: 400; color: #999;"><strong>Tap/double-click it — Minecraft will open and import it automatically</strong></p>
+<p style="font-weight: 400; color: #999;"><strong>Wait for the "Successfully imported" message</strong></p>
+<p style="font-weight: 400; color: #999;"><strong>Open Minecraft and go to Play</strong></p>
+<p style="font-weight: 400; color: #999;"><strong>Create a new world or edit an existing one</strong></p>
+<p style="font-weight: 400; color: #999;"><strong>Scroll down to Behavior Packs</strong></p>
+<p style="font-weight: 400; color: #999;"><strong>Find Tree Capitator and tap the + to activate it</strong></p>
+<p style="font-weight: 400; color: #999;"><strong>Achivement Friendly</strong></p>
+<p style="font-weight: 400; color: #999;"><strong>Launch your world!</strong></p>
+<p><img src="https://media.forgecdn.net/attachments/description/1645559/description_ca48c42a-18c4-4e0b-8fd3-54799b9102d9.gif" alt=""></p>
+</div>
+<h1>&nbsp;</h1>
+<h1><strong>Features</strong></h1>
+<div class="spoiler">
+<ul>
+<li style="font-weight: bold;"><strong>Works on any tree type — oak, spruce, dark oak, jungle, acacia, birch, crimson/warped stems, even stripped logs</strong></li>
+<li style="font-weight: bold;"><strong>Smart detection: only chops connected logs, leaves your builds and neighboring trees untouched</strong></li>
+<li style="font-weight: bold;"><strong>Realistic durability: your axe takes damage per log chopped, just like breaking them normally</strong></li>
+<li style="font-weight: bold;"><strong>Capped at 128 logs per tree so massive jungle/dark oak trees don't lag your world</strong></li>
+<li style="font-weight: bold;"><strong>Creative mode friendly — no drops, no durability loss</strong></li>
+<li style="font-weight: bold;"><strong>Fully script-based, no behavior changes to vanilla trees when not crouching</strong></li>
+</ul>
+</div>
+<p>&nbsp;</p>
+<p><strong>You are allowed to:</strong></p>
+<ul>
+<li><span style="color: #2dc26b;">Showcase this addon WITH CREDITING</span></li>
+<li><span style="color: #2dc26b;">Use this addon in your worlds/servers/realms</span></li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>You are NOT allowed to:</strong></p>
+<ul>
+<li><span style="color: #e03e2d;">Repost this addon to other sites (This includes apps)</span></li>
+<li><span style="color: #e03e2d;">Create your own download link</span></li>
+<li><span style="color: #e03e2d;">Claim this addon as your own</span></li>
+<li><span style="color: #e03e2d;">Modify this addon</span></li>
+</ul>
+<p>&nbsp;</p>
+<h1><strong>Support </strong></h1>
+<p><strong>If you had any problem with the addon you can join our <a href="https://discord.gg/VMrN8AnTEB" rel="nofollow">discord server</a>, <a href="https://buymeacoffee.com/mony100k" rel="nofollow">Feel free to support me if you'd like!</a></strong></p>`;
+
+  $('fName').value = 'Tree Capitator';
+  $('fSlug').value = 'tree-capitator';
+  $('fSubtitle').value = 'CHOP ENTIRE TREES INSTANTLY';
+  $('fDesc').value = 'Sneak and break one log to chop the entire connected tree instantly — works on every tree type in the game.';
+  $('fKeywords').value = 'Tree Capitator, Chop, Axe, Lumberjack';
+  $('fCfUrl').value = 'https://www.curseforge.com/minecraft-bedrock/addons/tree-capitator/files';
+
+  parseCurseForge();
+})();
+</script>
+
+</body>
+</html>
