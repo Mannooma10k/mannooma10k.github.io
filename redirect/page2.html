@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ما هي إضافات ماين كرافت بيدروك؟ - الجزء ٢</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background-color:#000;min-height:100vh;line-height:1.8;font-family:'Cairo','Press Start 2P',monospace;direction:rtl;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+:root{--mc-green:#55FF55;--mc-dark:#2D2D2D;--mc-border:#4a4a4a;--mc-blue:#03adfc;--mc-orange:#ffaa00}
+a:link,a:visited{color:inherit;text-decoration:none}
+.star-bg{position:fixed;inset:0;overflow:hidden;z-index:-1;pointer-events:none}
+.star-bg::before{content:'';position:absolute;top:0;left:0;width:100%;height:200%;background-image:radial-gradient(2px 2px at 15% 25%,#fff,transparent),radial-gradient(2px 2px at 70% 40%,#fff,transparent),radial-gradient(2px 2px at 30% 75%,#fff,transparent),radial-gradient(2px 2px at 85% 60%,#fff,transparent);background-size:350px 350px;will-change:transform;animation:moveStars 20s linear infinite}
+@keyframes moveStars{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,-350px,0)}}
+.header{padding:1.5rem 1rem;background:rgba(0,0,0,0.8);border-bottom:2px solid var(--mc-border);text-align:center;position:relative;z-index:10}
+.header-title{color:var(--mc-green);font-size:14px;text-shadow:0 0 10px var(--mc-green);letter-spacing:normal;margin-top:12px}
+.stage-badge{display:inline-block;background:#171614;border:2px solid var(--mc-orange);color:var(--mc-orange);font-size:9px;padding:4px 10px;margin-top:8px;letter-spacing:.5px}
+.ad-header-mobile{display:flex;justify-content:center;padding:8px;background:rgba(0,0,0,0.5);border-bottom:1px solid #222}
+.ad-header-pc{display:flex;justify-content:center;padding:8px;background:rgba(0,0,0,0.5);border-bottom:1px solid #222}
+@media(max-width:768px){.ad-header-pc{display:none}}
+@media(min-width:769px){.ad-header-mobile{display:none}}
+.container{max-width:860px;margin:1.5rem auto;padding:1rem;display:flex;gap:20px}
+.main-content{flex:1}
+.sidebar{width:180px;flex-shrink:0}
+.sidebar-sticky{position:sticky;top:20px}
+.fsbox{font-family:'Cairo',sans-serif;font-size:15px;background-color:#171614;border:2px solid #252422;padding:20px;margin:18px 0;box-shadow:5px 5px 10px rgba(0,0,0,0.2);border-radius:1px;color:#fefefe;font-size:13px;line-height:1.8}
+.fsbox p{margin-bottom:14px}
+.fsbox ul{margin-right:20px;margin-bottom:20px}
+.fsbox li{margin-bottom:10px}
+.article-sub-heading{font-family:'Cairo',sans-serif;color:var(--mc-green);font-size:14px;margin:25px 0 15px;text-align:center;border-bottom:1px solid #4a4a4a;padding-bottom:5px}
+#tds{font-family:'Cairo',sans-serif;font-weight:700;text-align:center;color:var(--mc-orange);margin-bottom:20px;background:#171614;padding:14px 18px;border-radius:4px;text-shadow:1px 2px 1px #000;box-shadow:2px 3px 2px rgba(0,0,0,0.6),inset 0 -2px 0 rgba(255,255,255,0.02);border:3px solid rgb(71,71,71);line-height:1.6;font-size:15px}
+#tdb{font-family:'Cairo',sans-serif;font-size:15px;line-height:1.6;background:#171614;padding:12px 18px;box-shadow:-3px 0px 0px var(--mc-green);transition:transform .12s ease;text-align:right;margin-bottom:12px}
+#tdb:hover{transform:translateY(-4px);box-shadow:-3px 2px 1px var(--mc-green)}
+#tdu{font-family:'Cairo',sans-serif;font-size:14px;padding:12px 18px;box-shadow:-3px 0px 0px var(--mc-orange);font-size:11px;margin-bottom:1rem;background-color:#3d200026;text-align:right}
+.info-box{font-family:'Cairo',sans-serif;font-size:15px;background:rgba(0,122,255,0.1);border-right:4px solid #007aff;border-left:none;padding:15px;margin:20px 0;font-size:11px}
+.warning-box{font-family:'Cairo',sans-serif;font-size:15px;background:rgba(255,149,0,0.1);border-right:4px solid #ff9500;border-left:none;padding:15px;margin:20px 0;font-size:11px}
+.success-box{font-family:'Cairo',sans-serif;font-size:15px;background:rgba(52,199,89,0.1);border-right:4px solid #34c759;border-left:none;padding:15px;margin:20px 0;font-size:11px}
+.progress-bar-wrap{background:#1a1a1a;border:2px solid #333;padding:15px;margin:20px 0;text-align:center}
+.progress-label{color:#aaa;font-size:9px;margin-bottom:8px}
+.progress-track{height:16px;background:#2a2a2a;border:1px solid #444;position:relative}
+.progress-fill{height:100%;background:linear-gradient(90deg,#226622,var(--mc-green));transition:width 0.5s}
+.progress-text{color:var(--mc-green);font-size:9px;margin-top:6px}
+.mc-fact{font-family:'Cairo',sans-serif;font-size:14px;background:#1a1a1a;border-right:3px solid var(--mc-orange);padding:12px 15px;margin:15px 0;font-size:11px;color:#ffd580}
+.mod-card{background:#1a1a1a;border:1px solid #333;padding:15px;margin:12px 0;position:relative;overflow:hidden}
+.mod-card::before{content:'';position:absolute;top:0;right:0;width:3px;height:100%;background:var(--mc-green)}
+.mod-card h3{color:var(--mc-green);font-size:11px;margin-bottom:8px}
+.mod-card p{font-family:'Cairo',sans-serif;font-size:14px;color:#ccc}
+.mod-type-badge{display:inline-block;font-size:8px;padding:2px 8px;border:1px solid;margin-bottom:8px}
+.badge-gameplay{border-color:#55FF55;color:#55FF55}
+.badge-visual{border-color:#03adfc;color:#03adfc}
+.badge-tech{border-color:#ffaa00;color:#ffaa00}
+.badge-magic{border-color:#cc44ff;color:#cc44ff}
+.continue-btn{display:block;width:100%;background:#2a5c1a;border:2px solid var(--mc-green);color:#fff;padding:16px;font-family:'Press Start 2P','Cairo',monospace;font-size:12px;cursor:pointer;text-align:center;margin:25px 0;letter-spacing:normal;transition:all 0.2s}
+.continue-btn:hover{background:#3a8c28;transform:translateY(-3px);box-shadow:0 6px 0 #1a3a0a}
+.prev-link{display:inline-block;color:#aaa;font-size:10px;margin-bottom:15px;text-decoration:underline;cursor:pointer}
+.site-footer{width:100%;padding:26px 0 36px;background:rgba(0,0,0,0.9);box-shadow:0 -6px 12px rgba(27,27,27,0.4);margin-top:40px;border-top:3px solid var(--mc-border);text-align:center}
+.footer-text{font-family:'Cairo',sans-serif;color:#aaa;font-size:9px;text-shadow:2px 2px 0 #000}
+.footer-links{margin-top:8px}
+.footer-link{font-family:'Cairo',sans-serif;color:#21bdf6;text-decoration:none;margin:0 8px;font-size:11px}
+img{max-width:100%;height:auto;border:2px solid #4a4a4a;margin:10px 0}
+#overlay{display:none;position:fixed;inset:0;background:#000;z-index:9999;flex-direction:column;align-items:center;justify-content:center;gap:20px}
+#overlay.show{display:flex}
+#overlay h2{color:var(--mc-orange);font-size:16px;text-align:center}
+#overlay p{color:#aaa;font-size:11px}
+#countdown-num{color:#fff;font-size:40px;text-shadow:0 0 20px var(--mc-orange)}
+#skip-btn{background:#2f2f2f;border:2px solid #4a4a4a;color:#fff;padding:12px 24px;font-family:'Press Start 2P','Cairo',monospace;font-size:11px;cursor:pointer;letter-spacing:normal;display:none}
+#skip-btn:hover{background:#4a4a4a}
+@media(max-width:768px){.container{flex-direction:column}.sidebar{width:100%}.fsbox{font-size:11px}}
+</style>
+  <script async src="https://gravelsemesterflourish.com/fa/37/5c/fa375c7243f358fd54c4fc3bb411df7d.js"></script>
+</head>
+<body>
+<div class="star-bg"></div>
+
+<!-- Mobile Header Ad -->
+<div class="ad-header-mobile">
+<script>atOptions={'key':'f60b877ad3fe53af1374e90f82ceaf97','format':'iframe','height':50,'width':320,'params':{}};</script>
+<script async src="https://gravelsemesterflourish.com/f60b877ad3fe53af1374e90f82ceaf97/invoke.js"></script>
+</div>
+
+<!-- PC Header Ad -->
+<div class="ad-header-pc">
+<script>atOptions={'key':'1142ace3ae4a8e86aebe3c69f7a80bd2','format':'iframe','height':90,'width':728,'params':{}};</script>
+<script async src="https://gravelsemesterflourish.com/1142ace3ae4a8e86aebe3c69f7a80bd2/invoke.js"></script>
+</div>
+
+<div class="header">
+  <div class="header-title">🔧 إضافات ماين كرافت بيدروك</div>
+  <div class="stage-badge">المرحلة ٢ من ٤ — ما هي الإضافات؟</div>
+</div>
+
+<!-- Progress Bar -->
+<div style="max-width:860px;margin:1rem auto;padding:0 1rem">
+  <div class="progress-bar-wrap">
+    <div class="progress-label">تقدمك في القراءة</div>
+    <div class="progress-track"><div class="progress-fill" style="width:50%"></div></div>
+    <div class="progress-text">المرحلة ٢ / ٤ — ٥٠٪ مكتملة</div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="main-content">
+    <a href="page1.html" class="prev-link">← العودة للجزء الأول</a>
+    <div id="tds">🔧 ما هي الإضافات (Add-ons)؟</div>
+
+    <div class="fsbox">
+      <p>
+        الإضافة (Add-on) هي حزمة ملفات يصنعها مطورون مستقلون وتُضاف فوق نسخة <strong style="color:var(--mc-green)">Bedrock Edition</strong> من اللعبة، مكوّنة من Behavior Pack (يتحكم بالسلوك والقواعد) و Resource Pack (يتحكم بالشكل والصوت)، بدون الحاجة للمس كود اللعبة الأصلي.
+      </p>
+
+      <div class="mc-fact">💡 حقيقة: آلاف الإضافات المجانية متاحة على منصات مثل MCPEDL و CurseForge، غير ملايين المحتوى الرسمي على متجر Minecraft Marketplace.</div>
+
+      <div class="article-sub-heading">🎯 ماذا تفعل الإضافات؟</div>
+      <p>إضافات Bedrock قادرة على تغيير جزء كبير من اللعبة:</p>
+      <ul>
+        <li>🦖 إضافة مخلوقات وكائنات جديدة كلياً بسلوكيات مخصصة</li>
+        <li>🧩 إضافة أدوات وعناصر وميكانيكيات لعب جديدة عبر Script API</li>
+        <li>📊 إضافة واجهات وHUD مخصصة (شريط صحة، تنبيهات، لوحات)</li>
+        <li>🌋 إضافة أبعاد وهياكل وعوالم جديدة للاستكشاف</li>
+        <li>🎨 Resource Packs لتحسين التكستشرز والموديلات والأصوات</li>
+        <li>⚙️ تغيير قواعد اللعبة وأنظمتها الأساسية بالكامل</li>
+      </ul>
+    </div>
+
+    <!-- Posts Ad in content -->
+    <div class="ad-slot" data-lazy style="text-align:center;margin:20px 0;background:#111;border:1px solid #333;padding:10px;min-height:620px">
+      <div style="color:#555;font-size:8px;margin-bottom:5px">إعلان</div>
+      <script type="text/plain">atOptions={'key':'250249f9d8db0c06d612b13c86a064fa','format':'iframe','height':600,'width':160,'params':{}};</script>
+      <script type="text/plain" data-src="https://gravelsemesterflourish.com/250249f9d8db0c06d612b13c86a064fa/invoke.js"></script>
+    </div>
+
+    <div class="fsbox">
+      <div class="article-sub-heading">📦 أنواع الإضافات</div>
+
+      <div class="mod-card">
+        <span class="mod-type-badge badge-gameplay">🧩 Behavior Pack</span>
+        <h3>يتحكم بالقواعد والسلوك</h3>
+        <p>يغيّر سلوك المخلوقات، يضيف عناصر ووصفات صنع جديدة، ويتحكم في منطق اللعبة عبر ملفات JSON وSpawn Rules</p>
+      </div>
+
+      <div class="mod-card">
+        <span class="mod-type-badge badge-visual">🎨 Resource Pack</span>
+        <h3>يتحكم بالشكل والصوت</h3>
+        <p>يستبدل التكستشرز والموديلات والأصوات والموسيقى، ويشمل أيضاً تحسينات الإضاءة مثل Vibrant Visuals</p>
+      </div>
+
+      <div class="mod-card">
+        <span class="mod-type-badge badge-tech">⚙️ Script API</span>
+        <h3>منطق مخصص بالكامل</h3>
+        <p>يستخدم <code>@minecraft/server</code> و<code>@minecraft/server-ui</code> لبناء ميكانيكيات حقيقية: نظام رتب، شريط صحة، أحداث عشوائية، وأكثر — هذا ما تُبنى عليه إضافات MANNOOMA</p>
+      </div>
+
+      <div class="mod-card">
+        <span class="mod-type-badge badge-magic">🏪 Marketplace</span>
+        <h3>محتوى رسمي مدفوع</h3>
+        <p>عوالم وسكنّات وإضافات موثّقة من موجانج، تُشترى وتُثبّت مباشرة من داخل اللعبة على كل الأجهزة</p>
+      </div>
+
+      <div class="info-box">
+        <strong style="color:#21bdf6">💡 ملاحظة:</strong><br><br>
+        مجتمعنا العربي بيستخدم كلمة "مود" أحياناً على سبيل التبسيط، لكن الاسم الرسمي في Bedrock هو <strong>Add-on (إضافة)</strong>. مودات Java Edition نظام منفصل تماماً ولا تعمل على Bedrock والعكس صحيح.
+      </div>
+       <div class="ad-slot" data-lazy style="text-align:center;margin:20px 0;background:#111;border:1px solid #333;padding:10px;min-height:280px">
+      <div style="color:#555;font-size:8px;margin-bottom:5px">إعلان</div>
+      <script type="text/plain" data-cfasync="false" data-src="https://gravelsemesterflourish.com/daa8c2053ceee5746809bc15ac492be5/invoke.js"></script>
+      <div id="container-daa8c2053ceee5746809bc15ac492be5"></div>
+    </div>
+
+    </div>
+
+    <div class="fsbox">
+      <div class="article-sub-heading">🛠️ كيف تُثبّت الإضافات؟</div>
+      
+      <div id="tdb">
+        <span style="color:var(--mc-green)">الخطوة 1:</span> ثبّت آخر إصدار من Minecraft Bedrock 
+      </div>
+      <div id="tdb">
+        <span style="color:var(--mc-green)">الخطوة 2:</span> نزّل ملف الإضافة من موقعنا بصيغة mcaddon أو mcpack
+      </div>
+      <div id="tdb">
+        <span style="color:var(--mc-green)">الخطوة 3:</span> اضغط على ملف <strong style="color:#ffd580">الإضافة</strong> وسيتم استيرادها داخل اللعبة تلقائياً
+      </div>
+      <div id="tdb">
+        <span style="color:var(--mc-green)">الخطوة 4:</span> فعّلها من إعدادات عالمك (Behavior Packs / Resource Packs) واستمتع
+      </div>
+
+      <div id="tdu">
+        📌 ملاحظة: تأكد أن إصدار الإضافة يطابق إصدار Minecraft Bedrock لديك (يظهر تحت الإعدادات ← حول اللعبة) وإلا لن تعمل أو قد تسبب عطلاً في العالم.
+      </div>
+    </div>
+
+    <button class="continue-btn" onclick="startCountdown()">
+      ▶ التالي
+    </button>
+  </div>
+
+  <div class="sidebar">
+    <div class="sidebar-sticky">
+      <div class="ad-slot" data-lazy style="background:#111;border:1px solid #333;padding:10px;text-align:center;min-height:620px">
+        <div style="color:#555;font-size:8px;margin-bottom:5px">إعلان</div>
+        <script type="text/plain">atOptions={'key':'250249f9d8db0c06d612b13c86a064fa','format':'iframe','height':600,'width':160,'params':{}};</script>
+        <script type="text/plain" data-src="https://gravelsemesterflourish.com/250249f9d8db0c06d612b13c86a064fa/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Countdown Overlay -->
+<div id="overlay">
+  <h2>🔧 جاري التحميل...</h2>
+  <div id="countdown-num">5</div>
+  <p>سيتم الانتقال للجزء الثالث تلقائياً</p>
+  <button id="skip-btn" onclick="goNext()">تخطي ←</button>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-bar">
+    <div class="footer-text">© 2026 Mannooma10k. All rights reserved.
+      <br>
+This site is not affiliated with Mojang Studios<br>
+      أكملت 2 من 4 صفحات</div>
+    <div class="footer-links">
+      <a href="page1.html" class="footer-link">السابق</a>
+      <a href="page3.html" class="footer-link">التالي</a>
+    </div>
+  </div>
+</footer>
+
+<script async src="https://gravelsemesterflourish.com/1b/da/4d/1bda4d0b1912dcd17175c26713cb33b6.js"></script>
+<script>
+const _params = new URLSearchParams(window.location.search);
+const _enc = _params.get('url') || '';
+
+function startCountdown() {
+  document.getElementById('overlay').classList.add('show');
+  let n = 5;
+  document.getElementById('countdown-num').textContent = n;
+  const t = setInterval(() => {
+    n--;
+    document.getElementById('countdown-num').textContent = n;
+    if (n <= 2) document.getElementById('skip-btn').style.display = 'block';
+    if (n <= 0) { clearInterval(t); goNext(); }
+  }, 1000);
+}
+function goNext() { window.location.href = 'page3.html' + (_enc ? '?url=' + encodeURIComponent(_enc) : ''); }
+</script>
+
+<!-- Lazy ad loader: keeps below-the-fold ad slots from loading until scrolled near, cutting initial page weight -->
+<script>
+(function(){
+  function loadAd(el){
+    el.querySelectorAll('script[type="text/plain"]').forEach(function(tag){
+      var s = document.createElement('script');
+      for (var i=0;i<tag.attributes.length;i++){
+        var a = tag.attributes[i];
+        if (a.name === 'type') continue;
+        if (a.name === 'data-src'){ s.src = a.value; continue; }
+        s.setAttribute(a.name, a.value);
+      }
+      s.async = true;
+      if (!tag.hasAttribute('data-src')) s.textContent = tag.textContent;
+      tag.replaceWith(s);
+    });
+  }
+  var slots = document.querySelectorAll('.ad-slot[data-lazy]');
+  if (!('IntersectionObserver' in window)){ slots.forEach(loadAd); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting){ loadAd(e.target); io.unobserve(e.target); }
+    });
+  }, {rootMargin:'300px'});
+  slots.forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>
